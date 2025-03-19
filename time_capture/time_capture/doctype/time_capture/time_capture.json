@@ -189,7 +189,7 @@
    "link_fieldname": "custom_time_capture"
   }
  ],
- "modified": "2025-03-19 09:49:54.397093",
+ "modified": "2025-03-19 18:44:33.115924",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture",
@@ -213,7 +213,6 @@
   },
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
