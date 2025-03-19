@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext", "hrms"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -137,24 +137,23 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Attendance": {
+		"on_submit": "time_capture.scripts.attendance.on_submit",
+		"on_cancel": "time_capture.scripts.attendance.on_cancel",
+	},
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"time_capture.tasks.all"
 # 	],
-# 	"daily": [
-# 		"time_capture.tasks.daily"
-# 	],
+	"daily": [
+		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
+	],
 # 	"hourly": [
 # 		"time_capture.tasks.hourly"
 # 	],
@@ -164,7 +163,7 @@ app_license = "mit"
 # 	"monthly": [
 # 		"time_capture.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------
