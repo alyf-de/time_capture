@@ -4,6 +4,10 @@ from frappe import _
 from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
+def before_insert(doc, event):
+	check_is_compensatory_leave(doc)
+
+
 def on_submit(doc, event):
 	delete_time_capture(doc)
 
@@ -11,6 +15,15 @@ def on_submit(doc, event):
 def on_cancel(doc, event):
 	employee = frappe.get_doc("Employee", doc.employee)
 	_create_time_capture(employee, doc.attendance_date)
+
+
+def check_is_compensatory_leave(doc):
+	if (
+		not doc.leave_type
+		or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1
+	):
+		return
+	doc.flexitime = - frappe.db.get_value("Employee", doc.employee, "expected_daily_working_hours")
 
 
 def delete_time_capture(doc):
