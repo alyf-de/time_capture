@@ -2,9 +2,6 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Time Capture", {
-	setup: function (frm) {
-		set_task_query(frm);
-	},
 	refresh: function (frm) {
 		if (!frm.doc.employee && frappe.session.user && frappe.session.user !== "Administrator") {
 			set_default_employee(frm);
@@ -60,19 +57,6 @@ function handle_check_in_out(frm) {
 function handle_duration_change(frm) {
 	const duration = calculate_duration(frm.doc.check_in, frm.doc.check_out);
 	set_working_time(frm, duration);
-}
-
-function set_task_query(frm) {
-	frm.fields_dict["time_logs"].grid.get_field("task").get_query = function (frm, cdt, cdn) {
-		const child = locals[cdt][cdn];
-		return {
-			filters: {
-				project: child.project,
-				status: ["!=", "Cancelled"],
-				custom_is_active: "Yes",
-			},
-		};
-	};
 }
 
 function set_default_employee(frm) {

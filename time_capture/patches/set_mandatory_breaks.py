@@ -30,4 +30,5 @@ def execute():
 			},
 		]
 	)
+	settings_doc.flags.ignore_mandatory = True
 	settings_doc.save()

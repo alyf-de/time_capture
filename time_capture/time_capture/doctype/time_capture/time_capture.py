@@ -44,7 +44,6 @@ class TimeCapture(Document):
 
 	def before_validate(self):
 		self.avoid_duplicate_entries()
-		self.only_process_active_tasks()
 		self.clean_data()
 		self.assure_duration_format()
 		self.calculate_totals()
@@ -120,12 +119,6 @@ class TimeCapture(Document):
 			},
 		):
 			frappe.throw(_("Time Capture already exists for this date and employee."))
-
-	def only_process_active_tasks(self):
-		tasks = {row.task for row in self.time_logs}
-		for task in tasks:
-			if frappe.db.get_value("Task", task, "custom_is_active") != "Yes":
-				frappe.throw(_("Task {0} is not active.").format(task))
 
 	def clean_data(self):
 		self.indicated_break = self.indicated_break or 0

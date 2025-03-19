@@ -37,6 +37,16 @@ def get_custom_fields():
 				"insert_after": "attendance_device_id",
 				"label": _("Expected Daily Working Hours"),
 				"translatable": 0,
+				"reqd": 1,
+			},
+		],
+		"Task": [
+			{
+				"fieldname": "custom_hourly_billed",
+				"label": "Hourly Billed",
+				"insert_after": "color",
+				"fieldtype": "Check",
+				"default": "1",
 			},
 		],
 		"Timesheet": [

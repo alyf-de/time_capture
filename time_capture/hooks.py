@@ -83,7 +83,7 @@ required_apps = ["erpnext", "hrms"]
 # ------------
 
 # before_install = "time_capture.install.before_install"
-# after_install = "time_capture.install.after_install"
+after_install = "time_capture.install.after_install"
 
 # Uninstallation
 # ------------
