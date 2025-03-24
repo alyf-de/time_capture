@@ -5,7 +5,7 @@ from time_capture.time_capture.doctype.time_capture.time_capture import _create_
 
 
 def before_insert(doc, event):
-	check_is_compensatory_leave(doc)
+	set_flexitime_for_compensatory_leave(doc)
 
 
 def on_submit(doc, event):
@@ -18,7 +18,7 @@ def on_cancel(doc, event):
 	_create_time_capture(employee, doc.attendance_date)
 
 
-def check_is_compensatory_leave(doc):
+def set_flexitime_for_compensatory_leave(doc):
 	if (
 		not doc.leave_type
 		or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1
