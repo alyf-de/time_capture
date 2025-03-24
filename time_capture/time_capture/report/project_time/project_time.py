@@ -6,68 +6,70 @@ from frappe import _
 
 from ..working_time.working_time import get_employees
 
-COLUMNS = [
-	{
-		"fieldname": "timesheet",
-		"fieldtype": "Link",
-		"label": "Timesheet",
-		"options": "Timesheet",
-		"width": 150,
-	},
-	{
-		"fieldname": "start_date",
-		"fieldtype": "Date",
-		"label": "Start Date",
-		"width": 100,
-	},
-	{
-		"fieldname": "activity_type",
-		"fieldtype": "Link",
-		"label": "Activity Type",
-		"options": "Activity Type",
-	},
-	{
-		"fieldname": "description",
-		"fieldtype": "Data",
-		"label": "Description",
-		"width": 300,
-	},
-	{
-		"fieldname": "hours",
-		"fieldtype": "Float",
-		"label": "Hours",
-		"precision": 2,
-	},
-	{
-		"fieldname": "project",
-		"fieldtype": "Link",
-		"label": "Project",
-		"options": "Project",
-	},
-	{
-		"fieldname": "task",
-		"fieldtype": "Link",
-		"label": "Task",
-		"options": "Task",
-		"width": 150,
-	},
-	{
-		"fieldname": "is_billable",
-		"fieldtype": "Check",
-		"label": "Is Billable",
-	},
-	{
-		"fieldname": "sales_invoice",
-		"fieldtype": "Link",
-		"label": "Sales Invoice",
-		"options": "Sales Invoice",
-		"width": 150,
-	},
-]
-
 
 def execute(filters=None):
-	return COLUMNS, get_data(filters["from_date"], filters["to_date"])
+	return get_columns(), get_data(filters["from_date"], filters["to_date"])
+
+
+def get_columns():
+	return [
+		{
+			"fieldname": "timesheet",
+			"fieldtype": "Link",
+			"label": "Timesheet",
+			"options": "Timesheet",
+			"width": 150,
+		},
+		{
+			"fieldname": "start_date",
+			"fieldtype": "Date",
+			"label": "Start Date",
+			"width": 100,
+		},
+		{
+			"fieldname": "activity_type",
+			"fieldtype": "Link",
+			"label": "Activity Type",
+			"options": "Activity Type",
+		},
+		{
+			"fieldname": "description",
+			"fieldtype": "Data",
+			"label": "Description",
+			"width": 300,
+		},
+		{
+			"fieldname": "hours",
+			"fieldtype": "Float",
+			"label": "Hours",
+			"precision": 2,
+		},
+		{
+			"fieldname": "project",
+			"fieldtype": "Link",
+			"label": "Project",
+			"options": "Project",
+		},
+		{
+			"fieldname": "task",
+			"fieldtype": "Link",
+			"label": "Task",
+			"options": "Task",
+			"width": 150,
+		},
+		{
+			"fieldname": "is_billable",
+			"fieldtype": "Check",
+			"label": "Is Billable",
+		},
+		{
+			"fieldname": "sales_invoice",
+			"fieldtype": "Link",
+			"label": "Sales Invoice",
+			"options": "Sales Invoice",
+			"width": 150,
+		},
+	]
 
 
 def get_data(from_date: str, to_date: str):
