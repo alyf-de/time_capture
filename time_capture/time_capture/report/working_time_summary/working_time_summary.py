@@ -53,7 +53,7 @@ def get_employees(filters: dict):
 	)
 
 
-def get_hours_from_attendance(employee: str, from_date: str = None) -> list[dict]:
+def get_hours_from_attendance(employee: str, from_date: str | None = None) -> list[dict]:
 	"""Return the total hours from attendance records."""
 	filters = [
 		["employee", "=", employee],
