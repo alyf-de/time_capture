@@ -5,10 +5,11 @@ from collections import defaultdict
 from datetime import date
 
 import frappe
-from frappe.utils.dateutils import get_last_day
 from frappe import _
+from frappe.utils.dateutils import get_last_day
 
 PAID_LEAVE, SICK_LEAVE = frappe.db.get_single_value("Time Capture", ["paid_leave_type", "sick_leave_type"])
+
 
 def get_columns():
 	return [

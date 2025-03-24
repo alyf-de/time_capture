@@ -38,6 +38,7 @@ class TimeCapture(Document):
 		time_logs: DF.Table[TimeCaptureLog]
 		unallocated_time: DF.Duration | None
 		working_time: DF.Duration | None
+
 	# end: auto-generated types
 	def before_insert(self):
 		self.is_of_legal_age = self._get_is_of_legal_age()
@@ -57,9 +58,7 @@ class TimeCapture(Document):
 		return legal_age_date <= frappe.utils.getdate(self.date)
 
 	def assure_duration_format(self):
-		note = _(
-			"Note: Use the date/time picker that appears instead of manually typing or pasting values."
-		)
+		note = _("Note: Use the date/time picker that appears instead of manually typing or pasting values.")
 		row_msg = _("Row {0}: Duration is not in the proper format.")
 
 		for log in self.time_logs:
@@ -133,9 +132,8 @@ class TimeCapture(Document):
 	def set_notification_email_address(self):
 		if not self.has_value_changed("employee"):
 			return
-		self.email = (
-			frappe.db.get_value("Employee", self.employee, "user_id")
-			or frappe.db.get_single_value("Time Capture Settings", "standard_email_recipient")
+		self.email = frappe.db.get_value("Employee", self.employee, "user_id") or frappe.db.get_single_value(
+			"Time Capture Settings", "standard_email_recipient"
 		)
 
 	def create_attendance(self):
@@ -225,12 +223,8 @@ def get_mandatory_break(duration: float, is_of_legal_age: bool):
 	if not settings.enforce_mandatory_breaks:
 		return 0
 
-	legal_thresholds = (
-		settings.mandatory_breaks if is_of_legal_age else settings.mandatory_breaks_minors
-	)
-	mandatory_breaks = sorted(
-		(entry.working_time, entry.additional_break_time) for entry in legal_thresholds
-	)
+	legal_thresholds = settings.mandatory_breaks if is_of_legal_age else settings.mandatory_breaks_minors
+	mandatory_breaks = sorted((entry.working_time, entry.additional_break_time) for entry in legal_thresholds)
 
 	total_mandatory_break = 0
 

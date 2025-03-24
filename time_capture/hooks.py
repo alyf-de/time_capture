@@ -149,21 +149,21 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-# 	"all": [
-# 		"time_capture.tasks.all"
-# 	],
+	# 	"all": [
+	# 		"time_capture.tasks.all"
+	# 	],
 	"daily": [
 		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
 	],
-# 	"hourly": [
-# 		"time_capture.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"time_capture.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"time_capture.tasks.monthly"
-# 	],
+	# 	"hourly": [
+	# 		"time_capture.tasks.hourly"
+	# 	],
+	# 	"weekly": [
+	# 		"time_capture.tasks.weekly"
+	# 	],
+	# 	"monthly": [
+	# 		"time_capture.tasks.monthly"
+	# 	],
 }
 
 # Testing

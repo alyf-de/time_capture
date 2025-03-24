@@ -28,7 +28,7 @@ def set_mandatory_breaks():
 				"working_time": 21600,
 				"additional_break_time": 1800,
 			},
-		]
+		],
 	)
 	settings_doc.flags.ignore_mandatory = True
 	settings_doc.save()

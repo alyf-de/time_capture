@@ -19,12 +19,9 @@ def on_cancel(doc, event):
 
 
 def set_flexitime_for_compensatory_leave(doc):
-	if (
-		not doc.leave_type
-		or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1
-	):
+	if not doc.leave_type or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1:
 		return
-	doc.flexitime = - frappe.db.get_value("Employee", doc.employee, "expected_daily_working_hours")
+	doc.flexitime = -frappe.db.get_value("Employee", doc.employee, "expected_daily_working_hours")
 
 
 def delete_time_capture(doc):
