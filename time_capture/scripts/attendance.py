@@ -9,7 +9,8 @@ def before_insert(doc, event):
 
 
 def on_submit(doc, event):
-	delete_time_capture(doc)
+	if not doc.leave_type or doc.attendance_date > frappe.utils.nowdate():
+		delete_time_capture(doc)
 
 
 def on_cancel(doc, event):
@@ -27,8 +28,6 @@ def check_is_compensatory_leave(doc):
 
 
 def delete_time_capture(doc):
-	if not doc.leave_type or doc.attendance_date > frappe.utils.nowdate():
-		return
 	time_capture = frappe.db.get_all(
 		"Time Capture",
 		filters={
