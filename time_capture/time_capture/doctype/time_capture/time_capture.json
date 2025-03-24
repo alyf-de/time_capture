@@ -1,0 +1,231 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "creation": "2024-10-28 22:38:30.874608",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "employee_name",
+  "column_break_brmd",
+  "employee",
+  "is_of_legal_age",
+  "email",
+  "section_break_o1qi",
+  "check_in",
+  "column_break_ssa2",
+  "check_out",
+  "section_break_mzlp",
+  "mandatory_break",
+  "column_break_qbnf",
+  "indicated_break",
+  "section_break_sfmx",
+  "break_time",
+  "column_break_elf7",
+  "unallocated_time",
+  "column_break_sgna",
+  "working_time",
+  "section_break_chho",
+  "time_logs",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "read_only_depends_on": "eval:!doc.__islocal;",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_brmd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_of_legal_age",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is Of Legal Age"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "section_break_o1qi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_in",
+   "fieldtype": "Time",
+   "label": "Check In",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ssa2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_out",
+   "fieldtype": "Time",
+   "label": "Check Out",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_mzlp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mandatory_break",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "hide_seconds": 1,
+   "label": "Mandatory Break",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_qbnf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "indicated_break",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "hide_seconds": 1,
+   "label": "Indicated Break"
+  },
+  {
+   "fieldname": "section_break_sfmx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "break_time",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "hide_seconds": 1,
+   "in_list_view": 1,
+   "label": "Break",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_elf7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.unallocated_time !== 0",
+   "fieldname": "unallocated_time",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "hide_seconds": 1,
+   "label": "Unallocated Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_sgna",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "working_time",
+   "fieldtype": "Duration",
+   "hide_days": 1,
+   "hide_seconds": 1,
+   "in_list_view": 1,
+   "label": "Working Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_chho",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "time_logs",
+   "fieldtype": "Table",
+   "label": "Time Logs",
+   "options": "Time Capture Log"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Time Capture",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Timesheet",
+   "link_fieldname": "custom_time_capture"
+  },
+  {
+   "link_doctype": "Attendance",
+   "link_fieldname": "custom_time_capture"
+  }
+ ],
+ "modified": "2025-03-19 18:44:33.115924",
+ "modified_by": "Administrator",
+ "module": "Time Capture",
+ "name": "Time Capture",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "amend": 1,
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "import": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee_name"
+}

@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-03-19 09:57:36.123633",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "timesheets_section",
+  "submit_timesheets_immediately",
+  "column_break_cgao",
+  "default_activity_type",
+  "mandatory_breaks_section",
+  "enforce_mandatory_breaks",
+  "mandatory_breaks",
+  "mandatory_breaks_minors",
+  "notification_section",
+  "standard_email_recipient",
+  "further_details",
+  "leaves_section",
+  "paid_leave_type",
+  "sick_leave_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "timesheets_section",
+   "fieldtype": "Section Break",
+   "label": "Timesheets"
+  },
+  {
+   "default": "1",
+   "fieldname": "submit_timesheets_immediately",
+   "fieldtype": "Check",
+   "label": "Submit Timesheets immediately"
+  },
+  {
+   "fieldname": "column_break_cgao",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_activity_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Default Activity Type",
+   "options": "Activity Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mandatory_breaks_section",
+   "fieldtype": "Section Break",
+   "label": "Mandatory Breaks"
+  },
+  {
+   "default": "0",
+   "fieldname": "enforce_mandatory_breaks",
+   "fieldtype": "Check",
+   "label": "Enforce Mandatory Breaks"
+  },
+  {
+   "depends_on": "eval:doc.enforce_mandatory_breaks",
+   "fieldname": "mandatory_breaks",
+   "fieldtype": "Table",
+   "label": "Mandatory Breaks",
+   "mandatory_depends_on": "eval:doc.enforce_mandatory_breaks",
+   "options": "Mandatory Break"
+  },
+  {
+   "depends_on": "eval:doc.enforce_mandatory_breaks",
+   "fieldname": "mandatory_breaks_minors",
+   "fieldtype": "Table",
+   "label": "Mandatory Breaks (Minors)",
+   "mandatory_depends_on": "eval:doc.enforce_mandatory_breaks",
+   "options": "Mandatory Break"
+  },
+  {
+   "fieldname": "further_details",
+   "fieldtype": "HTML",
+   "label": "Further Details",
+   "options": "<b>See Notification</b>"
+  },
+  {
+   "description": "Set in Time Capture, if Employee is not linked to User Email address",
+   "fieldname": "standard_email_recipient",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Standard Email Recipient",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "notification_section",
+   "fieldtype": "Section Break",
+   "label": "Notifications"
+  },
+  {
+   "fieldname": "leaves_section",
+   "fieldtype": "Section Break",
+   "label": "Leaves"
+  },
+  {
+   "fieldname": "paid_leave_type",
+   "fieldtype": "Link",
+   "label": "Paid Leave Type",
+   "options": "Leave Type"
+  },
+  {
+   "fieldname": "sick_leave_type",
+   "fieldtype": "Link",
+   "label": "Sick Leave Type",
+   "options": "Leave Type"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-24 09:06:48.406310",
+ "modified_by": "Administrator",
+ "module": "Time Capture",
+ "name": "Time Capture Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

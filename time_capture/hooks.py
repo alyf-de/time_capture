@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext", "hrms"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -83,7 +83,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "time_capture.install.before_install"
-# after_install = "time_capture.install.after_install"
+after_install = "time_capture.install.after_install"
 
 # Uninstallation
 # ------------
@@ -137,34 +137,34 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Attendance": {
+		"before_insert": "time_capture.scripts.attendance.before_insert",
+		"on_submit": "time_capture.scripts.attendance.on_submit",
+		"on_cancel": "time_capture.scripts.attendance.on_cancel",
+	},
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"time_capture.tasks.all"
-# 	],
-# 	"daily": [
-# 		"time_capture.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"time_capture.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"time_capture.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"time_capture.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	# 	"all": [
+	# 		"time_capture.tasks.all"
+	# 	],
+	"daily": [
+		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
+	],
+	# 	"hourly": [
+	# 		"time_capture.tasks.hourly"
+	# 	],
+	# 	"weekly": [
+	# 		"time_capture.tasks.weekly"
+	# 	],
+	# 	"monthly": [
+	# 		"time_capture.tasks.monthly"
+	# 	],
+}
 
 # Testing
 # -------
