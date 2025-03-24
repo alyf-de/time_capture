@@ -7,7 +7,7 @@ frappe.query_reports["Working Time"] = {
 		{
 			fieldname: "year",
 			fieldtype: "Int",
-			label: "Year",
+			label: __("Year"),
 			mandatory: 1,
 			wildcard_filter: 0,
 			default: moment().subtract(1, "month").year(),
@@ -15,7 +15,7 @@ frappe.query_reports["Working Time"] = {
 		{
 			fieldname: "month",
 			fieldtype: "Select",
-			label: "Month",
+			label: __("Month"),
 			mandatory: 1,
 			options: [
 				{ value: 1, label: "January" },

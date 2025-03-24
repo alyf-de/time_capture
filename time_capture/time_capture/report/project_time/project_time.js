@@ -7,14 +7,14 @@ frappe.query_reports["Project Time"] = {
 		{
 			fieldname: "from_date",
 			fieldtype: "Date",
-			label: "From Date",
+			label: __("From Date"),
 			mandatory: 1,
 			default: moment().subtract(1, "week").startOf("isoWeek").format(),
 		},
 		{
 			fieldname: "to_date",
 			fieldtype: "Date",
-			label: "To Date",
+			label: __("To Date"),
 			mandatory: 1,
 			default: moment().subtract(1, "week").endOf("isoWeek").format(),
 		},
