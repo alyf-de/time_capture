@@ -1,7 +1,7 @@
 import frappe
 
 
-def execute():
+def set_mandatory_breaks():
 	settings_doc = frappe.get_doc("Time Capture Settings")
 	settings_doc.enforce_mandatory_breaks = 1
 	settings_doc.extend(
