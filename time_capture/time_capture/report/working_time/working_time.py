@@ -6,64 +6,66 @@ from datetime import date
 
 import frappe
 from frappe.utils.dateutils import get_last_day
+from frappe import _
 
 PAID_LEAVE, SICK_LEAVE = frappe.db.get_single_value("Time Capture", ["paid_leave_type", "sick_leave_type"])
 
-COLUMNS = [
-	{
-		"fieldname": "employee",
-		"fieldtype": "Link",
-		"label": "Employee",
-		"options": "Employee",
-	},
-	{
-		"fieldname": "employee_name",
-		"fieldtype": "Data",
-		"label": "Employee Name",
-	},
-	{
-		"fieldname": "expected_working_hours",
-		"fieldtype": "Float",
-		"label": "Expected Working Hours",
-	},
-	{
-		"fieldname": "working_hours",
-		"fieldtype": "Float",
-		"label": "Working Hours",
-	},
-	{
-		"fieldname": "flexitime_change",
-		"fieldtype": "Float",
-		"label": "Flexitime Change",
-	},
-	{
-		"fieldname": "flexitime_hours",
-		"fieldtype": "Float",
-		"label": "Flexitime Hours",
-	},
-	{
-		"fieldname": "paid_holidays",
-		"fieldtype": "Int",
-		"label": "Paid Holidays",
-	},
-	{
-		"fieldname": "sick_days",
-		"fieldtype": "Int",
-		"label": "Sick Days",
-	},
-	{
-		"fieldname": "other_absence_days",
-		"fieldtype": "Int",
-		"label": "Other Absence Days",
-	},
-]
+def get_columns():
+	return [
+		{
+			"fieldname": "employee",
+			"fieldtype": "Link",
+			"label": _("Employee"),
+			"options": "Employee",
+		},
+		{
+			"fieldname": "employee_name",
+			"fieldtype": "Data",
+			"label": _("Employee Name"),
+		},
+		{
+			"fieldname": "expected_working_hours",
+			"fieldtype": "Float",
+			"label": _("Expected Working Hours"),
+		},
+		{
+			"fieldname": "working_hours",
+			"fieldtype": "Float",
+			"label": _("Working Hours"),
+		},
+		{
+			"fieldname": "flexitime_change",
+			"fieldtype": "Float",
+			"label": _("Flexitime Change"),
+		},
+		{
+			"fieldname": "flexitime_hours",
+			"fieldtype": "Float",
+			"label": _("Flexitime Hours"),
+		},
+		{
+			"fieldname": "paid_holidays",
+			"fieldtype": "Int",
+			"label": _("Paid Holidays"),
+		},
+		{
+			"fieldname": "sick_days",
+			"fieldtype": "Int",
+			"label": _("Sick Days"),
+		},
+		{
+			"fieldname": "other_absence_days",
+			"fieldtype": "Int",
+			"label": _("Other Absence Days"),
+		},
+	]
 
 
 def execute(filters=None):
 	month_start_date = date(year=filters.year, month=int(filters.month), day=1)
 	month_end_date = get_last_day(month_start_date)
 
-	return COLUMNS, get_data(month_start_date, month_end_date)
+	return get_columns(), get_data(month_start_date, month_end_date)
 
 
 def get_data(month_start_date, month_end_date):
