@@ -25,6 +25,9 @@ def set_flexitime_for_compensatory_leave(doc):
 
 
 def delete_time_capture(doc):
+	"""
+	Deletes untouched Time Captures for days on leave.
+	"""
 	time_capture = frappe.db.get_all(
 		"Time Capture",
 		filters={
