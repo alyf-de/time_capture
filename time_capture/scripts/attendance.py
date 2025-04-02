@@ -9,7 +9,7 @@ def before_insert(doc, event):
 
 
 def on_submit(doc, event):
-	if not doc.leave_type or doc.attendance_date > frappe.utils.nowdate():
+	if doc.leave_type and doc.attendance_date <= frappe.utils.nowdate():
 		delete_time_capture(doc)
 
 
