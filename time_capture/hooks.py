@@ -141,7 +141,7 @@ doc_events = {
 	"Attendance": {
 		"before_insert": "time_capture.scripts.attendance.before_insert",
 		"on_submit": "time_capture.scripts.attendance.on_submit",
-		"on_cancel": "time_capture.create",
+		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {
 		"on_update": "time_capture.time_capture.doctype.time_capture.time_capture.create_leave_policy_assignment"
