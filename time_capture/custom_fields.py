@@ -39,6 +39,13 @@ def get_custom_fields():
 				"translatable": 0,
 				"reqd": 1,
 			},
+			{
+				"label": _("Leave Policy"),
+				"fieldname": "leave_policy",
+				"insert_after": "expected_daily_working_hours",
+				"fieldtype": "Link",
+				"options": "Leave Policy",
+			},
 		],
 		"Task": [
 			{

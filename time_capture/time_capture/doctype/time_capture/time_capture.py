@@ -7,7 +7,7 @@ import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import time_diff_in_seconds
+from frappe.utils import getdate, time_diff_in_seconds
 
 FIVE_MINUTES = 5 * 60
 ONE_HOUR = 60 * 60
@@ -213,6 +213,23 @@ class TimeCapture(Document):
 
 				timesheet.insert()
 				timesheet.submit()
+
+
+def create_leave_policy_assignment(doc, method=None):
+	if not doc.leave_policy:
+		return
+
+	creation_date = getdate(doc.creation)
+	year = creation_date.year
+
+	leave_allocation = frappe.new_doc("Leave Policy Assignment")
+	leave_allocation.employee = doc.employee
+	leave_allocation.leave_policy = doc.leave_policy
+	leave_allocation.effective_from = f"{year}-01-01"
+	leave_allocation.effective_to = f"{year}-12-31"
+
+	leave_allocation.insert()
+	leave_allocation.submit()
 
 
 @frappe.whitelist()
