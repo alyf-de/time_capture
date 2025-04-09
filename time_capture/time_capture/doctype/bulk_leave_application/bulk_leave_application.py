@@ -9,7 +9,6 @@ class BulkLeaveApplication(Document):
 	def on_submit(self):
 		self.create_leave_applications()
 
-	
 	def create_leave_applications(self):
 		for item in self.table_leaves:
 			leave_application = frappe.new_doc("Leave Application")
