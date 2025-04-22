@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class BulkLeaveApplicationDatesTable(Document):
+class BulkLeaveApplicationDate(Document):
 	pass

@@ -9,13 +9,10 @@
   "employee_name",
   "column_break_ihkc",
   "leave_type",
-  "company",
-  "department",
   "dates_section",
   "table_leaves",
   "approval_section",
   "leave_approver",
-  "leave_approver_name",
   "column_break_lfyt",
   "posting_date",
   "status",
@@ -25,11 +22,13 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
    "reqd": 1
   },
   {
+   "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "label": "Employee Name"
@@ -41,26 +40,10 @@
   {
    "fieldname": "leave_type",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Leave Type",
    "options": "Leave Type",
    "reqd": 1
-  },
-  {
-   "fetch_from": "employee.company",
-   "fieldname": "company",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Company",
-   "options": "Company",
-   "read_only": 1,
-   "reqd": 1
-  },
-  {
-   "fetch_from": "employee.department",
-   "fieldname": "department",
-   "fieldtype": "Link",
-   "label": "Department",
-   "options": "Department"
   },
   {
    "fieldname": "approval_section",
@@ -70,15 +53,10 @@
   {
    "fieldname": "leave_approver",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Leave Approver",
    "options": "User",
    "reqd": 1
-  },
-  {
-   "fieldname": "leave_approver_name",
-   "fieldtype": "Data",
-   "label": "Leave Approver Name",
-   "read_only": 1
   },
   {
    "fieldname": "column_break_lfyt",
@@ -88,11 +66,13 @@
    "default": "Today",
    "fieldname": "posting_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Posting Date",
    "no_copy": 1,
    "reqd": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
    "in_standard_filter": 1,
@@ -107,12 +87,6 @@
    "label": "Dates"
   },
   {
-   "fieldname": "table_leaves",
-   "fieldtype": "Table",
-   "label": "Leaves",
-   "options": "Bulk Leave Application Dates Table"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -121,13 +95,19 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "table_leaves",
+   "fieldtype": "Table",
+   "label": "Leaves",
+   "options": "Bulk Leave Application Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-11 08:16:12.530794",
+ "modified": "2025-04-22 13:48:05.632369",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Bulk Leave Application",
