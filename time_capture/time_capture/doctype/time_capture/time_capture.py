@@ -215,23 +215,6 @@ class TimeCapture(Document):
 				timesheet.submit()
 
 
-def create_leave_policy_assignment(doc, method=None):
-	if not doc.leave_policy:
-		return
-
-	creation_date = getdate(doc.creation)
-	year = creation_date.year
-
-	leave_allocation = frappe.new_doc("Leave Policy Assignment")
-	leave_allocation.employee = doc.employee
-	leave_allocation.leave_policy = doc.leave_policy
-	leave_allocation.effective_from = f"{year}-01-01"
-	leave_allocation.effective_to = f"{year}-12-31"
-
-	leave_allocation.insert()
-	leave_allocation.submit()
-
-
 @frappe.whitelist()
 def get_mandatory_break(duration: float, is_of_legal_age: bool):
 	frappe.has_permission("Time Capture", "write", throw=True)

@@ -45,6 +45,7 @@ def get_custom_fields():
 				"insert_after": "expected_daily_working_hours",
 				"fieldtype": "Link",
 				"options": "Leave Policy",
+				"reqd": 1,
 			},
 		],
 		"Task": [

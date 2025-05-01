@@ -144,7 +144,7 @@ doc_events = {
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {
-		"on_update": "time_capture.time_capture.doctype.time_capture.time_capture.create_leave_policy_assignment"
+		"after_save": "time_capture.scripts.employee.after_save",
 	},
 }
 
