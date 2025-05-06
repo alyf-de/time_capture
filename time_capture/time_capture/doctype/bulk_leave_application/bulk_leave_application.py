@@ -5,6 +5,7 @@ import frappe
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import getdate
+from frappe.utils.data import today
 from hrms.hr.utils import share_doc_with_approver
 
 
@@ -21,7 +22,7 @@ class BulkLeaveApplication(Document):
 		if not self.weekly_off:
 			frappe.throw(_("Please select weekly off day"))
 		for d in self.get_weekly_off_date_list(self.from_date, self.to_date):
-			self.append("table_leaves", {"reason": _(self.weekly_off), "date": d})
+			self.append("table_leaves", {"reason": _(self.weekly_off), "from_date": d, "to_date": d})
 
 	def get_weekly_off_date_list(self, start_date, end_date):
 		start_date, end_date = getdate(start_date), getdate(end_date)
@@ -36,7 +37,7 @@ class BulkLeaveApplication(Document):
 		weekday = getattr(calendar, (self.weekly_off).upper())
 		reference_date = start_date + relativedelta.relativedelta(weekday=weekday)
 
-		existing_date_list = [getdate(row.date) for row in self.get("table_leaves")]
+		existing_date_list = [getdate(row.from_date) for row in self.get("table_leaves")]
 
 		while reference_date <= end_date:
 			if reference_date not in existing_date_list:
@@ -51,7 +52,7 @@ class BulkLeaveApplication(Document):
 			leave_application.employee = self.employee
 			leave_application.leave_type = self.leave_type
 			leave_application.leave_approver = self.leave_approver
-			leave_application.posting_date = self.posting_date
+			leave_application.posting_date = today()
 			leave_application.status = self.status
 			leave_application.from_date = item.from_date
 			leave_application.to_date = item.to_date

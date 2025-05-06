@@ -15,3 +15,9 @@ frappe.ui.form.on("Bulk Leave Application", {
 		}
 	},
 });
+
+frappe.ui.form.on("Bulk Leave Application Date", {
+	from_date: function (frm, cdt, cdn) {
+		frappe.model.set_value(cdt, cdn, "to_date", locals[cdt][cdn].from_date);
+	},
+});
