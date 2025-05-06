@@ -9,12 +9,16 @@
   "employee_name",
   "column_break_ihkc",
   "leave_type",
+  "from_date",
+  "to_date",
+  "add_weekly_holidays",
+  "weekly_off",
+  "get_weekly_off_dates",
   "dates_section",
   "table_leaves",
   "approval_section",
   "leave_approver",
   "column_break_lfyt",
-  "posting_date",
   "status",
   "amended_from"
  ],
@@ -63,15 +67,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Today",
-   "fieldname": "posting_date",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Posting Date",
-   "no_copy": 1,
-   "reqd": 1
-  },
-  {
    "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
@@ -101,13 +96,43 @@
    "fieldtype": "Table",
    "label": "Leaves",
    "options": "Bulk Leave Application Date"
+  },
+  {
+   "depends_on": "eval: doc.from_date && doc.to_date",
+   "fieldname": "add_weekly_holidays",
+   "fieldtype": "Section Break",
+   "label": "Add Weekly Holidays"
+  },
+  {
+   "fieldname": "weekly_off",
+   "fieldtype": "Select",
+   "label": "Weekly Off",
+   "options": "\nSunday\nMonday\nTuesday\nWednesday\nThursday\nFriday\nSaturday"
+  },
+  {
+   "fieldname": "get_weekly_off_dates",
+   "fieldtype": "Button",
+   "label": "Add to Holidays",
+   "options": "get_weekly_off_dates"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-04-22 13:48:05.632369",
+ "modified": "2025-05-06 14:13:25.081817",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Bulk Leave Application",
