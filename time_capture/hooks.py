@@ -144,7 +144,7 @@ doc_events = {
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {
-		"after_save": "time_capture.scripts.employee.after_save",
+		"validate": "time_capture.scripts.employee.after_save",
 	},
 }
 
