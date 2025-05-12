@@ -27,6 +27,7 @@
   {
    "fieldname": "to_date",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "To Date",
    "reqd": 1
   }
@@ -35,7 +36,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-05-06 14:28:29.297564",
+ "modified": "2025-05-12 08:31:36.000904",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Bulk Leave Application Date",
