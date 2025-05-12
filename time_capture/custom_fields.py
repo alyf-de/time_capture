@@ -40,6 +40,16 @@ def get_custom_fields():
 				"reqd": 1,
 			},
 		],
+		"Leave Application": [
+			{
+				"fieldname": "bulk_leave_application",
+				"fieldtype": "Link",
+				"insert_after": "letter_head",
+				"label": _("Bulk Leave Application"),
+				"options": "Bulk Leave Application",
+				"read_only": 1,
+			},
+		],
 		"Task": [
 			{
 				"fieldname": "custom_hourly_billed",

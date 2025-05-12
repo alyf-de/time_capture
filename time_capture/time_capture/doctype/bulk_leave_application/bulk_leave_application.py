@@ -63,5 +63,6 @@ class BulkLeaveApplication(Document):
 			leave_application.to_date = item.to_date
 			leave_application.reason = item.reason
 			leave_application.follow_via_email = 0
+			leave_application.bulk_leave_application = self.name
 			leave_application.insert()
 			leave_application.submit()
