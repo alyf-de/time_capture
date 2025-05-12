@@ -6,7 +6,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import getdate
 from frappe.utils.data import today
-from hrms.hr.utils import share_doc_with_approver
+from hrms.hr.utils import share_doc_with_approver, get_holiday_dates_for_employee
 
 
 class BulkLeaveApplication(Document):
@@ -49,8 +49,7 @@ class BulkLeaveApplication(Document):
 				date_list.append(reference_date)
 			reference_date += timedelta(days=7)
 
-		holiday_list = frappe.db.get_value("Employee", self.employee, "holiday_list")
-		holidays = frappe.get_all("Holiday", filters={"parent": holiday_list, "holiday_date": ["between", [start_date, end_date]]}, pluck="holiday_date")
+		holidays = get_holiday_dates_for_employee(self.employee, start_date, end_date)
 		date_list = [d for d in date_list if d not in holidays]
 		return date_list
 
