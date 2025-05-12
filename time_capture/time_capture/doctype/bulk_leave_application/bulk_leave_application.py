@@ -49,6 +49,9 @@ class BulkLeaveApplication(Document):
 				date_list.append(reference_date)
 			reference_date += timedelta(days=7)
 
+		holiday_list = frappe.db.get_value("Employee", self.employee, "holiday_list")
+		holidays = frappe.get_all("Holiday", filters={"parent": holiday_list, "holiday_date": ["between", [start_date, end_date]]}, pluck="holiday_date")
+		date_list = [d for d in date_list if d not in holidays]
 		return date_list
 
 	def create_leave_applications(self):
