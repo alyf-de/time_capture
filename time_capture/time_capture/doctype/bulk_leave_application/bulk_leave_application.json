@@ -26,6 +26,7 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "in_filter": 1,
    "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
@@ -57,7 +58,6 @@
   {
    "fieldname": "leave_approver",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Leave Approver",
    "options": "User",
    "reqd": 1
@@ -70,6 +70,7 @@
    "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
+   "in_filter": 1,
    "in_standard_filter": 1,
    "label": "Status",
    "no_copy": 1,
@@ -132,7 +133,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-05-12 08:29:14.829897",
+ "modified": "2025-05-12 08:50:33.467370",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Bulk Leave Application",
@@ -250,5 +251,6 @@
  "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "employee_name"
 }
