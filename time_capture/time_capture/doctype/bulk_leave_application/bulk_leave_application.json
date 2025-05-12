@@ -132,13 +132,15 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-05-06 14:13:25.081817",
+ "modified": "2025-05-12 08:29:14.829897",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Bulk Leave Application",
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
@@ -148,6 +150,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
@@ -159,6 +162,7 @@
    "report": 1,
    "role": "Employee",
    "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
