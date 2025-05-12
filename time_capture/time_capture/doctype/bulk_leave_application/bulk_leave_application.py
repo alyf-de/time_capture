@@ -10,12 +10,17 @@ from hrms.hr.utils import share_doc_with_approver
 
 
 class BulkLeaveApplication(Document):
-	def on_update_after_submit(self):
+	def on_update(self):
+		share_doc_with_approver(self, self.leave_approver)
+
+	def on_submit(self):
+		if self.status in ["Open", "Cancelled"]:
+			frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
 		if self.status == "Approved":
 			self.create_leave_applications()
 
-	def on_update(self):
-		share_doc_with_approver(self, self.leave_approver)
+	def before_cancel(self):
+		self.status = "Cancelled"
 
 	@frappe.whitelist()
 	def get_weekly_off_dates(self):
