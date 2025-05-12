@@ -6,6 +6,9 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import getdate
 from frappe.utils.data import today
+
+from erpnext.buying.doctype.supplier_scorecard.supplier_scorecard import daterange
+
 from hrms.hr.utils import share_doc_with_approver, get_holiday_dates_for_employee
 
 
@@ -17,7 +20,7 @@ class BulkLeaveApplication(Document):
 		if self.status in ["Open", "Cancelled"]:
 			frappe.throw(_("Only Leave Applications with status 'Approved' and 'Rejected' can be submitted"))
 		if self.status == "Approved":
-			self.create_leave_applications()
+			self.create_attendances()
 
 	def before_cancel(self):
 		self.status = "Cancelled"
@@ -53,18 +56,17 @@ class BulkLeaveApplication(Document):
 		date_list = [d for d in date_list if d not in holidays]
 		return date_list
 
-	def create_leave_applications(self):
-		for item in self.table_leaves:
-			leave_application = frappe.new_doc("Leave Application")
-			leave_application.employee = self.employee
-			leave_application.leave_type = self.leave_type
-			leave_application.leave_approver = self.leave_approver
-			leave_application.posting_date = today()
-			leave_application.status = self.status
-			leave_application.from_date = item.from_date
-			leave_application.to_date = item.to_date
-			leave_application.reason = item.reason
-			leave_application.follow_via_email = 0
-			leave_application.bulk_leave_application = self.name
-			leave_application.insert()
-			leave_application.submit()
+	def create_attendances(self):
+		holidays = get_holiday_dates_for_employee(self.employee, self.from_date, self.to_date)
+		for period in self.table_leaves: # TODO: Rename this!
+			for dt in daterange(getdate(period.from_date), getdate(period.to_date)):
+				if dt in holidays:
+					continue
+				attendance = frappe.new_doc("Attendance")
+				attendance.employee = self.employee
+				attendance.employee_name = self.employee_name
+				attendance.attendance_date = str(dt)
+				attendance.status = "On Leave"
+				attendance.leave_type = self.leave_type
+				attendance.insert()
+				attendance.submit()
