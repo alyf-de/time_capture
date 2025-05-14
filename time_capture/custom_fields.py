@@ -32,12 +32,12 @@ def get_custom_fields():
 		],
 		"Employee": [
 			{
-				"fieldname": "expected_daily_working_hours",
-				"fieldtype": "Float",
+				"fieldname": "expected_working_hours",
+				"fieldtype": "Table",
 				"insert_after": "attendance_device_id",
-				"label": _("Expected Daily Working Hours"),
-				"translatable": 0,
+				"label": _("Expected Working Hours"),
 				"reqd": 1,
+				"options": "Employee Expected Working Hours",
 			},
 		],
 		"Task": [
