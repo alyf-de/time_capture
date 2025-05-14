@@ -146,24 +146,14 @@ class TimeCapture(Document):
 			},
 		):
 			working_hours = self.working_time / 60 / 60
-			expected_working_hours = frappe.get_value(
-				"Employee", self.employee, "expected_daily_working_hours"
-			)
-			if expected_working_hours:
-				HALF_DAY = expected_working_hours / 2
-				OVERTIME_FACTOR = 1.15
-				MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR * 60 * 60
 
 			attendance = frappe.get_doc(
 				{
 					"doctype": "Attendance",
 					"employee": self.employee,
-					"status": "Present" if self.working_time > MAX_HALF_DAY else "Half Day",
 					"attendance_date": self.date,
 					"custom_time_capture": self.name,
 					"working_hours": working_hours,
-					"expected_working_hours": expected_working_hours,
-					"flexitime": working_hours - expected_working_hours,
 				}
 			)
 			attendance.flags.ignore_permissions = True

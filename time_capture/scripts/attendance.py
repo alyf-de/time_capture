@@ -4,8 +4,9 @@ from frappe import _
 from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
-def before_insert(doc, event):
-	set_flexitime_for_compensatory_leave(doc)
+def on_change(doc, event):
+	if not doc.flags.flexitime_updated:
+		set_flexitime_and_working_time(doc)
 
 
 def on_submit(doc, event):
@@ -18,10 +19,29 @@ def on_cancel(doc, event):
 	_create_time_capture(employee, doc.attendance_date)
 
 
-def set_flexitime_for_compensatory_leave(doc):
-	if not doc.leave_type or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1:
-		return
-	doc.flexitime = -frappe.db.get_value("Employee", doc.employee, "expected_daily_working_hours")
+def set_flexitime_and_working_time(doc):
+	doc.flags.flexitime_updated = True
+	expected_working_hours = frappe.db.get_value("Employee", doc.employee, "expected_daily_working_hours")
+	working_hours = doc.working_hours
+	if not doc.leave_type:
+		if expected_working_hours:
+			HALF_DAY = expected_working_hours / 2
+			OVERTIME_FACTOR = 1.15
+			MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR * 60 * 60
+		doc.db_set({"status": "Present" if working_hours > MAX_HALF_DAY else "Half Day"})
+	else:
+		if frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") == 1:
+			working_hours = 0
+		else:
+			expected_working_hours = 0
+			working_hours = 0
+	doc.db_set(
+		{
+			"expected_working_hours": expected_working_hours,
+			"working_hours": working_hours,
+			"flexitime": working_hours - expected_working_hours,
+		}
+	)
 
 
 def delete_time_capture(doc):
