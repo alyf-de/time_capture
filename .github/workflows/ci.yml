@@ -105,6 +105,6 @@ jobs:
         working-directory: /home/runner/frappe-bench
         run: |
           bench --site test_site set-config allow_tests true
-          bench --site test_site run-tests --app time_capture
+          bench --site test_site run-tests --skip-test-records --app time_capture
         env:
           TYPE: server
