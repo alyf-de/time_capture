@@ -2,10 +2,11 @@ import frappe
 from frappe import _
 from frappe.query_builder import DocType
 
+
 def execute():
 	TimeCaptureLog = DocType("Time Capture Log")
 	TimeCapture = DocType("Time Capture")
-	
+
 	time_logs = (
 		frappe.qb.from_(TimeCaptureLog)
 		.join(TimeCapture)
@@ -17,13 +18,13 @@ def execute():
 			TimeCaptureLog.task,
 			TimeCapture.date,
 			TimeCapture.employee,
-			TimeCapture.employee_name
+			TimeCapture.employee_name,
 		)
 		.where(TimeCapture.docstatus == 1)
 	).run(as_dict=1)
 
 	inconsistent_logs = []
-	
+
 	for log in time_logs:
 		if log.task and log.project:
 			task_project = frappe.db.get_value("Task", log.task, "project")
@@ -40,7 +41,4 @@ def execute():
 			error_message += f"Task: {log.task}\n"
 			error_message += "---\n"
 
-		frappe.log_error(
-			title="Inconsistent Time Capture Logs",
-			message=error_message
-		) 
+		frappe.log_error(title="Inconsistent Time Capture Logs", message=error_message)
