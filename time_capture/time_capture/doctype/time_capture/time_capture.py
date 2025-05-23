@@ -217,9 +217,7 @@ class TimeCapture(Document):
 
 	def validate_task_project(self):
 		for log in self.time_logs:
-			if log.task and log.project:
-				task_project = frappe.db.get_value("Task", log.task, "project")
-				if task_project != log.project:
+			if log.project != frappe.db.get_value("Task", log.task, "project"):
 					frappe.throw(_("Task {0} does not belong to Project {1}").format(log.task, log.project))
 
 
