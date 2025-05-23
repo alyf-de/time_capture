@@ -4,3 +4,4 @@
 
 [post_model_sync]
 execute:from time_capture.install import after_install;after_install() # 2025-03-19 #2
+time_capture.patches.log_inconsistent_time_capture_logs 
