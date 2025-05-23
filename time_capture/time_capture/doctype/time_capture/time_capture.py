@@ -76,6 +76,7 @@ class TimeCapture(Document):
 
 	def validate(self):
 		self.validate_time_logs()
+		self.validate_task_project()
 
 	def before_submit(self):
 		self.validate_working_and_project_time()
@@ -213,6 +214,13 @@ class TimeCapture(Document):
 
 				timesheet.insert()
 				timesheet.submit()
+
+	def validate_task_project(self):
+		for log in self.time_logs:
+			if log.task and log.project:
+				task_project = frappe.db.get_value("Task", log.task, "project")
+				if task_project != log.project:
+					frappe.throw(_("Task {0} does not belong to Project {1}").format(log.task, log.project))
 
 
 @frappe.whitelist()
