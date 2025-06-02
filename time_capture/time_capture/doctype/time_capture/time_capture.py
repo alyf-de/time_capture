@@ -8,6 +8,7 @@ from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import time_diff_in_seconds
+from frappe.utils.data import getdate
 
 FIVE_MINUTES = 5 * 60
 ONE_HOUR = 60 * 60
@@ -258,6 +259,40 @@ def create_time_captures_daily():
 	today = frappe.utils.today()
 	for employee in employees:
 		_create_time_capture(employee, today)
+
+
+def send_weekly_time_capture_reminders():
+	if not frappe.db.get_single_value("Time Capture Settings", "enable_weekly_reminders"):
+		return
+
+	today = getdate()
+
+	time_captures = frappe.get_all(
+		"Time Capture",
+		filters={"docstatus": 0, "date": ["<=", today]},
+		fields=["name", "employee", "employee_name", "date", "email"],
+		order_by="employee asc, date asc",
+	)
+
+	if not time_captures:
+		return
+
+	employees = {tc.employee for tc in time_captures}
+
+	for employee in employees:
+		tcs_list = [tc for tc in time_captures if tc.employee == employee]
+		if not tcs_list:
+			continue
+
+		context = {"employee_name": tcs_list[0].employee_name, "time_entries": tcs_list}
+
+		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
+		frappe.sendmail(
+			recipients=[tcs_list[0].email],
+			subject="Wöchentliche Erinnerung: Offene Zeiterfassungen",
+			message=message,
+			now=True,
+		)
 
 
 def _get_active_employees():

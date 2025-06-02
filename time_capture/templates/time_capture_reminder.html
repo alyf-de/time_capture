@@ -1,0 +1,14 @@
+{% block content %}
+<p>Hallo {{ employee_name }},</p>
+
+<p>Hier sind deine offenen Zeiterfassungen:</p>
+
+{% if time_entries %}
+<p>Offene Zeiterfassungen:</p>
+<ul>
+	{% for tc in time_entries %}
+	<li>{{ tc.date }}: {{ tc.name }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
