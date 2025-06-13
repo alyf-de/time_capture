@@ -2,6 +2,8 @@
 # For license information, please see license.txt
 
 import math
+from itertools import groupby
+from operator import itemgetter
 
 import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
@@ -262,6 +264,7 @@ def create_time_captures_daily():
 
 
 import frappe
+from frappe.query_builder import DocType
 
 
 def send_weekly_time_capture_reminders():
@@ -269,29 +272,31 @@ def send_weekly_time_capture_reminders():
 		return
 
 	today = getdate()
+	TC = frappe.qb.DocType("Time Capture")
 
-	time_captures = frappe.get_all(
-		"Time Capture",
-		filters={"docstatus": 0, "date": ["<=", today]},
-		fields=["name", "employee", "employee_name", "date", "email"],
-		order_by="employee asc, date asc",
+	captures = (
+		frappe.qb.from_(TC)
+		.select(TC.name, TC.employee, TC.employee_name, TC.date, TC.email)
+		.where((TC.docstatus == 0) & (TC.date <= today))
+		.orderby(TC.employee, TC.date)
+		.run(as_dict=True)
 	)
-
-	if not time_captures:
+	if not captures:
 		return
 
-	employee_groups = {}
-	for tc in time_captures:
-		emp = tc["employee"]
-		employee_groups.setdefault(emp, []).append(tc)
+	for emp, entries in groupby(captures, key=itemgetter("employee")):
+		entries = list(entries)
 
-	for tcs_list in employee_groups.values():
-		context = {"employee_name": tcs_list[0]["employee_name"], "time_entries": tcs_list}
+		recipient = frappe.db.get_value("Employee", emp, "user_id") or frappe.db.get_single_value(
+			"Time Capture Settings", "standard_email_recipient"
+		)
+
+		context = {"employee_name": entries[0]["employee_name"], "time_entries": entries}
 		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
 
 		frappe.sendmail(
-			recipients=[tcs_list[0]["email"]],
-			subject="Wöchentliche Erinnerung: Offene Zeiterfassungen",
+			recipients=recipient,
+			subject=_("Wöchentliche Erinnerung: Offene Zeiterfassungen"),
 			message=message,
 			now=True,
 		)

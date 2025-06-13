@@ -113,7 +113,8 @@
    "default": "0",
    "fieldname": "enable_weekly_reminders",
    "fieldtype": "Check",
-   "label": "Enable weekly Reminders"
+   "label": "Enable Weekly Reminders",
+   "description": "If enabled, Employees with draft Time Captures are reminded weekly to submit these."
   }
  ],
  "grid_page_length": 50,
