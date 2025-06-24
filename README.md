@@ -8,10 +8,7 @@ Die App dient der präzisen und benutzerfreundlichen Erfassung von Arbeitszeiten
 - 🌴 Erkennung und Handhabung von **Abwesenheiten** wie **Urlaub** oder **Krankheit**
 - 🔗 **Integration mit dem Attendance DocType**, inklusive Abgleich mit **SOLL-Arbeitszeit**
 - 📊 **Berichte** zu Arbeitszeiten, **Überstunden**, u.v.m.
-- Kann optional eingeschalten werden: Wöchentliche Erinnerung je Mitarbeiter über ungebuchte Zeiten (siehe nachfolgender Screenshot)
-
-![image](https://github.com/user-attachments/assets/7fa700d8-18d3-49b4-b15c-594ce6f71bdd)
-
+- Kann optional eingeschalten werden: **Wöchentliche Erinnerung** je Mitarbeiter über ungebuchte Zeiten (siehe nachfolgender Screenshot) ![image](https://github.com/user-attachments/assets/7fa700d8-18d3-49b4-b15c-594ce6f71bdd)
 
 ## 🚧 Reifegrad & Einschränkungen
 Die App befindet sich in einem fortgeschrittenen, aber noch nicht vollständig ausgereiften Zustand. Einige Randfälle und Konfigurationsmöglichkeiten sind noch nicht konsistent umgesetzt:
