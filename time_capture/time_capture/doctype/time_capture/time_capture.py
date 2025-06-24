@@ -276,7 +276,7 @@ def send_weekly_time_capture_reminders():
 
 	captures = (
 		frappe.qb.from_(TC)
-		.select(TC.name, TC.employee, TC.employee_name, TC.date, TC.email)
+		.select(TC.name, TC.employee, TC.employee_name, TC.date)
 		.where((TC.docstatus == 0) & (TC.date <= today))
 		.orderby(TC.employee, TC.date)
 		.run(as_dict=True)
