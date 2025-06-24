@@ -7,7 +7,7 @@
 		<p>Offene Zeiterfassungen:</p>
 		<ul>
 			{% for tc in time_captures_per_employee %}
-				<li>{{ tc.date }}: {{ tc.name }}</li>
+				<li><a href={{ frappe.utils.get_url_to_form("Time Capture", tc.name) }}>{{ tc.date }}</a></li>
 			{% endfor %}
 		</ul>
 	{% endif %}
