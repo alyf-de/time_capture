@@ -274,24 +274,24 @@ def send_weekly_time_capture_reminders():
 	today = getdate()
 	TC = frappe.qb.DocType("Time Capture")
 
-	captures = (
+	time_captures = (
 		frappe.qb.from_(TC)
 		.select(TC.name, TC.employee, TC.employee_name, TC.date)
 		.where((TC.docstatus == 0) & (TC.date <= today))
 		.orderby(TC.employee, TC.date)
 		.run(as_dict=True)
 	)
-	if not captures:
+	if not time_captures:
 		return
 
-	for emp, entries in groupby(captures, key=itemgetter("employee")):
-		entries = list(entries)
+	for emp, entries in groupby(time_captures, key=itemgetter("employee")):
+		time_captures_per_employee = list(entries)
 
 		recipient = frappe.db.get_value("Employee", emp, "user_id") or frappe.db.get_single_value(
 			"Time Capture Settings", "standard_email_recipient"
 		)
 
-		context = {"employee_name": entries[0]["employee_name"], "time_entries": entries}
+		context = {"employee_name": time_captures_per_employee[0]["employee_name"], "time_captures_per_employee": time_captures_per_employee}
 		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
 
 		frappe.sendmail(

@@ -3,10 +3,10 @@
 
 	<p>Hier sind deine offenen Zeiterfassungen:</p>
 
-	{% if time_entries %}
+	{% if time_captures_per_employee %}
 		<p>Offene Zeiterfassungen:</p>
 		<ul>
-			{% for tc in time_entries %}
+			{% for tc in time_captures_per_employee %}
 				<li>{{ tc.date }}: {{ tc.name }}</li>
 			{% endfor %}
 		</ul>
