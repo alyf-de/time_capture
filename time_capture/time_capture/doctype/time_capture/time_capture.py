@@ -286,13 +286,18 @@ def send_weekly_time_capture_reminders():
 		recipient = frappe.db.get_value("Employee", emp, "user_id") or frappe.db.get_single_value(
 			"Time Capture Settings", "standard_email_recipient"
 		)
+		language = frappe.db.get_value("User", recipient, "language") or "en"
 
-		context = {"employee_name": time_captures_per_employee[0]["employee_name"], "time_captures_per_employee": time_captures_per_employee}
+		context = {
+			"employee_name": time_captures_per_employee[0]["employee_name"],
+			"time_captures_per_employee": time_captures_per_employee,
+			"language": language,
+		}
 		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
 
 		frappe.sendmail(
 			recipients=recipient,
-			subject=_("Wöchentliche Erinnerung: Offene Zeiterfassungen"),
+			subject=_("Reminder: You have unsubmitted Time Captures"),
 			message=message,
 			now=True,
 		)

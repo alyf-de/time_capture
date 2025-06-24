@@ -1,10 +1,9 @@
 {% block content %}
-	<p>Hallo {{ employee_name }},</p>
+	<p>{{ _("Hello", language) }} {{ employee_name }},</p>
 
-	<p>Hier sind deine offenen Zeiterfassungen:</p>
+	<p>{{ _("The following Time Captures are still in draft status:", language) }}</p>
 
 	{% if time_captures_per_employee %}
-		<p>Offene Zeiterfassungen:</p>
 		<ul>
 			{% for tc in time_captures_per_employee %}
 				<li><a href="{{ frappe.utils.get_url_to_form('Time Capture', tc.name) }}">{{ tc.date }}</a></li>
@@ -12,7 +11,9 @@
 		</ul>
 
 		<p style="margin-top: 1rem;">
-			<a href="/app/time-capture?docstatus=0&employee={{ time_captures_per_employee[0].employee }}">Zur Listenansicht</a>
+			<a href="/app/time-capture?docstatus=0&employee={{ time_captures_per_employee[0].employee }}">{{ _("Go to list view", language) }}</a>
 		</p>
+
+		<p>{{ _("Please review and submit the pending Time Captures.", language) }}</p>
 	{% endif %}
 {% endblock %}
