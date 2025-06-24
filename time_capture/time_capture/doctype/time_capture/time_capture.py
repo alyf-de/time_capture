@@ -263,7 +263,6 @@ def create_time_captures_daily():
 		_create_time_capture(employee, today)
 
 
-import frappe
 from frappe.query_builder import DocType
 
 
