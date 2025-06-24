@@ -263,9 +263,6 @@ def create_time_captures_daily():
 		_create_time_capture(employee, today)
 
 
-from frappe.query_builder import DocType
-
-
 def send_weekly_time_capture_reminders():
 	if not frappe.db.get_single_value("Time Capture Settings", "enable_weekly_reminders"):
 		return
