@@ -16,6 +16,7 @@
   "notification_section",
   "standard_email_recipient",
   "further_details",
+  "enable_weekly_reminders",
   "leaves_section",
   "paid_leave_type",
   "sick_leave_type"
@@ -107,13 +108,20 @@
    "fieldtype": "Link",
    "label": "Sick Leave Type",
    "options": "Leave Type"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_weekly_reminders",
+   "fieldtype": "Check",
+   "label": "Enable Weekly Reminders",
+   "description": "If enabled, Employees with draft Time Captures are reminded weekly to submit these."
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-03-24 09:06:48.406310",
+ "modified": "2025-06-02 13:20:25.624944",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
@@ -130,6 +138,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

@@ -2,12 +2,15 @@
 # For license information, please see license.txt
 
 import math
+from itertools import groupby
+from operator import itemgetter
 
 import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
 from frappe.utils import time_diff_in_seconds
+from frappe.utils.data import getdate
 
 FIVE_MINUTES = 5 * 60
 ONE_HOUR = 60 * 60
@@ -258,6 +261,46 @@ def create_time_captures_daily():
 	today = frappe.utils.today()
 	for employee in employees:
 		_create_time_capture(employee, today)
+
+
+def send_weekly_time_capture_reminders():
+	if not frappe.db.get_single_value("Time Capture Settings", "enable_weekly_reminders"):
+		return
+
+	today = getdate()
+	TC = frappe.qb.DocType("Time Capture")
+
+	time_captures = (
+		frappe.qb.from_(TC)
+		.select(TC.name, TC.employee, TC.employee_name, TC.date)
+		.where((TC.docstatus == 0) & (TC.date <= today))
+		.orderby(TC.employee, TC.date)
+		.run(as_dict=True)
+	)
+	if not time_captures:
+		return
+
+	for emp, entries in groupby(time_captures, key=itemgetter("employee")):
+		time_captures_per_employee = list(entries)
+
+		recipient = frappe.db.get_value("Employee", emp, "user_id") or frappe.db.get_single_value(
+			"Time Capture Settings", "standard_email_recipient"
+		)
+		language = frappe.db.get_value("User", recipient, "language") or "en"
+
+		context = {
+			"employee_name": time_captures_per_employee[0]["employee_name"],
+			"time_captures_per_employee": time_captures_per_employee,
+			"language": language,
+		}
+		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
+
+		frappe.sendmail(
+			recipients=recipient,
+			subject=_("Reminder: You have unsubmitted Time Captures"),
+			message=message,
+			now=True,
+		)
 
 
 def _get_active_employees():
