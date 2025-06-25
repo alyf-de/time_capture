@@ -161,9 +161,9 @@ scheduler_events = {
 	# 	"hourly": [
 	# 		"time_capture.tasks.hourly"
 	# 	],
-	# 	"weekly": [
-	# 		"time_capture.tasks.weekly"
-	# 	],
+	"weekly": [
+		"time_capture.time_capture.doctype.time_capture.time_capture.send_weekly_time_capture_reminders"
+	],
 	# 	"monthly": [
 	# 		"time_capture.tasks.monthly"
 	# 	],

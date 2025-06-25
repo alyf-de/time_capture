@@ -2,6 +2,8 @@
 # For license information, please see license.txt
 
 import math
+from itertools import groupby
+from operator import itemgetter
 
 import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
@@ -76,6 +78,7 @@ class TimeCapture(Document):
 
 	def validate(self):
 		self.validate_time_logs()
+		self.validate_task_project()
 
 	def before_submit(self):
 		self.validate_working_and_project_time()
@@ -214,6 +217,11 @@ class TimeCapture(Document):
 				timesheet.insert()
 				timesheet.submit()
 
+	def validate_task_project(self):
+		for log in self.time_logs:
+			if log.project != frappe.db.get_value("Task", log.task, "project"):
+				frappe.throw(_("Task {0} does not belong to Project {1}").format(log.task, log.project))
+
 
 @frappe.whitelist()
 def get_mandatory_break(duration: float, is_of_legal_age: bool):
@@ -252,6 +260,46 @@ def create_time_captures_daily():
 	today = frappe.utils.today()
 	for employee in employees:
 		_create_time_capture(employee, today)
+
+
+def send_weekly_time_capture_reminders():
+	if not frappe.db.get_single_value("Time Capture Settings", "enable_weekly_reminders"):
+		return
+
+	today = getdate()
+	TC = frappe.qb.DocType("Time Capture")
+
+	time_captures = (
+		frappe.qb.from_(TC)
+		.select(TC.name, TC.employee, TC.employee_name, TC.date)
+		.where((TC.docstatus == 0) & (TC.date <= today))
+		.orderby(TC.employee, TC.date)
+		.run(as_dict=True)
+	)
+	if not time_captures:
+		return
+
+	for emp, entries in groupby(time_captures, key=itemgetter("employee")):
+		time_captures_per_employee = list(entries)
+
+		recipient = frappe.db.get_value("Employee", emp, "user_id") or frappe.db.get_single_value(
+			"Time Capture Settings", "standard_email_recipient"
+		)
+		language = frappe.db.get_value("User", recipient, "language") or "en"
+
+		context = {
+			"employee_name": time_captures_per_employee[0]["employee_name"],
+			"time_captures_per_employee": time_captures_per_employee,
+			"language": language,
+		}
+		message = frappe.render_template("time_capture/templates/time_capture_reminder.html", context)
+
+		frappe.sendmail(
+			recipients=recipient,
+			subject=_("Reminder: You have unsubmitted Time Captures"),
+			message=message,
+			now=True,
+		)
 
 
 def _get_active_employees():
