@@ -15,7 +15,6 @@
   "mandatory_breaks_minors",
   "notification_section",
   "standard_email_recipient",
-  "further_details",
   "enable_weekly_reminders",
   "leaves_section",
   "paid_leave_type",
@@ -73,12 +72,6 @@
    "options": "Mandatory Break"
   },
   {
-   "fieldname": "further_details",
-   "fieldtype": "HTML",
-   "label": "Further Details",
-   "options": "<b>See Notification</b>"
-  },
-  {
    "description": "Set in Time Capture, if Employee is not linked to User Email address",
    "fieldname": "standard_email_recipient",
    "fieldtype": "Data",
@@ -121,7 +114,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-06-02 13:20:25.624944",
+ "modified": "2025-06-25 08:16:25.624944",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
