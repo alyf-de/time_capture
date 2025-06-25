@@ -14,8 +14,9 @@
   "mandatory_breaks",
   "mandatory_breaks_minors",
   "notification_section",
-  "standard_email_recipient",
   "enable_weekly_reminders",
+  "column_break_jdyk",
+  "standard_email_recipient",
   "leaves_section",
   "paid_leave_type",
   "sick_leave_type"
@@ -28,6 +29,7 @@
   },
   {
    "default": "1",
+   "description": "If enabled, Timesheets are submitted along with the Time Capture. Otherwise, Timesheets are saved as Drafts.",
    "fieldname": "submit_timesheets_immediately",
    "fieldtype": "Check",
    "label": "Submit Timesheets immediately"
@@ -72,10 +74,10 @@
    "options": "Mandatory Break"
   },
   {
-   "description": "Set in Time Capture, if Employee is not linked to User Email address",
+   "depends_on": "enable_weekly_reminders",
+   "description": "Used for Employees without linked User (=Email Address)",
    "fieldname": "standard_email_recipient",
    "fieldtype": "Data",
-   "in_list_view": 1,
    "label": "Standard Email Recipient",
    "options": "Email",
    "reqd": 1
@@ -104,17 +106,21 @@
   },
   {
    "default": "0",
+   "description": "If enabled, Employees with draft Time Captures are reminded weekly to submit these.",
    "fieldname": "enable_weekly_reminders",
    "fieldtype": "Check",
-   "label": "Enable Weekly Reminders",
-   "description": "If enabled, Employees with draft Time Captures are reminded weekly to submit these."
+   "label": "Enable Weekly Reminders"
+  },
+  {
+   "fieldname": "column_break_jdyk",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-06-25 08:16:25.624944",
+ "modified": "2025-06-25 08:28:01.356106",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
