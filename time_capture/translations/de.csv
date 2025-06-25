@@ -3,3 +3,10 @@ Reminder: You have unsubmitted Time Captures,Erinnerung: Sie haben ungebuchte Ze
 "The following Time Captures are still in draft status:","Die folgenden Zeiterfassungen sind noch im Entwurfsstatus:",
 "Go to list view","Zur Listenansicht",
 "Please review and submit the pending Time Captures.","Bitte überprüfen und buchen Sie die ausstehenden Zeiterfassungen."
+"If enabled, Employees with draft Time Captures are reminded weekly to submit these.","Wenn aktiviert, werden Mitarbeiter mit Entwürfen wöchentlich daran erinnert, diese einzureichen.",
+Used for Employees without linked User (=Email Address),Verwendet für Mitarbeiter ohne verknüpften Nutzer (=E-Mail-Adresse),
+Paid Leave Type,Urlaubstyp Bezahlt,
+Sick Leave Type,Urlaubstyp Krankheit,
+Mandatory Breaks (Minors),Verpflichtende Pausen (Minderjährige),
+Submit Timesheets immediately,Stundenzettel sofort buchen,
+"If enabled, Timesheets are submitted along with the Time Capture. Otherwise, Timesheets are saved as Drafts.","Wenn aktiviert, werden Stundenzettel zusammen mit der Zeiterfassung gebucht. Andernfalls werden Stundenzettel als Entwürfe gespeichert.",
