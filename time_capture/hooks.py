@@ -143,6 +143,9 @@ doc_events = {
 		"on_submit": "time_capture.scripts.attendance.on_submit",
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
+	"Employee": {
+		"before_validate": "time_capture.scripts.employee.before_validate",
+	},
 }
 
 # Scheduled Tasks
