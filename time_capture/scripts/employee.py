@@ -18,7 +18,7 @@ def get_expected_working_hours(employee_id, date):
 	"""
 	return frappe.db.get_value(
 		"Employee Expected Working Hours",
-		filters={"parent": employee_id, "valid_from": ["<=", date]},
+		filters={"parent": employee_id, "valid_from": ("<=", date)},
 		fieldname="expected_daily_working_hours",
 		order_by="valid_from desc",
 	)
