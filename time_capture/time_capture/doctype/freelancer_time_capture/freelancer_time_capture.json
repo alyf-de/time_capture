@@ -76,7 +76,7 @@
    "link_fieldname": "freelancer_time_capture"
   }
  ],
- "modified": "2025-07-08 12:35:28.046685",
+ "modified": "2025-07-08 15:23:03.547480",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Freelancer Time Capture",
@@ -127,6 +127,7 @@
    "create": 1,
    "delete": 1,
    "export": 1,
+   "if_owner": 1,
    "print": 1,
    "read": 1,
    "report": 1,
