@@ -12,8 +12,14 @@ from frappe.model.document import Document
 from frappe.utils import time_diff_in_seconds
 from frappe.utils.data import getdate
 
-FIVE_MINUTES = 5 * 60
-ONE_HOUR = 60 * 60
+from time_capture.time_capture.time_capture_controller import (
+	avoid_duplicate_entries,
+	assure_duration_format,
+	validate_time_log_description,
+	validate_task_project,
+	validate_tasks_budget,
+	create_timesheets,
+)
 
 
 class TimeCapture(Document):
@@ -47,9 +53,9 @@ class TimeCapture(Document):
 		self.is_of_legal_age = self._get_is_of_legal_age()
 
 	def before_validate(self):
-		self.avoid_duplicate_entries()
+		avoid_duplicate_entries(self)
+		assure_duration_format(self)
 		self.clean_data()
-		self.assure_duration_format()
 		self.calculate_totals()
 		if self.has_value_changed("employee") or self.has_value_changed("date"):
 			self.is_of_legal_age = self._get_is_of_legal_age()
@@ -60,68 +66,23 @@ class TimeCapture(Document):
 		legal_age_date = frappe.utils.add_years(dob, 18)
 		return legal_age_date <= frappe.utils.getdate(self.date)
 
-	def assure_duration_format(self):
-		note = _("Note: Use the date/time picker that appears instead of manually typing or pasting values.")
-		row_msg = _("Row {0}: Duration is not in the proper format.")
-
-		for log in self.time_logs:
-			if isinstance(log.duration, float):
-				log.duration = int(log.duration)
-			if not isinstance(log.duration, int):
-				frappe.throw(f"{row_msg.format(log.idx)} {note}")
-
-		if self.indicated_break:
-			if isinstance(self.indicated_break, float):
-				self.indicated_break = int(self.indicated_break)
-			if not isinstance(self.indicated_break, int):
-				msg = _("Indicated Break is not in the proper format.")
-				frappe.throw(f"{msg} {note}")
-
 	def validate(self):
-		self.validate_time_logs()
-		self.validate_task_project()
+		validate_time_log_description(self)
+		validate_task_project(self)
 
 	def before_submit(self):
 		self.validate_working_and_project_time()
-		self.validate_tasks_budget()
+		validate_tasks_budget(self)
 
 	def on_submit(self):
 		self.create_attendance()
-		self.create_timesheets()
+		create_timesheets(self)
 
 	def validate_working_and_project_time(self):
 		if self.unallocated_time > 0:
 			frappe.throw(_("Working time must be completely booked on projects and tasks."))
 		if self.unallocated_time < 0:
 			frappe.throw(_("Project time cannot be greater than working time."))
-
-	def validate_tasks_budget(self):
-		tasks = {row.task for row in self.time_logs}
-		for task in tasks:
-			task_data = frappe.db.get_value("Task", task, ["expected_time", "actual_time"], as_dict=True)
-			if task_data.expected_time == 0:
-				continue
-			if task_data.expected_time < task_data.actual_time:
-				frappe.throw(
-					_("No budget left for Task {0}. Please, contact the Project Manager.").format(task)
-				)
-
-	def validate_time_logs(self):
-		for time_log in self.time_logs:
-			if len(time_log.note) < 5:
-				frappe.throw(_("Note must be at least 5 characters. Found: {0}").format(time_log.note))
-
-	def avoid_duplicate_entries(self):
-		if frappe.db.exists(
-			"Time Capture",
-			{
-				"date": self.date,
-				"employee": self.employee,
-				"docstatus": ["!=", 2],
-				"name": ["!=", self.name],
-			},
-		):
-			frappe.throw(_("Time Capture already exists for this date and employee."))
 
 	def clean_data(self):
 		self.indicated_break = self.indicated_break or 0
@@ -174,55 +135,6 @@ class TimeCapture(Document):
 			attendance.save()
 			attendance.submit()
 
-	def create_timesheets(self):
-		for log in self.time_logs:
-			if log.duration and log.project:
-				costing_rate = get_costing_rate(self.employee)
-				hours = math.ceil(log.duration / FIVE_MINUTES) * FIVE_MINUTES / ONE_HOUR
-
-				customer = frappe.get_value(
-					"Project",
-					log.project,
-					["customer"],
-				)
-
-				is_billable = frappe.db.get_value("Task", log.task, "custom_hourly_billed") == 1
-				billing_hours = hours if is_billable else 0
-
-				timesheet = frappe.get_doc(
-					{
-						"doctype": "Timesheet",
-						"time_logs": [
-							{
-								"is_billable": is_billable,
-								"project": log.project,
-								"task": log.task,
-								"activity_type": get_default_activity_type(),
-								"base_billing_rate": 0,
-								"base_costing_rate": costing_rate,
-								"costing_rate": costing_rate,
-								"billing_rate": 0,
-								"hours": hours,
-								"from_time": self.date,
-								"billing_hours": billing_hours,
-								"description": log.note,
-							}
-						],
-						"parent_project": log.project,
-						"customer": customer,
-						"employee": self.employee,
-						"custom_time_capture": self.name,
-					}
-				)
-
-				timesheet.insert()
-				timesheet.submit()
-
-	def validate_task_project(self):
-		for log in self.time_logs:
-			if log.project != frappe.db.get_value("Task", log.task, "project"):
-				frappe.throw(_("Task {0} does not belong to Project {1}").format(log.task, log.project))
-
 
 @frappe.whitelist()
 def get_mandatory_break(duration: float, is_of_legal_age: bool):
@@ -242,18 +154,6 @@ def get_mandatory_break(duration: float, is_of_legal_age: bool):
 			total_mandatory_break += mandatory_break
 
 	return total_mandatory_break
-
-
-def get_default_activity_type():
-	return frappe.db.get_single_value("Time Capture Settings", "default_activity_type")
-
-
-def get_costing_rate(employee):
-	return frappe.get_value(
-		"Activity Cost",
-		{"activity_type": get_default_activity_type(), "employee": employee},
-		"costing_rate",
-	)
 
 
 def create_time_captures_daily():
