@@ -1,8 +1,10 @@
 // Copyright (c) 2025, ALYF GmbH and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Freelancer Time Capture", {
-// 	refresh(frm) {
-
-// 	},
-// });
+frappe.ui.form.on("Freelancer Time Capture", {
+	refresh(frm) {
+		if (!frm.doc.user && frappe.session.user) {
+			frm.set_value("user", frappe.session.user);
+		}
+	},
+});
