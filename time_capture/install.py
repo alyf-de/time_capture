@@ -8,6 +8,14 @@ from .utils import make_property_setters
 
 
 def after_install():
-	create_custom_fields(get_custom_fields())
-	make_property_setters(get_property_setters())
+	_make_custom_fields()
+	_make_property_setters()
 	set_mandatory_breaks()
+
+
+def _make_custom_fields():
+	create_custom_fields(get_custom_fields())
+
+
+def _make_property_setters():
+	make_property_setters(get_property_setters())
