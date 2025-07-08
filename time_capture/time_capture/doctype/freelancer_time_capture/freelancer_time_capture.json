@@ -12,7 +12,7 @@
   "freelancer_name",
   "amended_from",
   "section_break_gqon",
-  "table_uiqm"
+  "time_logs"
  ],
  "fields": [
   {
@@ -52,18 +52,19 @@
    "reqd": 1
   },
   {
-   "fieldname": "table_uiqm",
-   "fieldtype": "Table",
-   "options": "Time Capture Log",
-   "reqd": 1
-  },
-  {
    "fieldname": "column_break_qsox",
    "fieldtype": "Column Break"
   },
   {
    "fieldname": "section_break_gqon",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "time_logs",
+   "fieldtype": "Table",
+   "label": "Time Logs",
+   "options": "Time Capture Log",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
@@ -75,7 +76,7 @@
    "link_fieldname": "freelancer_time_capture"
   }
  ],
- "modified": "2025-07-08 12:11:31.292566",
+ "modified": "2025-07-08 12:35:28.046685",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Freelancer Time Capture",
