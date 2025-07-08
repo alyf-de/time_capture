@@ -69,8 +69,13 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2025-07-08 12:08:31.194992",
+ "links": [
+  {
+   "link_doctype": "Timesheet",
+   "link_fieldname": "freelancer_time_capture"
+  }
+ ],
+ "modified": "2025-07-08 12:11:31.292566",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Freelancer Time Capture",
