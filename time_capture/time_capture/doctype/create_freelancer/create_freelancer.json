@@ -14,7 +14,8 @@
   {
    "fieldname": "description",
    "fieldtype": "HTML",
-   "label": "Description"
+   "label": "Description",
+   "options": "<div class='alert alert-info'><p>This DocType is used to create new Users in the system, that are pre-configured as Freelancers.</p><p>Details:</p><ul><li>A new User account is automatically generated with the Freelancer role</li><li>All modules except Time Capture are blocked for this user</li></ul><p>After you completed the form, you can check the User in the <a href='/app/user'>User list</a>.</p></div>"
   },
   {
    "fieldname": "email",
@@ -40,7 +41,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-11 14:35:09.553250",
+ "modified": "2025-07-11 15:10:50.668639",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Create Freelancer",
