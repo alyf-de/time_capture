@@ -6,9 +6,6 @@ from frappe import _
 FIVE_MINUTES = 5 * 60
 ONE_HOUR = 60 * 60
 
-# TODO: Import all of it into Time Capture
-# TODO: Import all of it into Freelancer Time Capture
-
 
 def avoid_duplicate_entries(doc):
 	"""
