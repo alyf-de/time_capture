@@ -65,6 +65,14 @@ def get_custom_fields():
 			"fieldtype": "Link",
 			"options": "Freelancer Time Capture",
 			"read_only": 1,
-			}
+			},
+			{
+				"label": _("Freelancer User"),
+				"fieldname": "freelancer_user",
+				"insert_after": "employee",
+				"fieldtype": "Link",
+				"options": "User",
+				"read_only": 1,
+			},
 		],
 	}

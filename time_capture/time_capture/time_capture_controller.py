@@ -111,6 +111,7 @@ def create_timesheets(doc):
 					"parent_project": log.project,
 					"customer": customer,
 					"employee": doc.employee if doc.doctype == "Time Capture" else None,
+					"freelancer_user": doc.user if doc.doctype == "Freelancer Time Capture" else None,
 					"employee_name": _get_employee_name_for_timesheet(doc),
 					"custom_time_capture": doc.name if doc.doctype == "Time Capture" else None,
 					"freelancer_time_capture": doc.name if doc.doctype == "Freelancer Time Capture" else None,
