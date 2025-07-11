@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"3hi_FodMRQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Freelancer Time Capture</span>\",\"col\":12}},{\"id\":\"0IPA2YfNGY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New\",\"col\":3}},{\"id\":\"ezKKwcjGYU\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"All\",\"col\":4}},{\"id\":\"emKVSJlTC1\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Drafts\",\"col\":4}},{\"id\":\"gCcmT5bgQz\",\"type\":\"spacer\",\"data\":{\"col\":12}}]",
+ "content": "[{\"id\":\"3hi_FodMRQ\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Freelancer Time Capture</span>\",\"col\":12}},{\"id\":\"0IPA2YfNGY\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"New\",\"col\":3}},{\"id\":\"ezKKwcjGYU\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"All\",\"col\":4}},{\"id\":\"emKVSJlTC1\",\"type\":\"quick_list\",\"data\":{\"quick_list_name\":\"Drafts\",\"col\":4}},{\"id\":\"gCcmT5bgQz\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"aqvOIjHuf8\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Administration</b></span>\",\"col\":12}},{\"id\":\"Iui8taZXli\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Create Freelancer\",\"col\":3}},{\"id\":\"vId2TYe1ta\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Freelancer (User)\",\"col\":3}}]",
  "creation": "2025-07-08 11:24:58.123767",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,7 +12,7 @@
  "is_hidden": 0,
  "label": "Freelancer",
  "links": [],
- "modified": "2025-07-08 11:29:53.317379",
+ "modified": "2025-07-11 15:40:14.890552",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Freelancer",
@@ -35,6 +35,20 @@
  "roles": [],
  "sequence_id": 56.0,
  "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Create Freelancer",
+   "link_to": "Create Freelancer",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Freelancer (User)",
+   "type": "URL",
+   "url": "/app/user/view/report?role=Freelancer"
+  },
   {
    "color": "Grey",
    "doc_view": "New",
