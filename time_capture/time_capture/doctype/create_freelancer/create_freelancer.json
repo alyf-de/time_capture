@@ -15,7 +15,7 @@
    "fieldname": "description",
    "fieldtype": "HTML",
    "label": "Description",
-   "options": "<div class='alert alert-info'><p>This DocType is used to create new Users in the system, that are pre-configured as Freelancers.</p><p>Details:</p><ul><li>A new User account is automatically generated with the Freelancer role</li><li>All modules except Time Capture are blocked for this user</li></ul><p>After you completed the form, you can check the User in the <a href='/app/user'>User list</a>.</p></div>"
+   "options": "<div class='alert alert-info'><p>This DocType is used to create new Users in the system, that are pre-configured as Freelancers.</p><p>Details:</p><ul><li>A new User account is automatically generated with the Freelancer role</li><li>All modules except Time Capture are blocked for this user</li></ul><p>After you completed the form, you can check the User in the <a href='/app/user/view/report?role=Freelancer'>User list</a>.</p></div>"
   },
   {
    "fieldname": "email",
