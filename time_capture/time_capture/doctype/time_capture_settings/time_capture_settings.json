@@ -9,6 +9,7 @@
   "submit_timesheets_immediately",
   "column_break_cgao",
   "default_activity_type",
+  "default_freelancer_activity_type",
   "mandatory_breaks_section",
   "enforce_mandatory_breaks",
   "mandatory_breaks",
@@ -114,14 +115,22 @@
   {
    "fieldname": "column_break_jdyk",
    "fieldtype": "Column Break"
+  },
+  {
+   "description": "General Suggestion: Use an <b>Activity Type</b> with <i>Costing Rate</i> = 0, and assign the <b>Purchase Invoice</b> from the Freelancer to the respective projects.",
+   "fieldname": "default_freelancer_activity_type",
+   "fieldtype": "Link",
+   "label": "Default Freelancer Activity Type",
+   "options": "Activity Type",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-06-25 08:28:01.356106",
- "modified_by": "Administrator",
+ "modified": "2025-07-11 16:44:49.861712",
+ "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Time Capture Settings",
  "owner": "Administrator",
