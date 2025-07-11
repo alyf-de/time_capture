@@ -86,8 +86,8 @@ def create_timesheets(doc):
 			is_billable = frappe.db.get_value("Task", log.task, "custom_hourly_billed") == 1
 			billing_hours = hours if is_billable else 0
 
-			acitivity_type = _get_default_activity_type() if doc.doctype == "Time Capture" else None
-			costing_rate = 0 if doc.doctype == "Freelancer Time Capture" else _get_costing_rate(acitivity_type, doc.employee)
+			activity_type = _get_default_activity_type() if doc.doctype == "Time Capture" else None
+			costing_rate = 0 if doc.doctype == "Freelancer Time Capture" else _get_costing_rate(activity_type, doc.employee)
 
 			timesheet = frappe.get_doc(
 				{
@@ -97,7 +97,7 @@ def create_timesheets(doc):
 							"is_billable": is_billable,
 							"project": log.project,
 							"task": log.task,
-							"activity_type": acitivity_type,
+							"activity_type": activity_type,
 							"base_billing_rate": 0,
 							"base_costing_rate": costing_rate,
 							"costing_rate": costing_rate,
@@ -122,10 +122,10 @@ def create_timesheets(doc):
 			timesheet.submit()
 
 
-def _get_costing_rate(acitivity_type: str, employee: str):
+def _get_costing_rate(activity_type: str, employee: str):
 	return frappe.get_value(
 		"Activity Cost",
-		{"activity_type": acitivity_type, "employee": employee},
+		{"activity_type": activity_type, "employee": employee},
 		"costing_rate",
 	)
 
