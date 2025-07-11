@@ -2,6 +2,9 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Time Capture", {
+	setup: function (frm) {
+		set_task_query(frm);
+	},
 	refresh: function (frm) {
 		if (!frm.doc.employee && frappe.session.user && frappe.session.user !== "Administrator") {
 			set_default_employee(frm);

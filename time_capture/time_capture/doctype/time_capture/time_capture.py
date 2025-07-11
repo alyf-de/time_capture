@@ -244,3 +244,34 @@ def _create_time_capture(employee, date):
 		}
 	)
 	time_capture.insert()
+
+
+@frappe.whitelist()
+@frappe.validate_and_sanitize_search_inputs
+def task_query(doctype, txt, searchfield, start, page_len, filters):
+	tasks = frappe.get_list(
+		"Task",
+		fields=["name", "subject", "expected_time", "actual_time"],
+		filters=filters,
+		or_filters=[["name", "like", f"%{txt}%"], ["subject", "like", f"%{txt}%"]],
+		limit_start=start,
+		limit_page_length=page_len,
+		order_by="name asc",
+	)
+
+	results = []
+
+	for task in tasks:
+		expected = task.get("expected_time") or 0
+		actual = task.get("actual_time") or 0
+
+		if not expected:
+			budget_value = "-"
+		else:
+			budget_value = f"{expected - actual:.2f} h"
+
+		budget_display = _(f"Residual Budget: {budget_value}")
+		label = task.get("subject") or task.get("name")
+		results.append([task.get("name"), label, budget_display])
+
+	return results
