@@ -2,6 +2,9 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Time Capture", {
+	setup: function (frm) {
+		set_task_query(frm);
+	},
 	refresh: function (frm) {
 		if (!frm.doc.employee && frappe.session.user && frappe.session.user !== "Administrator") {
 			set_default_employee(frm);
@@ -27,6 +30,20 @@ frappe.ui.form.on("Time Capture Log", {
 	},
 	time_logs_remove: update_unallocated_time,
 });
+
+function set_task_query(frm) {
+	frm.fields_dict["time_logs"].grid.get_field("task").get_query = function (frm, cdt, cdn) {
+		const child = locals[cdt][cdn];
+		return {
+			query: "time_capture.time_capture.doctype.time_capture.time_capture.task_query",
+			filters: {
+				project: child.project,
+				status: ["!=", "Cancelled"],
+				custom_is_active: "Yes",
+			},
+		};
+	};
+}
 
 function set_is_of_legal_age(frm) {
 	if (frm.doc.employee && frm.doc.date) {
