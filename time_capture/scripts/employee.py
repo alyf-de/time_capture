@@ -8,7 +8,7 @@ def before_validate(doc, method):
 
 
 def validate_expected_working_hours(doc):
-	if not doc.date_of_joining == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
+	if not getdate(doc.date_of_joining) == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
 		frappe.throw(_("Date of Joining is not the same as the earliest date of Expected Working Hours."))
 
 
