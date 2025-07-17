@@ -40,6 +40,13 @@ def get_custom_fields():
 				"reqd": 1,
 				"options": "Employee Expected Working Hours",
 			},
+			{
+				"fieldname": "custom_update_attendances",
+				"fieldtype": "Button",
+				"label": _("Update Attendances"),
+				"insert_after": "expected_working_hours",
+				"description": _("Update all Attendances with Expected Working Hours table. Only for System Manager."),
+			},
 		],
 		"Task": [
 			{
