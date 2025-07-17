@@ -9,6 +9,7 @@ def get_custom_fields():
 				"fieldtype": "Float",
 				"insert_after": "working_hours",
 				"label": _("Expected Working Hours"),
+				"fetch_from": "",
 				"read_only": 1,
 				"default": "0",
 				"translatable": 0,

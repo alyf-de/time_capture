@@ -20,6 +20,7 @@ from time_capture.time_capture.time_capture_controller import (
 	validate_tasks_budget,
 	create_timesheets,
 )
+from time_capture.scripts.employee import get_expected_working_hours
 
 
 class TimeCapture(Document):
@@ -111,9 +112,7 @@ class TimeCapture(Document):
 			},
 		):
 			working_hours = self.working_time / 60 / 60
-			expected_working_hours = frappe.get_value(
-				"Employee", self.employee, "expected_daily_working_hours"
-			)
+			expected_working_hours = get_expected_working_hours(self.employee, self.date)
 			if expected_working_hours:
 				HALF_DAY = expected_working_hours / 2
 				OVERTIME_FACTOR = 1.15
