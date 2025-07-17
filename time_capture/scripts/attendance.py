@@ -43,11 +43,6 @@ def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
 	if doc.leave_type:
 		if frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory"):
 			return 0.0, 0.0, -expected_working_hours_full_day
-		elif doc.half_day:
-			working_hours = doc.working_hours or 0
-			expected_working_hours = expected_working_hours_full_day / 2
-			flexitime = working_hours - expected_working_hours
-			return working_hours, expected_working_hours, flexitime
 		else:
 			return 0.0, 0.0, 0.0
 
