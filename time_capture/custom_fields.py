@@ -45,7 +45,9 @@ def get_custom_fields():
 				"fieldtype": "Button",
 				"label": _("Update Attendances"),
 				"insert_after": "expected_working_hours",
-				"description": _("Update all Attendances with Expected Working Hours table. Only for System Manager."),
+				"description": _(
+					"Update all Attendances with Expected Working Hours table. Only for System Manager."
+				),
 			},
 		],
 		"Task": [
@@ -67,12 +69,12 @@ def get_custom_fields():
 				"read_only": 1,
 			},
 			{
-			"label": _("Freelancer Time Capture"),
-			"fieldname": "freelancer_time_capture",
-			"insert_after": "custom_time_capture",
-			"fieldtype": "Link",
-			"options": "Freelancer Time Capture",
-			"read_only": 1,
+				"label": _("Freelancer Time Capture"),
+				"fieldname": "freelancer_time_capture",
+				"insert_after": "custom_time_capture",
+				"fieldtype": "Link",
+				"options": "Freelancer Time Capture",
+				"read_only": 1,
 			},
 			{
 				"label": _("Freelancer User"),

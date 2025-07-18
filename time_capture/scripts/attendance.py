@@ -1,8 +1,8 @@
 import frappe
 from frappe import _
 
-from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 from time_capture.scripts.employee import get_expected_working_hours
+from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
 def before_insert(doc, event):
@@ -20,9 +20,7 @@ def on_cancel(doc, event):
 
 
 def set_attendance_metrics(doc):
-	working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(
-		doc
-	)
+	working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(doc)
 	doc.working_hours = working_hours or 0
 	doc.expected_working_hours = expected_working_hours or 0
 	doc.flexitime = flexitime or 0
@@ -33,9 +31,9 @@ def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
 	Calculates actual working hours, expected working hours, and flexitime
 	based on the attendance document. Also sets the attendance status.
 	Args:
-		doc (frappe.model.document.Document): The attendance document.
+	        doc (frappe.model.document.Document): The attendance document.
 	Returns:
-		tuple: (actual_working_hours, expected_working_hours, flexitime)
+	        tuple: (actual_working_hours, expected_working_hours, flexitime)
 	"""
 	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date)
 

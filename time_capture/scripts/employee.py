@@ -27,6 +27,7 @@ def get_expected_working_hours(employee_id, date):
 @frappe.whitelist()
 def update_attendances_with_expected_working_hours(employee_id):
 	from time_capture.scripts.attendance import _calculate_attendance_metrics
+
 	if "System Manager" not in frappe.get_roles():
 		frappe.throw(_("Only System Manager are allowed to update Attendances with Expected Working Hours."))
 
@@ -37,10 +38,16 @@ def update_attendances_with_expected_working_hours(employee_id):
 	)
 	for attendance_id in attendances_to_update:
 		doc = frappe.get_doc("Attendance", attendance_id)
-		working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(doc, update_from_employee=True)
-		frappe.db.set_value("Attendance", doc.name, {
-			"working_hours": working_hours,
-			"expected_working_hours": expected_working_hours,
-			"flexitime": flexitime,
-		})
+		working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(
+			doc, update_from_employee=True
+		)
+		frappe.db.set_value(
+			"Attendance",
+			doc.name,
+			{
+				"working_hours": working_hours,
+				"expected_working_hours": expected_working_hours,
+				"flexitime": flexitime,
+			},
+		)
 	frappe.msgprint(_("{0} Attendances updated successfully.").format(len(attendances_to_update)))
