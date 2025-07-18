@@ -1,12 +1,12 @@
 import frappe
 from frappe import _
 
-from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 from time_capture.scripts.employee import get_expected_working_hours
+from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
 def before_insert(doc, event):
-	set_flexitime_for_compensatory_leave(doc)
+	set_attendance_metrics(doc)
 
 
 def on_submit(doc, event):
@@ -19,10 +19,43 @@ def on_cancel(doc, event):
 	_create_time_capture(employee, doc.attendance_date)
 
 
-def set_flexitime_for_compensatory_leave(doc):
-	if not doc.leave_type or frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory") != 1:
-		return
-	doc.flexitime = -get_expected_working_hours(doc.employee, doc.attendance_date)
+def set_attendance_metrics(doc):
+	working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(doc)
+	doc.working_hours = working_hours or 0
+	doc.expected_working_hours = expected_working_hours or 0
+	doc.flexitime = flexitime or 0
+
+
+def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
+	"""
+	Calculates actual working hours, expected working hours, and flexitime
+	based on the attendance document. Also sets the attendance status.
+	Args:
+	        doc (frappe.model.document.Document): The attendance document.
+	Returns:
+	        tuple: (actual_working_hours, expected_working_hours, flexitime)
+	"""
+	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date)
+
+	# Handle Leaves
+	if doc.leave_type:
+		if frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory"):
+			return 0.0, 0.0, -expected_working_hours_full_day
+		else:
+			return 0.0, 0.0, 0.0
+
+	if expected_working_hours_full_day and not update_from_employee:
+		HALF_DAY = expected_working_hours_full_day / 2
+		OVERTIME_FACTOR = 1.15
+		MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR * 60 * 60
+		doc.status = "Present" if doc.working_hours > MAX_HALF_DAY else "Half Day"
+
+	# Normal Working Day
+	return (
+		doc.working_hours,
+		expected_working_hours_full_day,
+		doc.working_hours - expected_working_hours_full_day,
+	)
 
 
 def delete_time_capture(doc):

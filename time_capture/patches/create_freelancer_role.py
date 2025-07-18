@@ -3,7 +3,9 @@ import frappe
 
 def execute():
 	if frappe.db.exists("Role", "Freelancer"):
-		print("Role 'Freelancer' already exists, skipping creation. Please, adjust the roles + permissions manually if needed.")
+		print(
+			"Role 'Freelancer' already exists, skipping creation. Please, adjust the roles + permissions manually if needed."
+		)
 		return
 	_create_freelancer_role()
 	_add_custom_docperm_for_freelancer_role()

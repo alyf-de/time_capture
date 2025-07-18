@@ -13,14 +13,13 @@ from frappe.utils import time_diff_in_seconds
 from frappe.utils.data import getdate
 
 from time_capture.time_capture.time_capture_controller import (
-	avoid_duplicate_entries,
 	assure_duration_format,
-	validate_time_log_description,
+	avoid_duplicate_entries,
+	create_timesheets,
 	validate_task_project,
 	validate_tasks_budget,
-	create_timesheets,
+	validate_time_log_description,
 )
-from time_capture.scripts.employee import get_expected_working_hours
 
 
 class TimeCapture(Document):
@@ -112,22 +111,14 @@ class TimeCapture(Document):
 			},
 		):
 			working_hours = self.working_time / 60 / 60
-			expected_working_hours = get_expected_working_hours(self.employee, self.date)
-			if expected_working_hours:
-				HALF_DAY = expected_working_hours / 2
-				OVERTIME_FACTOR = 1.15
-				MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR * 60 * 60
 
 			attendance = frappe.get_doc(
 				{
 					"doctype": "Attendance",
 					"employee": self.employee,
-					"status": "Present" if self.working_time > MAX_HALF_DAY else "Half Day",
 					"attendance_date": self.date,
 					"custom_time_capture": self.name,
 					"working_hours": working_hours,
-					"expected_working_hours": expected_working_hours,
-					"flexitime": working_hours - expected_working_hours,
 				}
 			)
 			attendance.flags.ignore_permissions = True
