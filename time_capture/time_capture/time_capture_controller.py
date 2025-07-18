@@ -1,6 +1,6 @@
 import math
-import frappe
 
+import frappe
 from frappe import _
 
 FIVE_MINUTES = 5 * 60

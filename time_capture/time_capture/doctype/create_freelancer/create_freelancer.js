@@ -5,7 +5,7 @@ frappe.ui.form.on("Create Freelancer", {
 	refresh(frm) {
 		frm.disable_save();
 
-		frm.add_custom_button(__("Create Freelancer User"), function() {
+		frm.add_custom_button(__("Create Freelancer User"), function () {
 			const email = frm.doc.email;
 			const first_name = frm.doc.first_name;
 			const last_name = frm.doc.last_name;
@@ -24,7 +24,7 @@ frappe.ui.form.on("Create Freelancer", {
 					first_name: first_name,
 					last_name: last_name,
 				},
-				callback: function(r) {
+				callback: function (r) {
 					frappe.hide_progress();
 					if (r.exc) {
 						frappe.msgprint(r.exc[0], "Error");
@@ -36,7 +36,7 @@ frappe.ui.form.on("Create Freelancer", {
 						frm.set_value("description", "");
 						frm.save();
 					}
-				}
+				},
 			});
 		});
 	},

@@ -2,9 +2,9 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.document import Document
-from frappe import _
 import frappe.permissions
+from frappe import _
+from frappe.model.document import Document
 
 
 class CreateFreelancer(Document):
@@ -46,7 +46,7 @@ def create_user_permission(user_name: str):
 			doctype="User", name=user_name, user=user_name, applicable_for="User"
 		)
 	except Exception as e:
-		frappe.log_error(f"Error creating User Permission for {user_name}: {str(e)}")
+		frappe.log_error(f"Error creating User Permission for {user_name}: {e!s}")
 
 
 def block_all_modules_except_time_capture(user: Document):
@@ -59,4 +59,4 @@ def block_all_modules_except_time_capture(user: Document):
 				user.append("block_modules", {"module": module.name})
 
 	except Exception as e:
-		frappe.log_error(f"Error blocking modules for user {user.name}: {str(e)}")
+		frappe.log_error(f"Error blocking modules for user {user.name}: {e!s}")

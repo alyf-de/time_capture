@@ -2,16 +2,16 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.document import Document
 from frappe import _
+from frappe.model.document import Document
 
 from time_capture.time_capture.time_capture_controller import (
-	avoid_duplicate_entries,
 	assure_duration_format,
-	validate_time_log_description,
+	avoid_duplicate_entries,
+	create_timesheets,
 	validate_task_project,
 	validate_tasks_budget,
-	create_timesheets,
+	validate_time_log_description,
 )
 
 
@@ -28,8 +28,10 @@ class FreelancerTimeCapture(Document):
 		create_timesheets(self)
 
 	def validate_user(self):
-		if not "Freelancer" in frappe.get_roles(self.user):
+		if "Freelancer" not in frappe.get_roles(self.user):
 			frappe.throw(
-				_("Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."),
+				_(
+					"Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."
+				),
 				title=_("User is not a Freelancer"),
 			)
