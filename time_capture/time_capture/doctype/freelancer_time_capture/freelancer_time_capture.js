@@ -20,7 +20,6 @@ function set_task_query(frm) {
 			filters: {
 				project: child.project,
 				status: ["!=", "Cancelled"],
-				custom_is_active: "Yes",
 			},
 		};
 	};
