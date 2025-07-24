@@ -52,6 +52,15 @@ def get_custom_fields():
 		],
 		"Task": [
 			{
+				"fieldname": "custom_is_active",
+				"label": "Is Active",
+				"insert_after": "subject",
+				"fieldtype": "Select",
+				"options": "Yes\nNo",
+				"default": "Yes",
+				"translatable": 1,
+			},
+			{
 				"fieldname": "custom_hourly_billed",
 				"label": "Hourly Billed",
 				"insert_after": "color",
