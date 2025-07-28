@@ -102,6 +102,10 @@ class TimeCapture(Document):
 		)
 
 	def create_attendance(self):
+		"""
+		Create Attendance if it doesn't exist.
+		Update Attendance if it exists (For example if 'Absent' Attendance or sickday Atttendance was created before).
+		"""
 		filters = {
 			"employee": self.employee,
 			"attendance_date": self.date,
