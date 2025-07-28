@@ -158,6 +158,7 @@ scheduler_events = {
 	# 	],
 	"daily": [
 		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
+		"time_capture.scripts.attendance.create_absent_attendance_for_draft_time_captures",
 	],
 	# 	"hourly": [
 	# 		"time_capture.tasks.hourly"

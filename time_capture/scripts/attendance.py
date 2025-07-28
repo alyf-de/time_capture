@@ -98,3 +98,41 @@ def delete_time_capture(doc):
 			reference_doctype=doc.doctype,
 			reference_name=doc.name,
 		)
+
+
+def create_absent_attendance_for_draft_time_captures():
+	"""
+	Create Absent Attendances for Time Captures that are in draft state and have a date in the past.
+	"""
+	time_captures = frappe.db.get_all(
+		"Time Capture",
+		filters={"docstatus": 0, "date": ("<", frappe.utils.nowdate())},
+		fields=["employee", "date", "name"],
+	)
+	for time_capture in time_captures:
+		try:
+			if not frappe.db.exists(
+				"Attendance",
+				{
+					"docstatus": ("!=", 2),
+					"employee": time_capture.employee,
+					"attendance_date": time_capture.date,
+				},
+			):
+				frappe.get_doc(
+					{
+						"doctype": "Attendance",
+						"employee": time_capture.employee,
+						"attendance_date": time_capture.date,
+						"custom_time_capture": time_capture.name,
+						"status": "Absent",
+						"working_hours": 0,
+					}
+				).insert().submit()
+		except Exception:
+			frappe.log_error(
+				title=_("Error creating Attendance"),
+				message=frappe.get_traceback(),
+				reference_doctype="Time Capture",
+				reference_name=time_capture.name,
+			)
