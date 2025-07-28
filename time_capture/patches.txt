@@ -4,7 +4,7 @@
 
 [post_model_sync]
 execute:from time_capture.install import _make_custom_fields;_make_custom_fields() # 2025-07-28 #2
-execute:from time_capture.install import _make_property_setters;_make_property_setters() # 2025-07-28
+execute:from time_capture.install import _make_property_setters;_make_property_setters() # 2025-07-28 #2
 time_capture.patches.move_expected_working_time_to_child_table
 time_capture.patches.create_freelancer_role #7
 time_capture.patches.create_absent_attendances_for_drafts
