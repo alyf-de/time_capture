@@ -31,6 +31,7 @@ def get_custom_fields():
 				"fieldtype": "Link",
 				"options": "Time Capture",
 				"read_only": 1,
+				"allow_on_submit": 1,
 			},
 		],
 		"Employee": [

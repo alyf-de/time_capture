@@ -102,14 +102,13 @@ class TimeCapture(Document):
 		)
 
 	def create_attendance(self):
-		if not frappe.db.exists(
-			"Attendance",
-			{
-				"employee": self.employee,
-				"attendance_date": self.date,
-				"docstatus": ("!=", 2),
-			},
-		):
+		filters = {
+			"employee": self.employee,
+			"attendance_date": self.date,
+			"docstatus": ("!=", 2),
+		}
+
+		if not frappe.db.exists("Attendance", filters):
 			working_hours = self.working_time / 60 / 60
 
 			attendance = frappe.get_doc(
@@ -124,6 +123,11 @@ class TimeCapture(Document):
 			attendance.flags.ignore_permissions = True
 			attendance.save()
 			attendance.submit()
+		else:
+			attendance = frappe.get_doc("Attendance", filters)
+			attendance.working_hours = self.working_time / 60 / 60
+			attendance.custom_time_capture = self.name
+			attendance.save()
 
 
 @frappe.whitelist()
