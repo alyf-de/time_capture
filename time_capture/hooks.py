@@ -141,6 +141,7 @@ doc_events = {
 	"Attendance": {
 		"before_insert": "time_capture.scripts.attendance.before_insert",
 		"on_submit": "time_capture.scripts.attendance.on_submit",
+		"before_update_after_submit": "time_capture.scripts.attendance.before_update_after_submit",
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {

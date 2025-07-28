@@ -21,6 +21,8 @@ def get_custom_fields():
 				"fieldtype": "Float",
 				"read_only": 1,
 				"default": "0",
+				"precision": "2",
+				"allow_on_submit": 1,
 			},
 			{
 				"label": _("Time Capture"),

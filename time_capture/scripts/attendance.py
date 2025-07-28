@@ -14,6 +14,11 @@ def on_submit(doc, event):
 		delete_time_capture(doc)
 
 
+def before_update_after_submit(doc, event):
+	if doc.has_value_changed("working_hours"):
+		doc.flexitime = doc.working_hours - doc.expected_working_hours
+
+
 def on_cancel(doc, event):
 	employee = frappe.get_doc("Employee", doc.employee)
 	_create_time_capture(employee, doc.attendance_date)
