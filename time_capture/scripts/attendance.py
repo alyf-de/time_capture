@@ -47,7 +47,7 @@ def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
 	if expected_working_hours_full_day and not update_from_employee:
 		HALF_DAY = expected_working_hours_full_day / 2
 		OVERTIME_FACTOR = 1.15
-		MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR * 60 * 60
+		MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR
 		doc.status = "Present" if doc.working_hours > MAX_HALF_DAY else "Half Day"
 
 	# Normal Working Day
