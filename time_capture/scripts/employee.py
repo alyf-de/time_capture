@@ -4,8 +4,6 @@ from frappe.utils import getdate
 from frappe.utils.data import today
 from hrms.hr.utils import get_leave_period
 
-from datetime import date
-
 
 def validate(doc, method=None):
 	if doc.is_new():
@@ -30,17 +28,19 @@ def validate_expected_working_hours(doc):
 
 
 def create_leave_policy_assignment(doc):
-	year = getdate(doc.creation).year
 	leave_period = get_leave_period(today(), today(), doc.company)
 
-	leave_policy_assignment = frappe.new_doc("Leave Policy Assignment")
-	leave_policy_assignment.employee = doc.employee
-	leave_policy_assignment.employee_name = doc.employee_name
-	leave_policy_assignment.leave_policy = doc.leave_policy
-	leave_policy_assignment.effective_from = today()
-	leave_policy_assignment.effective_to = date(year, 12, 31)
-	leave_policy_assignment.assignment_based_on = "Leave Period"
-	leave_policy_assignment.leave_period = leave_period[0].name
+	leave_policy_assignment = frappe.get_doc(
+		{
+			"doctype": "Leave Policy Assignment",
+			"employee": doc.employee,
+			"employee_name": doc.employee_name,
+			"leave_policy": doc.leave_policy,
+			"leave_period": leave_period[0].name,
+			"assignment_based_on": "Leave Period",
+			"is_active": 1,
+		},
+	)
 	leave_policy_assignment.insert()
 	leave_policy_assignment.submit()
 
