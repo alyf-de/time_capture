@@ -49,6 +49,14 @@ def get_custom_fields():
 					"Update all Attendances with Expected Working Hours table. Only for System Manager."
 				),
 			},
+			{
+				"label": _("Leave Policy"),
+				"fieldname": "leave_policy",
+				"insert_after": "holiday_list",
+				"fieldtype": "Link",
+				"options": "Leave Policy",
+				"reqd": 1,
+			},
 		],
 		"Task": [
 			{

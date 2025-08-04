@@ -9,8 +9,7 @@ import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import time_diff_in_seconds
-from frappe.utils.data import getdate
+from frappe.utils import getdate, time_diff_in_seconds
 
 from time_capture.time_capture.time_capture_controller import (
 	assure_duration_format,

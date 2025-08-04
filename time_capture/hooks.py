@@ -145,6 +145,7 @@ doc_events = {
 	},
 	"Employee": {
 		"before_validate": "time_capture.scripts.employee.before_validate",
+		"validate": "time_capture.scripts.employee.validate",
 	},
 }
 
