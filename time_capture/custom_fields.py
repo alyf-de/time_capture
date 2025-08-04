@@ -52,7 +52,7 @@ def get_custom_fields():
 			{
 				"label": _("Leave Policy"),
 				"fieldname": "leave_policy",
-				"insert_after": "expected_daily_working_hours",
+				"insert_after": "holiday_list",
 				"fieldtype": "Link",
 				"options": "Leave Policy",
 				"reqd": 1,
