@@ -26,7 +26,7 @@ required_apps = ["erpnext", "hrms"]
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/time_capture/css/time_capture.css"
-# app_include_js = "/assets/time_capture/js/time_capture.js"
+# app_include_js = "/assets/time_capture/js/time_capture_utils.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/time_capture/css/time_capture.css"
@@ -43,7 +43,7 @@ required_apps = ["erpnext", "hrms"]
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Employee": "public/js/employee.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -144,6 +144,7 @@ doc_events = {
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {
+		"before_validate": "time_capture.scripts.employee.before_validate",
 		"validate": "time_capture.scripts.employee.validate",
 	},
 }
