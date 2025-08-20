@@ -16,6 +16,11 @@
   "mandatory_breaks_minors",
   "notification_section",
   "enable_weekly_reminders",
+  "notification_frequency",
+  "notification_weekday",
+  "notification_day_of_the_month",
+  "notification_interval_in_days",
+  "last_notification_sent_on",
   "column_break_jdyk",
   "standard_email_recipient",
   "leaves_section",
@@ -107,10 +112,10 @@
   },
   {
    "default": "0",
-   "description": "If enabled, Employees with draft Time Captures are reminded weekly to submit these.",
+   "description": "If enabled, Employees with draft Time Captures are reminded to submit these.",
    "fieldname": "enable_weekly_reminders",
    "fieldtype": "Check",
-   "label": "Enable Weekly Reminders"
+   "label": "Enable Reminders"
   },
   {
    "fieldname": "column_break_jdyk",
@@ -123,14 +128,53 @@
    "label": "Default Freelancer Activity Type",
    "options": "Activity Type",
    "reqd": 1
+  },
+  {
+   "default": "Weekly",
+   "depends_on": "eval: doc.enable_weekly_reminders;",
+   "fieldname": "notification_frequency",
+   "fieldtype": "Select",
+   "label": "Notification Frequency",
+   "mandatory_depends_on": "eval: doc.enable_weekly_reminders;",
+   "options": "Daily\nWeekly\nMonthly\nEvery X Days"
+  },
+  {
+   "default": "Sunday",
+   "depends_on": "eval: doc.notification_frequency === \"Weekly\";",
+   "fieldname": "notification_weekday",
+   "fieldtype": "Select",
+   "label": "Notification Weekday",
+   "mandatory_depends_on": "eval: doc.notification_frequency === \"Weekly\";",
+   "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+  },
+  {
+   "depends_on": "eval: doc.notification_frequency === \"Monthly\";",
+   "description": "Choose a regular (from 1 to 28) for monthly notifications. If empty, the last day of the month will be used.",
+   "fieldname": "notification_day_of_the_month",
+   "fieldtype": "Int",
+   "label": "Notification Day of The Month"
+  },
+  {
+   "fieldname": "last_notification_sent_on",
+   "fieldtype": "Date",
+   "label": "Last Notification (Sent On)",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.notification_frequency === \"Every X Days\";",
+   "description": "Example: If you set this field to '3', the system sends Notifications every 3 days.",
+   "fieldname": "notification_interval_in_days",
+   "fieldtype": "Int",
+   "label": "Notification Interval (in Days)",
+   "mandatory_depends_on": "eval: doc.notification_frequency === \"Every X Days\";"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-07-11 16:44:49.861712",
- "modified_by": "patrick@alyf.de",
+ "modified": "2025-08-20 18:06:07.938711",
+ "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
  "owner": "Administrator",
