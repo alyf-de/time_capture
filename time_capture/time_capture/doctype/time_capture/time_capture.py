@@ -9,8 +9,7 @@ import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import time_diff_in_seconds
-from frappe.utils.data import getdate
+from frappe.utils import get_last_day, getdate, time_diff_in_seconds
 
 from time_capture.time_capture.time_capture_controller import (
 	assure_duration_format,
@@ -161,17 +160,24 @@ def create_time_captures_daily():
 		_create_time_capture(employee, today)
 
 
-def send_weekly_time_capture_reminders():
-	if not frappe.db.get_single_value("Time Capture Settings", "enable_weekly_reminders"):
+def send_reminders_for_unsubmitted_time_captures():
+	settings = frappe.get_single("Time Capture Settings")
+	if not settings.enable_weekly_reminders or not _send_reminders_today(settings):
 		return
 
+	# Calculate the cutoff date based on minimum draft age setting
 	today = getdate()
-	TC = frappe.qb.DocType("Time Capture")
+	minimum_draft_age_days = settings.minimum_draft_age_days or 0
+	minimum_draft_age_days = max(
+		minimum_draft_age_days, 0
+	)  # just in case someone set it to a negative number
+	cutoff_date = frappe.utils.add_days(today, -minimum_draft_age_days)
 
+	TC = frappe.qb.DocType("Time Capture")
 	time_captures = (
 		frappe.qb.from_(TC)
 		.select(TC.name, TC.employee, TC.employee_name, TC.date)
-		.where((TC.docstatus == 0) & (TC.date <= today))
+		.where((TC.docstatus == 0) & (TC.date <= cutoff_date))
 		.orderby(TC.employee, TC.date)
 		.run(as_dict=True)
 	)
@@ -199,6 +205,44 @@ def send_weekly_time_capture_reminders():
 			message=message,
 			now=True,
 		)
+	frappe.db.set_value("Time Capture Settings", "last_notification_sent_on", today)
+
+
+def _send_reminders_today(settings):
+	"""
+	This functions checks if the settings are set to send reminders today.
+	It returns boolean.
+	"""
+	today = frappe.utils.getdate()
+	if settings.notification_frequency == "Daily":
+		return True
+
+	if settings.notification_frequency == "Weekly":
+		# Validate that today is the day of the week specified in the settings
+		weekday_names = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+		today_weekday = weekday_names[today.weekday()]
+		return today_weekday == settings.notification_weekday
+
+	if settings.notification_frequency == "Monthly":
+		# Validate that the day of the month is the one defined in notification_day_of_the_month
+		# If there is no such integer, then use the last day of the month
+		if settings.notification_day_of_the_month:
+			return today.day == settings.notification_day_of_the_month
+		else:
+			# Use the last day of the month
+			last_day_of_month = get_last_day(today).day
+			return today.day == last_day_of_month
+
+	if settings.notification_frequency == "Every X Days":
+		# If the last_notification_sent_on is smaller or same as today - settings.notification_interval_in_days, then return True
+		if not settings.last_notification_sent_on:
+			return True
+
+		last_sent = frappe.utils.getdate(settings.last_notification_sent_on)
+		days_since_last = frappe.utils.date_diff(today, last_sent)
+		return days_since_last >= settings.notification_interval_in_days
+
+	return False
 
 
 def _get_active_employees():

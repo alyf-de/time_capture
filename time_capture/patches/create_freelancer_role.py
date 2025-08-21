@@ -32,6 +32,8 @@ def _add_custom_docperm_for_freelancer_role():
 	task_docperm.role = "Freelancer"
 	task_docperm.parent = "Task"
 	task_docperm.select = 1
+	task_docperm.read = 0
+	task_docperm.export = 0
 	task_docperm.save()
 
 	timesheet_docperm = frappe.new_doc("Custom DocPerm")

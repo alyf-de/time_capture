@@ -3,6 +3,7 @@
 
 frappe.ui.form.on("Freelancer Time Capture", {
 	setup: function (frm) {
+		set_project_query(frm);
 		set_task_query(frm);
 	},
 	refresh(frm) {
@@ -12,6 +13,17 @@ frappe.ui.form.on("Freelancer Time Capture", {
 	},
 });
 
+function set_project_query(frm) {
+	frm.fields_dict["time_logs"].grid.get_field("project").get_query = function (frm, cdt, cdn) {
+		return {
+			filters: {
+				status: "Open",
+				is_active: "Yes",
+			},
+		};
+	};
+}
+
 function set_task_query(frm) {
 	frm.fields_dict["time_logs"].grid.get_field("task").get_query = function (frm, cdt, cdn) {
 		const child = locals[cdt][cdn];
@@ -20,6 +32,7 @@ function set_task_query(frm) {
 			filters: {
 				project: child.project,
 				status: ["!=", "Cancelled"],
+				custom_is_active: "Yes",
 			},
 		};
 	};

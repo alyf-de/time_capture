@@ -146,6 +146,7 @@ doc_events = {
 	},
 	"Employee": {
 		"before_validate": "time_capture.scripts.employee.before_validate",
+		"validate": "time_capture.scripts.employee.validate",
 	},
 }
 
@@ -159,13 +160,11 @@ scheduler_events = {
 	"daily": [
 		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
 		"time_capture.scripts.attendance.create_absent_attendance_for_draft_time_captures",
+		"time_capture.time_capture.doctype.time_capture.time_capture.send_reminders_for_unsubmitted_time_captures",
 	],
 	# 	"hourly": [
 	# 		"time_capture.tasks.hourly"
 	# 	],
-	"weekly": [
-		"time_capture.time_capture.doctype.time_capture.time_capture.send_weekly_time_capture_reminders"
-	],
 	# 	"monthly": [
 	# 		"time_capture.tasks.monthly"
 	# 	],

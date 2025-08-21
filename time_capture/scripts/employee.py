@@ -1,6 +1,21 @@
 import frappe
 from frappe import _
 from frappe.utils import getdate
+from frappe.utils.data import today
+from hrms.hr.utils import get_leave_period
+
+
+def validate(doc, method=None):
+	if doc.is_new():
+		create_leave_policy_assignment(doc)
+	elif not doc.is_new() and doc.has_value_changed("leave_policy"):
+		frappe.msgprint(
+			_(
+				"Leave Policy has been changed. Note, that this will not update existing Leave Allocations or create/update future Leave Allocations."
+			)
+		)
+		# A new feature is planned, that will regularly create new Leave Allocations for new periods.
+		# TODO: Update this message when the feature is implemented.
 
 
 def before_validate(doc, method):
@@ -10,6 +25,27 @@ def before_validate(doc, method):
 def validate_expected_working_hours(doc):
 	if not getdate(doc.date_of_joining) == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
 		frappe.throw(_("Date of Joining is not the same as the earliest date of Expected Working Hours."))
+
+
+def create_leave_policy_assignment(doc):
+	try:
+		leave_period = get_leave_period(today(), today(), doc.company)
+
+		leave_policy_assignment = frappe.get_doc(
+			{
+				"doctype": "Leave Policy Assignment",
+				"employee": doc.employee,
+				"employee_name": doc.employee_name,
+				"leave_policy": doc.leave_policy,
+				"leave_period": leave_period[0].name,
+				"assignment_based_on": "Leave Period",
+				"is_active": 1,
+			},
+		)
+		leave_policy_assignment.insert()
+		leave_policy_assignment.submit()
+	except Exception as e:
+		frappe.log_error(title=_("Creation of Leave Policy Assignment"), message=e)
 
 
 def get_expected_working_hours(employee_id, date):
