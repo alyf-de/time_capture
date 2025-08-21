@@ -160,13 +160,17 @@ def send_reminders_for_unsubmitted_time_captures():
 	):
 		return
 
+	# Calculate the cutoff date based on minimum draft age setting
 	today = getdate()
-	TC = frappe.qb.DocType("Time Capture")
+	minimum_draft_age_days = settings.minimum_draft_age_days or 0
+	minimum_draft_age_days = max(minimum_draft_age_days, 0)  # just in case someone set it to a negative number
+	cutoff_date = frappe.utils.add_days(today, -minimum_draft_age_days)
 
+	TC = frappe.qb.DocType("Time Capture")
 	time_captures = (
 		frappe.qb.from_(TC)
 		.select(TC.name, TC.employee, TC.employee_name, TC.date)
-		.where((TC.docstatus == 0) & (TC.date <= today))
+		.where((TC.docstatus == 0) & (TC.date <= cutoff_date))
 		.orderby(TC.employee, TC.date)
 		.run(as_dict=True)
 	)

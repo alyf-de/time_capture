@@ -20,6 +20,7 @@
   "notification_weekday",
   "notification_day_of_the_month",
   "notification_interval_in_days",
+  "minimum_draft_age_days",
   "last_notification_sent_on",
   "column_break_jdyk",
   "standard_email_recipient",
@@ -167,13 +168,23 @@
    "fieldtype": "Int",
    "label": "Notification Interval (in Days)",
    "mandatory_depends_on": "eval: doc.notification_frequency === \"Every X Days\";"
+  },
+  {
+   "default": "0",
+   "depends_on": "enable_weekly_reminders",
+   "description": "Only send reminders for draft Time Captures that are older than this number of days. Set to 0 to include all drafts regardless of age.",
+   "fieldname": "minimum_draft_age_days",
+   "fieldtype": "Int",
+   "label": "Minimum Draft Age (Days)",
+   "depends_on": "eval: doc.enable_weekly_reminders;",
+   "mandatory_depends_on": "eval: doc.enable_weekly_reminders;"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-08-20 18:06:07.938711",
+ "modified": "2025-08-21 08:59:00.000000",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
