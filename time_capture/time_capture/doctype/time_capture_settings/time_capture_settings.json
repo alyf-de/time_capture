@@ -176,7 +176,6 @@
    "fieldname": "minimum_draft_age_days",
    "fieldtype": "Int",
    "label": "Minimum Draft Age (Days)",
-   "depends_on": "eval: doc.enable_weekly_reminders;",
    "mandatory_depends_on": "eval: doc.enable_weekly_reminders;"
   }
  ],
