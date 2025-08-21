@@ -9,7 +9,7 @@ import frappe
 from erpnext.setup.doctype.holiday_list.holiday_list import is_holiday
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import getdate, time_diff_in_seconds, get_last_day
+from frappe.utils import get_last_day, getdate, time_diff_in_seconds
 
 from time_capture.time_capture.time_capture_controller import (
 	assure_duration_format,
@@ -154,19 +154,22 @@ def create_time_captures_daily():
 
 def send_reminders_for_unsubmitted_time_captures():
 	settings = frappe.get_single("Time Capture Settings")
-	if (
-		not settings.enable_weekly_reminders
-		or not _send_reminders_today(settings)
-	):
+	if not settings.enable_weekly_reminders or not _send_reminders_today(settings):
 		return
 
+	# Calculate the cutoff date based on minimum draft age setting
 	today = getdate()
-	TC = frappe.qb.DocType("Time Capture")
+	minimum_draft_age_days = settings.minimum_draft_age_days or 0
+	minimum_draft_age_days = max(
+		minimum_draft_age_days, 0
+	)  # just in case someone set it to a negative number
+	cutoff_date = frappe.utils.add_days(today, -minimum_draft_age_days)
 
+	TC = frappe.qb.DocType("Time Capture")
 	time_captures = (
 		frappe.qb.from_(TC)
 		.select(TC.name, TC.employee, TC.employee_name, TC.date)
-		.where((TC.docstatus == 0) & (TC.date <= today))
+		.where((TC.docstatus == 0) & (TC.date <= cutoff_date))
 		.orderby(TC.employee, TC.date)
 		.run(as_dict=True)
 	)
