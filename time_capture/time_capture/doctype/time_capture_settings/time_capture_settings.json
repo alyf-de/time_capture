@@ -172,7 +172,7 @@
   {
    "default": "0",
    "depends_on": "enable_weekly_reminders",
-   "description": "Only send reminders for draft Time Captures that are older than this number of days. Set to 0 to include all drafts regardless of age.",
+   "description": "Only send reminders for draft Time Captures that are older than this number of days. Set to 0 to include all drafts regardless of date.",
    "fieldname": "minimum_draft_age_days",
    "fieldtype": "Int",
    "label": "Minimum Draft Age (Days)",
