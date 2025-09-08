@@ -238,9 +238,10 @@ def _send_reminders_today(settings):
 
 
 def _get_active_employees():
+	today = frappe.utils.today()
 	return frappe.get_all(
 		"Employee",
-		filters={"status": "Active"},
+		filters={"status": "Active", "date_of_joining": ("<=", today)},
 		fields=["name", "holiday_list"],
 	)
 
