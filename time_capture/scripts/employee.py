@@ -28,24 +28,20 @@ def validate_expected_working_hours(doc):
 
 
 def create_leave_policy_assignment(doc):
-	try:
-		leave_period = get_leave_period(today(), today(), doc.company)
-
-		leave_policy_assignment = frappe.get_doc(
-			{
-				"doctype": "Leave Policy Assignment",
-				"employee": doc.employee,
-				"employee_name": doc.employee_name,
-				"leave_policy": doc.leave_policy,
-				"leave_period": leave_period[0].name,
-				"assignment_based_on": "Leave Period",
-				"is_active": 1,
-			},
-		)
-		leave_policy_assignment.insert()
-		leave_policy_assignment.submit()
-	except Exception as e:
-		frappe.log_error(title=_("Creation of Leave Policy Assignment"), message=e)
+	leave_period = get_leave_period(today(), today(), doc.company)
+	leave_policy_assignment = frappe.get_doc(
+		{
+			"doctype": "Leave Policy Assignment",
+			"employee": doc.employee,
+			"employee_name": doc.employee_name,
+			"leave_policy": doc.leave_policy,
+			"leave_period": leave_period[0].name,
+			"assignment_based_on": "Leave Period",
+			"is_active": 1,
+		},
+	)
+	leave_policy_assignment.insert()
+	leave_policy_assignment.submit()
 
 
 def get_expected_working_hours(employee_id, date):
