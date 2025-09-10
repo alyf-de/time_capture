@@ -14,3 +14,9 @@ def execute():
 				field,
 				expected_working_hours.expected_daily_working_hours,
 			)
+		frappe.db.set_value(
+			"Employee Expected Working Hours",
+			expected_working_hours.name,
+			"weekly_working_hours",
+			expected_working_hours.expected_daily_working_hours * 5,
+		)
