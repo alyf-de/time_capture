@@ -141,6 +141,7 @@ doc_events = {
 	"Attendance": {
 		"before_insert": "time_capture.scripts.attendance.before_insert",
 		"on_submit": "time_capture.scripts.attendance.on_submit",
+		"before_update_after_submit": "time_capture.scripts.attendance.before_update_after_submit",
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},
 	"Employee": {
@@ -158,6 +159,7 @@ scheduler_events = {
 	# 	],
 	"daily": [
 		"time_capture.time_capture.doctype.time_capture.time_capture.create_time_captures_daily",
+		"time_capture.scripts.attendance.create_absent_attendance_for_draft_time_captures",
 		"time_capture.time_capture.doctype.time_capture.time_capture.send_reminders_for_unsubmitted_time_captures",
 	],
 	# 	"hourly": [

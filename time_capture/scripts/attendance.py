@@ -14,6 +14,13 @@ def on_submit(doc, event):
 		delete_time_capture(doc)
 
 
+def before_update_after_submit(doc, event):
+	if doc.has_value_changed("working_hours"):
+		doc.flexitime = doc.working_hours - doc.expected_working_hours
+		if not doc.leave_type:
+			doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
+
+
 def on_cancel(doc, event):
 	employee = frappe.get_doc("Employee", doc.employee)
 	_create_time_capture(employee, doc.attendance_date)
@@ -45,10 +52,7 @@ def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
 			return 0.0, 0.0, 0.0
 
 	if expected_working_hours_full_day and not update_from_employee:
-		HALF_DAY = expected_working_hours_full_day / 2
-		OVERTIME_FACTOR = 1.15
-		MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR
-		doc.status = "Present" if doc.working_hours > MAX_HALF_DAY else "Half Day"
+		doc.status = _get_attendance_status(expected_working_hours_full_day, doc.working_hours)
 
 	# Normal Working Day
 	return (
@@ -56,6 +60,16 @@ def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
 		expected_working_hours_full_day,
 		doc.working_hours - expected_working_hours_full_day,
 	)
+
+
+def _get_attendance_status(expected_working_hours_full_day: float, working_hours: float):
+	if working_hours == 0:
+		return "Absent"
+
+	HALF_DAY = expected_working_hours_full_day / 2
+	OVERTIME_FACTOR = 1.15
+	MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR
+	return "Present" if working_hours > MAX_HALF_DAY else "Half Day"
 
 
 def delete_time_capture(doc):
@@ -84,3 +98,41 @@ def delete_time_capture(doc):
 			reference_doctype=doc.doctype,
 			reference_name=doc.name,
 		)
+
+
+def create_absent_attendance_for_draft_time_captures():
+	"""
+	Create Absent Attendances for Time Captures that are in draft state and have a date in the past.
+	"""
+	time_captures = frappe.db.get_all(
+		"Time Capture",
+		filters={"docstatus": 0, "date": ("<", frappe.utils.nowdate())},
+		fields=["employee", "date", "name"],
+	)
+	for time_capture in time_captures:
+		try:
+			if not frappe.db.exists(
+				"Attendance",
+				{
+					"docstatus": ("!=", 2),
+					"employee": time_capture.employee,
+					"attendance_date": time_capture.date,
+				},
+			):
+				frappe.get_doc(
+					{
+						"doctype": "Attendance",
+						"employee": time_capture.employee,
+						"attendance_date": time_capture.date,
+						"custom_time_capture": time_capture.name,
+						"status": "Absent",
+						"working_hours": 0,
+					}
+				).insert().submit()
+		except Exception:
+			frappe.log_error(
+				title=_("Error creating Attendance"),
+				message=frappe.get_traceback(),
+				reference_doctype="Time Capture",
+				reference_name=time_capture.name,
+			)
