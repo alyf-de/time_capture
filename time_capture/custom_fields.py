@@ -36,9 +36,15 @@ def get_custom_fields():
 		],
 		"Employee": [
 			{
+				"fieldname": "expected_working_hours_section",
+				"fieldtype": "Section Break",
+				"insert_after": "default_shift",
+				"label": _("Expected Working Hours"),
+			},
+			{
 				"fieldname": "expected_working_hours",
 				"fieldtype": "Table",
-				"insert_after": "attendance_device_id",
+				"insert_after": "expected_working_hours_section",
 				"label": _("Expected Working Hours"),
 				"reqd": 1,
 				"options": "Employee Expected Working Hours",
