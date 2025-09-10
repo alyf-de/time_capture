@@ -34,68 +34,67 @@
    "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "tuesday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Tuesday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "tuesday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Tuesday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "wednesday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Wednesday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "wednesday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Wednesday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "thursday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Thursday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "thursday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Thursday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "friday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Friday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "friday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Friday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "saturday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Saturday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "saturday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Saturday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "sunday",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Sunday",
-    "non_negative": 1
+   "columns": 1,
+   "fieldname": "sunday",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Sunday",
+   "non_negative": 1
   },
   {
-    "columns": 1,
-    "fieldname": "weekly_working_hours",
-    "fieldtype": "Float",
-    "in_list_view": 1,
-    "label": "Weekly Working Hours",
-    "non_negative": 1,
-    "read_only": 1
+   "columns": 1,
+   "fieldname": "weekly_working_hours",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weekly Working Hours",
+   "non_negative": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-10 19:44:30.974078",
+ "modified": "2025-09-10 20:13:35.215879",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Employee Expected Working Hours",
