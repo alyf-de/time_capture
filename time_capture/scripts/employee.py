@@ -19,12 +19,29 @@ def validate(doc, method=None):
 
 
 def before_validate(doc, method):
+	set_weekly_working_hours(doc.expected_working_hours)
 	validate_expected_working_hours(doc)
+
+
+def set_weekly_working_hours(expected_working_hours):
+	for ewh in expected_working_hours:
+		ewh.weekly_working_hours = (
+			(ewh.monday or 0)
+			+ (ewh.tuesday or 0)
+			+ (ewh.wednesday or 0)
+			+ (ewh.thursday or 0)
+			+ (ewh.friday or 0)
+			+ (ewh.saturday or 0)
+			+ (ewh.sunday or 0)
+		)
 
 
 def validate_expected_working_hours(doc):
 	if not getdate(doc.date_of_joining) == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
 		frappe.throw(_("Date of Joining is not the same as the earliest date of Expected Working Hours."))
+
+	if any(ewh.weekly_working_hours <= 0 for ewh in doc.expected_working_hours):
+		frappe.throw(_("Weekly Working Hours must be greater than 0."))
 
 
 def create_leave_policy_assignment(doc):
