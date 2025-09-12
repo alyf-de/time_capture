@@ -86,7 +86,8 @@ def delete_time_capture(doc):
 		},
 	)
 	if time_capture:
-		frappe.delete_doc("Time Capture", time_capture[0].name)
+		frappe.delete_doc("Time Capture", time_capture[0].name, ignore_permissions=True)
+		# Ignores permissions, because Leave Approver doesn't necessarily have permission to delete Time Captures.
 	else:
 		message = "Keine löschbare Zeitfassung für Mitarbeiter {} am {} gefunden".format(
 			doc.employee_name, doc.attendance_date
