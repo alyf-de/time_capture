@@ -11,6 +11,8 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import get_last_day, getdate, time_diff_in_seconds
 
+from time_capture.scripts import employee
+
 from time_capture.time_capture.time_capture_controller import (
 	assure_duration_format,
 	avoid_duplicate_entries,
@@ -71,6 +73,7 @@ class TimeCapture(Document):
 
 	def before_submit(self):
 		self.validate_working_and_project_time()
+		self.validate_time_to_submit_in_days()
 		validate_tasks_budget(self)
 
 	def on_submit(self):
@@ -131,6 +134,16 @@ class TimeCapture(Document):
 			attendance.working_hours = self.working_time / 60 / 60
 			attendance.custom_time_capture = self.name
 			attendance.save()
+
+	def validate_time_to_submit_in_days(self):
+		settings = frappe.get_single("Time Capture Settings")
+		current_user_roles = frappe.get_user().get_roles()
+		leave_approver = frappe.db.get_value("Employee", self.employee, "leave_approver")
+		if "System Manager" in current_user_roles or "Accountant" in current_user_roles or leave_approver == frappe.get_user().name: 
+			return 
+
+		if frappe.utils.today() > frappe.utils.add_days(self.date, (settings.time_to_submit_in_days or 7)):
+			frappe.throw(_("Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually."))
 
 
 @frappe.whitelist()
