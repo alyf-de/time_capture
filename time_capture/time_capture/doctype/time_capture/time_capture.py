@@ -60,17 +60,13 @@ class TimeCapture(Document):
 			self.is_of_legal_age = self._get_is_of_legal_age()
 		self.set_notification_email_address()
 
-	def _get_is_of_legal_age(self):
-		dob = frappe.db.get_value("Employee", self.employee, "date_of_birth")
-		legal_age_date = frappe.utils.add_years(dob, 18)
-		return legal_age_date <= frappe.utils.getdate(self.date)
-
 	def validate(self):
 		validate_time_log_description(self)
 		validate_task_project(self)
 
 	def before_submit(self):
 		self.validate_working_and_project_time()
+		self.validate_time_to_submit_in_days()
 		validate_tasks_budget(self)
 
 	def on_submit(self):
@@ -85,6 +81,11 @@ class TimeCapture(Document):
 
 	def clean_data(self):
 		self.indicated_break = self.indicated_break or 0
+
+	def _get_is_of_legal_age(self):
+		dob = frappe.db.get_value("Employee", self.employee, "date_of_birth")
+		legal_age_date = frappe.utils.add_years(dob, 18)
+		return legal_age_date <= frappe.utils.getdate(self.date)
 
 	def calculate_totals(self):
 		total_duration = time_diff_in_seconds(self.check_out, self.check_in)
@@ -131,6 +132,25 @@ class TimeCapture(Document):
 			attendance.working_hours = self.working_time / 60 / 60
 			attendance.custom_time_capture = self.name
 			attendance.save()
+
+	def validate_time_to_submit_in_days(self):
+		current_user_roles = frappe.get_user().get_roles()
+		leave_approver = frappe.db.get_value("Employee", self.employee, "leave_approver")
+		if (
+			"System Manager" in current_user_roles
+			or "Accountant" in current_user_roles
+			or leave_approver == frappe.get_user().name
+		):
+			return
+
+		if frappe.utils.today() > frappe.utils.add_days(
+			self.date, (frappe.get_single_value("Time Capture Settings", "time_to_submit_in_days") or 7)
+		):
+			frappe.throw(
+				_(
+					"Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually."
+				)
+			)
 
 
 @frappe.whitelist()
