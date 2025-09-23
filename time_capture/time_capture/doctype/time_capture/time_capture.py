@@ -143,13 +143,15 @@ class TimeCapture(Document):
 		):
 			return
 
-		if frappe.utils.today() > frappe.utils.add_days(
-			self.date, (frappe.get_single_value("Time Capture Settings", "time_to_submit_in_days") or 7)
-		):
+		time_to_submit_in_days = (
+			frappe.get_single_value("Time Capture Settings", "time_to_submit_in_days") or 7
+		)
+
+		if frappe.utils.today() > frappe.utils.add_days(self.date, time_to_submit_in_days):
 			frappe.throw(
 				_(
-					"Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually."
-				)
+					"Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually. (Time to submit: {0} days)"
+				).format(time_to_submit_in_days)
 			)
 
 
