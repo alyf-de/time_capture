@@ -131,6 +131,7 @@ class TimeCapture(Document):
 			attendance = frappe.get_doc("Attendance", filters)
 			attendance.working_hours = self.working_time / 60 / 60
 			attendance.custom_time_capture = self.name
+			attendance.flags.ignore_permissions = True
 			attendance.save()
 
 	def validate_time_to_submit_in_days(self):
