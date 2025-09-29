@@ -61,7 +61,7 @@ def _show_leave_types_created_info(leave_policy):
 	if not_created_leave_types:
 		frappe.msgprint(
 			_(
-				"Note: Following Leaves Types were created: {0}.<br>Following Leaves were not created: {1}"
+				"Note: Following Leaves Types were created: {0}.<br>Following Leave Types were not created: {1}"
 			).format(
 				", ".join(created_leave_types),
 				", ".join(not_created_leave_types),
