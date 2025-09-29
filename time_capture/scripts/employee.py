@@ -43,6 +43,31 @@ def create_leave_policy_assignment(doc):
 	leave_policy_assignment.insert()
 	leave_policy_assignment.submit()
 
+	_show_leave_types_created_info(doc.leave_policy)
+
+
+def _show_leave_types_created_info(leave_policy):
+	"""
+	Shows a message indicating the Leave Types included in the Leave Policy
+	and the Leave Types that exist, but are not included in the Leave Policy.
+	"""
+	created_leave_types = frappe.db.get_all(
+		"Leave Policy Detail",
+		filters={"parent": leave_policy},
+		pluck="leave_type",
+	)
+	all_leave_types = frappe.db.get_all("Leave Type", pluck="name")
+	not_created_leave_types = [lt for lt in all_leave_types if lt not in created_leave_types]
+	if not_created_leave_types:
+		frappe.msgprint(
+			_(
+				"Note: Following Leaves Types were created: {0}.<br>Following Leaves were not created: {1}"
+			).format(
+				", ".join(created_leave_types),
+				", ".join(not_created_leave_types),
+			)
+		)
+
 
 def get_expected_working_hours(employee_id, date):
 	"""
