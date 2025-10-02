@@ -50,7 +50,6 @@ function show_leave_and_time_summary(employee) {
 
 					// Create and show dialog
 					let dialog = new frappe.ui.Dialog({
-						title: __("Time Capture & Leave Summary"),
 						size: "large",
 						fields: [
 							{
@@ -167,50 +166,39 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 						<tbody>
 	`;
 
-	// Add working time details
-	if (time_summary && Object.keys(time_summary).length > 0) {
-		let correction_date = time_summary.flexitime_correction
-			? time_summary.flexitime_correction.date
-			: "-";
-		let correction_value = time_summary.flexitime_correction
-			? time_summary.flexitime_correction.flexitime_hours
-			: 0;
-
-		// Format correction display
-		let correction_display = "-";
-		if (correction_value && correction_date && correction_date !== "-") {
-			correction_display = `${correction_value} on ${correction_date}`;
-		} else if (correction_value) {
-			correction_display = `${correction_value}`;
-		} else if (correction_date && correction_date !== "-") {
-			correction_display = correction_date;
-		}
-
 		html += `
 			<tr>
-				<td style="width: 65%">${__("Last Manual Correction")}</td>
-				<td style="width: 35%">${correction_display}</td>
+				<td style="width: 65%">${__("Last Manual Balance Correction")}</td>
+				<td style="width: 35%">${time_summary.flexitime_correction}</td>
 			</tr>
-			<tr>
+			<tr style="font-weight: bold;">
 				<td>${__("Current Balance")}</td>
 				<td>${time_summary.current_balance || 0}</td>
 			</tr>
 			<tr>
-				<td>${__("Planned Overtime Reduction (Future)")}</td>
+				<td>${__("Planned Overtime Reduction")}</td>
 				<td>${time_summary.future_balance_changes || 0}</td>
 			</tr>
 			<tr>
-				<td>${__("Balance after planned overtime reduction")}</td>
+				<td>${__("Future Balance (after planned reduction)")}</td>
 				<td>${time_summary.future_balance || 0}</td>
 			</tr>
+			<tr>
+				<td>
+					${__("Overdue Time Captures")}
+					<p style="font-size: 80%; !important">
+						${__("Time Captures that are overdue and not submitted")}
+					</p>
+				</td>
+				<td>${time_summary.open_time_captures || 0}</td>
+			</tr>
 		`;
-	} else {
+
 		html += `
 			<tr>
 				<td colspan="2" class="text-center">${__("No working time data found")}</td>
 			</tr>
 		`;
-	}
 
 	html += `
 						</tbody>
