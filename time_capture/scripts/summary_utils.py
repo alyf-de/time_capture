@@ -77,7 +77,7 @@ def beautify_report_data(working_time_summary: dict) -> dict:
 		flexitime_correction = "-"
 
 	# Beautify the other values
-	working_time_summary["last_manual_correction"] = flexitime_correction
+	working_time_summary["flexitime_correction"] = flexitime_correction
 	working_time_summary["current_balance"] = _format_duration_hours(
 		working_time_summary.get("current_balance")
 	)
