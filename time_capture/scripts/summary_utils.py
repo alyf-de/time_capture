@@ -72,7 +72,7 @@ def beautify_report_data(working_time_summary: dict) -> dict:
 	if flexitime_correction.get("flexitime_hours") and flexitime_correction.get("date"):
 		formatted_hours = _format_duration_hours(flexitime_correction.get("flexitime_hours"))
 		formatted_date = frappe.utils.format_date(flexitime_correction.get("date"), "dd.MM.YYYY")
-		flexitime_correction = _("{0} on {1}").format(formatted_hours, formatted_date)
+		flexitime_correction = _("{0} (on {1})").format(formatted_hours, formatted_date)
 	else:
 		flexitime_correction = "-"
 

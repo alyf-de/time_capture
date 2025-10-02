@@ -168,27 +168,44 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 
 		html += `
 			<tr>
-				<td style="width: 65%">${__("Last Manual Balance Correction")}</td>
+				<td style="width: 65%">
+					${__("Last Manual Balance Correction")}
+					<p style="font-size: 80%; !important">
+						${__("This is the last manual balance correction, that was applied to the balance. It usually represents a starting balance after you switched the time capture system.")}
+					</p>
+				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
 			</tr>
 			<tr style="font-weight: bold;">
-				<td>${__("Current Balance")}</td>
+				<td>
+					${__("Current Balance")}
+					<p style="font-size: 80%; !important">
+						${__("This is the current balance, that includes the last manual balance correction (if existing) and the attendance sum.")}
+					</p>
+				</td>
 				<td>${time_summary.current_balance || 0}</td>
 			</tr>
 			<tr>
-				<td>${__("Planned Overtime Reduction")}</td>
+				<td>
+					${__("Planned Overtime Reduction")}
+					<p style="font-size: 80%; !important">
+						${__("Future overtime reductions, that are already planned.")}
+					</p>
+				</td>
 				<td>${time_summary.future_balance_changes || 0}</td>
 			</tr>
 			<tr>
-				<td>${__("Future Balance (after planned reduction)")}</td>
+				<td>
+					${__("Future Balance (after planned reduction)")}
+					<p style="font-size: 80%; !important">
+						${__("This is the projected balance, that includes planned overtime reductions")}
+					</p>
+				</td>
 				<td>${time_summary.future_balance || 0}</td>
 			</tr>
 			<tr>
 				<td>
 					${__("Overdue Time Captures")}
-					<p style="font-size: 80%; !important">
-						${__("Time Captures that are overdue and not submitted")}
-					</p>
 				</td>
 				<td>${time_summary.open_time_captures || 0}</td>
 			</tr>
