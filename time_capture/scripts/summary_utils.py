@@ -73,7 +73,7 @@ def _get_flexitime_sum_from_attendance(
 		filters=filters,
 	)
 
-	return 0 if not result or not result[0].get("flexitime_sum") else result.get("flexitime_sum")
+	return 0 if not result or not result[0].get("flexitime_sum") else result[0].get("flexitime_sum")
 
 
 def beautify_report_data(working_time_summary: dict) -> dict:
