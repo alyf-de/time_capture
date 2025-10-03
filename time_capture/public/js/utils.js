@@ -15,7 +15,7 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 		},
 		callback: function (r) {
 			if (r.message && r.message.name) {
-				show_leave_and_time_summary(r.message);
+				show_leave_and_time_summary_for_employee(r.message);
 			} else {
 				frappe.msgprint({
 					title: __("Error"),
@@ -27,98 +27,110 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 	});
 };
 
-function show_leave_and_time_summary(employee) {
-	// Get leave details
-	frappe.call({
+function show_leave_and_time_summary_for_employee(employee) {
+	// Call both functions in parallel to avoid duplicate calls
+	let leave_call = frappe.call({
 		method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
 		args: {
 			employee: employee.name,
 			date: frappe.datetime.get_today(),
 		},
-		callback: function (r) {
-			let leave_details = r.message["leave_allocation"] || {};
-			let lwps = r.message["lwps"] || [];
+	});
 
-			// Get working time summary details
-			frappe.call({
-				method: "time_capture.scripts.summary_utils.get_working_time_summary_for_employee",
-				args: {
-					employee: employee.name,
-				},
-				callback: function (time_r) {
-					let time_summary = time_r.message || {};
-
-					// Create and show dialog
-					let dialog = new frappe.ui.Dialog({
-						size: "large",
-						fields: [
-							{
-								fieldtype: "HTML",
-								fieldname: "summary_html",
-								options: create_summary_html(
-									leave_details,
-									lwps,
-									time_summary,
-									employee
-								),
-							},
-						],
-					});
-
-					dialog.show();
-				},
-				error: function (err) {
-					// If time capture method fails, show only leave details
-					let dialog = new frappe.ui.Dialog({
-						title: __("Leave Summary"),
-						size: "large",
-						fields: [
-							{
-								fieldtype: "HTML",
-								fieldname: "summary_html",
-								options: create_summary_html(leave_details, lwps, {}, employee),
-							},
-						],
-					});
-
-					dialog.show();
-				},
-			});
-		},
-		error: function (err) {
-			// If leave details fail, show only working time summary
-			frappe.call({
-				method: "time_capture.scripts.summary_utils.get_working_time_summary_for_employee",
-				args: {
-					employee: employee.name,
-				},
-				callback: function (time_r) {
-					let time_summary = time_r.message || {};
-
-					let dialog = new frappe.ui.Dialog({
-						title: __("Time Capture Summary"),
-						size: "large",
-						fields: [
-							{
-								fieldtype: "HTML",
-								fieldname: "summary_html",
-								options: create_summary_html({}, [], time_summary, employee),
-							},
-						],
-					});
-
-					dialog.show();
-				},
-				error: function (err) {
-					frappe.msgprint({
-						title: __("Error"),
-						message: __("Unable to fetch summary data"),
-						indicator: "red",
-					});
-				},
-			});
+	let time_call = frappe.call({
+		method: "time_capture.scripts.summary_utils.get_working_time_summary_for_employee",
+		args: {
+			employee: employee.name,
 		},
 	});
+
+	// Handle both calls with Promise.all-like behavior
+	let leave_data = null;
+	let time_data = null;
+	let leave_error = null;
+	let time_error = null;
+	let completed_calls = 0;
+
+	function check_completion() {
+		completed_calls++;
+		if (completed_calls === 2) {
+			// Both calls completed, show dialog with available data
+			show_summary_dialog(leave_data, time_data, leave_error, time_error, employee);
+		}
+	}
+
+	// Handle leave details call
+	leave_call.then(function (r) {
+		leave_data = {
+			leave_allocation: r.message["leave_allocation"] || {},
+			lwps: r.message["lwps"] || []
+		};
+		check_completion();
+	}).catch(function (err) {
+		leave_error = err;
+		check_completion();
+	});
+
+	// Handle time summary call
+	time_call.then(function (r) {
+		time_data = r.message || {};
+		check_completion();
+	}).catch(function (err) {
+		time_error = err;
+		check_completion();
+	});
+}
+
+function show_summary_dialog(leave_data, time_data, leave_error, time_error, employee) {
+	let dialog_title = __("Summary");
+	let leave_details = {};
+	let lwps = [];
+	let time_summary = {};
+
+	// Process leave data if available
+	if (leave_data && !leave_error) {
+		leave_details = leave_data.leave_allocation;
+		lwps = leave_data.lwps;
+	}
+
+	// Process time data if available
+	if (time_data && !time_error) {
+		time_summary = time_data;
+	}
+
+	// Determine dialog title based on available data
+	if (leave_error && time_error) {
+		dialog_title = __("Error");
+	} else if (leave_error) {
+		dialog_title = __("Time Capture Summary");
+	} else if (time_error) {
+		dialog_title = __("Leave Summary");
+	}
+
+	// Show error if both calls failed
+	if (leave_error && time_error) {
+		frappe.msgprint({
+			title: __("Error"),
+			message: __("Unable to fetch summary data"),
+			indicator: "red",
+		});
+		return;
+	}
+
+	// Create and show dialog
+	let dialog = new frappe.ui.Dialog({
+		title: dialog_title,
+		size: "large",
+		fields: [
+			{
+				fieldtype: "HTML",
+				fieldname: "summary_html",
+				options: create_summary_html(leave_details, lwps, time_summary, employee),
+			},
+		],
+	});
+
+	dialog.show();
 }
 
 function create_summary_html(leave_details, lwps, time_summary, employee) {
@@ -171,7 +183,7 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td style="width: 65%">
 					${__("Last Manual Balance Correction")}
 					<p style="font-size: 80%; !important">
-						${__("Example: A starting balance after you switched this time capture system.")}
+						${__("This could be (for example) a starting balance you took on from your previous time capture system.")}
 					</p>
 				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
@@ -206,13 +218,11 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 			<tr>
 				<td>
 					${__("Overdue Time Captures")}
-				</td>
-				<td>
-					${time_summary.open_time_captures || 0}
 					<p style="font-size: 80%; !important">
 						${__("Past time captures, that are not yet submitted. These count as absent and reduce the balance.")}
 					</p>
 				</td>
+				<td>${time_summary.open_time_captures || 0}</td>
 			</tr>
 		`;
 
