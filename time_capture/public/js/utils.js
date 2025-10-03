@@ -189,7 +189,9 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td style="width: 65%">
 					${__("Last Manual Balance Correction")}
 					<p style="font-size: 80%; !important">
-						${__("This could be (for example) a starting balance you took on from your previous time capture system.")}
+						${__(
+							"This could be (for example) a starting balance you took on from your previous time capture system."
+						)}
 					</p>
 				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
@@ -198,7 +200,9 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Current Balance")}
 					<p style="font-size: 80%; !important">
-						${__("This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours).")}
+						${__(
+							"This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours)."
+						)}
 					</p>
 				</td>
 				<td>${time_summary.current_balance || 0}</td>
