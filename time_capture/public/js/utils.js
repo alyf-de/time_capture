@@ -11,7 +11,7 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 			filters: {
 				user_id: frappe.session.user,
 			},
-			fieldname: ["name", "employee_name", "company"],
+			fieldname: ["name"],
 		},
 		callback: function (r) {
 			if (r.message && r.message.name) {
