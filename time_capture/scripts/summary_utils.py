@@ -4,20 +4,25 @@ from frappe import _
 
 @frappe.whitelist()
 def get_working_time_summary_for_employee(employee: str, beautified: bool = True) -> dict:
+	"""
+	Returns a dictionary with current leave and working time summary for an employee.
+	Considered DocTypes: Leave Ledger, Attendance, Flexitime Correction, Time Capture.
+	Depending on beautified, the values are either human-readable strings machine-readable floats.
+	"""
 	frappe.has_permission("Employee", doc=employee, throw=True)
+	today = frappe.utils.getdate()
 
 	flexitime_correction = _get_last_flexitime_correction(employee)
 	attendance_sum = _get_flexitime_sum_from_attendance(
-		employee, flexitime_correction.get("date"), frappe.utils.getdate()
+		employee, flexitime_correction.get("date"), today
 	)
 	current_balance = (flexitime_correction.get("flexitime_hours") or 0) + (attendance_sum or 0)
-	future_balance_changes = _get_flexitime_sum_from_attendance(employee, frappe.utils.getdate())
-	# these changes are mainly expected through planned overtime reductions
+	future_balance_changes = _get_flexitime_sum_from_attendance(employee, today)
 	future_balance = current_balance + future_balance_changes
 	open_time_captures = len(
 		frappe.db.get_all(
 			"Time Capture",
-			filters={"employee": employee, "docstatus": 0},
+			filters={"employee": employee, "docstatus": 0, "date": ("<=", today)},
 		)
 	)
 
@@ -32,7 +37,9 @@ def get_working_time_summary_for_employee(employee: str, beautified: bool = True
 
 
 def _get_last_flexitime_correction(employee: str) -> float:
-	""" """
+	"""
+	Returns flexitime_hours and date of the last (today or before) Flexitime Correction.
+	"""
 	flexitime_correction = frappe.db.get_value(
 		"Flexitime Correction",
 		filters={
@@ -64,14 +71,15 @@ def _get_flexitime_sum_from_attendance(
 		"Attendance",
 		fields=["SUM(flexitime) as flexitime_sum"],
 		filters=filters,
-		as_list=True,
 	)
 
-	return result[0][0] if result and result[0][0] else 0
+	return 0 if not result or not result[0].get("flexitime_sum") else result.get("flexitime_sum")
 
 
 def beautify_report_data(working_time_summary: dict) -> dict:
-	# Beautify the Flexitime Correction
+	"""
+	Format the summary dictionary into UX-friendly strings.
+	"""
 	flexitime_correction = working_time_summary.get("flexitime_correction", {})
 	if flexitime_correction.get("flexitime_hours") and flexitime_correction.get("date"):
 		formatted_hours = _format_duration_hours(flexitime_correction.get("flexitime_hours"))
@@ -104,6 +112,7 @@ def _format_duration_hours(hours: float | None) -> str:
 	- 7.5 -> "7:30 h"
 	- 0.0 or None -> "0:00 h"
 	- 1.024 -> "1:01 h" (rounded to nearest minute)
+	frappe.format_duration was not used because we don't want seconds.
 	"""
 	if hours is None or hours == 0:
 		return "0:00 h"
