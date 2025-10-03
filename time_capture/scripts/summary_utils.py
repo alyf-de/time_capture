@@ -35,7 +35,11 @@ def _get_last_flexitime_correction(employee: str) -> float:
 	""" """
 	flexitime_correction = frappe.db.get_value(
 		"Flexitime Correction",
-		filters={"employee": employee, "docstatus": 1},
+		filters={
+			"employee": employee,
+			"docstatus": 1,
+			"date": ("<=", frappe.utils.getdate()),
+		},
 		fieldname=["flexitime_hours", "date"],
 		order_by="date DESC",
 		as_dict=True,
