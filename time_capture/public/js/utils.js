@@ -171,16 +171,16 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td style="width: 65%">
 					${__("Last Manual Balance Correction")}
 					<p style="font-size: 80%; !important">
-						${__("This is the last manual balance correction, that was applied to the balance. It usually represents a starting balance after you switched the time capture system.")}
+						${__("Example: A starting balance after you switched this time capture system.")}
 					</p>
 				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
 			</tr>
-			<tr style="font-weight: bold;">
+			<tr">
 				<td>
 					${__("Current Balance")}
 					<p style="font-size: 80%; !important">
-						${__("This is the current balance, that includes the last manual balance correction (if existing) and the attendance sum.")}
+						${__("This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours).")}
 					</p>
 				</td>
 				<td>${time_summary.current_balance || 0}</td>
@@ -189,7 +189,7 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Planned Overtime Reduction")}
 					<p style="font-size: 80%; !important">
-						${__("Future overtime reductions, that are already planned.")}
+						${__("Future, approved overtime reductions.")}
 					</p>
 				</td>
 				<td>${time_summary.future_balance_changes || 0}</td>
@@ -207,15 +207,26 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Overdue Time Captures")}
 				</td>
-				<td>${time_summary.open_time_captures || 0}</td>
+				<td>
+					${time_summary.open_time_captures || 0}
+					<p style="font-size: 80%; !important">
+						${__("Past time captures, that are not yet submitted. These count as absent and reduce the balance.")}
+					</p>
+				</td>
 			</tr>
 		`;
 
-		html += `
-			<tr>
-				<td colspan="2" class="text-center">${__("No working time data found")}</td>
-			</tr>
-		`;
+		// Only show "No working time data found" if there's no data
+		if (!time_summary || Object.keys(time_summary).length === 0 ||
+			(!time_summary.flexitime_correction && !time_summary.current_balance &&
+			 !time_summary.future_balance_changes && !time_summary.future_balance &&
+			 !time_summary.open_time_captures)) {
+			html += `
+				<tr>
+					<td colspan="2" class="text-center">${__("No working time data found")}</td>
+				</tr>
+			`;
+		}
 
 	html += `
 						</tbody>
