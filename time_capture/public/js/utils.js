@@ -1,6 +1,8 @@
 // Copyright (c) 2024, Time Capture and contributors
 // For license information, please see license.txt
 
+frappe.provide("time_capture.utils");
+
 // Define the function in global scope
 frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 	// Get current employee by user_id
@@ -15,7 +17,7 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 		},
 		callback: function (r) {
 			if (r.message && r.message.name) {
-				show_leave_and_time_summary_for_employee(r.message);
+				time_capture.utils.show_leave_and_time_summary_for_employee(r.message);
 			} else {
 				frappe.msgprint({
 					title: __("Error"),
@@ -27,7 +29,7 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 	});
 };
 
-function show_leave_and_time_summary_for_employee(employee) {
+time_capture.utils.show_leave_and_time_summary_for_employee = function(employee) {
 	// Call both functions in parallel to avoid duplicate calls
 	let leave_call = frappe.call({
 		method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",

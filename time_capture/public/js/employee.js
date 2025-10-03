@@ -14,7 +14,7 @@ frappe.ui.form.on("Employee", {
 				__("Time Capture & Leave Summary"),
 				function () {
 					// Reuse the existing function from utils.js
-					show_leave_and_time_summary_for_employee(frm.doc);
+					time_capture.utils.show_leave_and_time_summary_for_employee(frm.doc);
 				},
 			);
 		}
