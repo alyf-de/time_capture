@@ -29,7 +29,7 @@ frappe.ui.toolbar.show_time_capture_and_leave_summary = function () {
 	});
 };
 
-time_capture.utils.show_leave_and_time_summary_for_employee = function(employee) {
+time_capture.utils.show_leave_and_time_summary_for_employee = function (employee) {
 	// Call both functions in parallel to avoid duplicate calls
 	let leave_call = frappe.call({
 		method: "hrms.hr.doctype.leave_application.leave_application.get_leave_details",
@@ -62,26 +62,30 @@ time_capture.utils.show_leave_and_time_summary_for_employee = function(employee)
 	}
 
 	// Handle leave details call
-	leave_call.then(function (r) {
-		leave_data = {
-			leave_allocation: r.message["leave_allocation"] || {},
-			lwps: r.message["lwps"] || []
-		};
-		check_completion();
-	}).catch(function (err) {
-		leave_error = err;
-		check_completion();
-	});
+	leave_call
+		.then(function (r) {
+			leave_data = {
+				leave_allocation: r.message["leave_allocation"] || {},
+				lwps: r.message["lwps"] || [],
+			};
+			check_completion();
+		})
+		.catch(function (err) {
+			leave_error = err;
+			check_completion();
+		});
 
 	// Handle time summary call
-	time_call.then(function (r) {
-		time_data = r.message || {};
-		check_completion();
-	}).catch(function (err) {
-		time_error = err;
-		check_completion();
-	});
-}
+	time_call
+		.then(function (r) {
+			time_data = r.message || {};
+			check_completion();
+		})
+		.catch(function (err) {
+			time_error = err;
+			check_completion();
+		});
+};
 
 function show_summary_dialog(leave_data, time_data, leave_error, time_error, employee) {
 	let dialog_title = __("Summary");
@@ -180,12 +184,14 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 						<tbody>
 	`;
 
-		html += `
+	html += `
 			<tr>
 				<td style="width: 65%">
 					${__("Last Manual Balance Correction")}
 					<p style="font-size: 80%; !important">
-						${__("This could be (for example) a starting balance you took on from your previous time capture system.")}
+						${__(
+							"This could be (for example) a starting balance you took on from your previous time capture system."
+						)}
 					</p>
 				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
@@ -194,7 +200,9 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Current Balance")}
 					<p style="font-size: 80%; !important">
-						${__("This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours).")}
+						${__(
+							"This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours)."
+						)}
 					</p>
 				</td>
 				<td>${time_summary.current_balance || 0}</td>
@@ -221,24 +229,31 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Overdue Time Captures")}
 					<p style="font-size: 80%; !important">
-						${__("Past time captures, that are not yet submitted. These count as absent and reduce the balance.")}
+						${__(
+							"Past time captures, that are not yet submitted. These count as absent and reduce the balance."
+						)}
 					</p>
 				</td>
 				<td>${time_summary.open_time_captures || 0}</td>
 			</tr>
 		`;
 
-		// Only show "No working time data found" if there's no data
-		if (!time_summary || Object.keys(time_summary).length === 0 ||
-			(!time_summary.flexitime_correction && !time_summary.current_balance &&
-			 !time_summary.future_balance_changes && !time_summary.future_balance &&
-			 !time_summary.open_time_captures)) {
-			html += `
+	// Only show "No working time data found" if there's no data
+	if (
+		!time_summary ||
+		Object.keys(time_summary).length === 0 ||
+		(!time_summary.flexitime_correction &&
+			!time_summary.current_balance &&
+			!time_summary.future_balance_changes &&
+			!time_summary.future_balance &&
+			!time_summary.open_time_captures)
+	) {
+		html += `
 				<tr>
 					<td colspan="2" class="text-center">${__("No working time data found")}</td>
 				</tr>
 			`;
-		}
+	}
 
 	html += `
 						</tbody>

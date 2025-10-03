@@ -13,9 +13,7 @@ def get_working_time_summary_for_employee(employee: str, beautified: bool = True
 	today = frappe.utils.getdate()
 
 	flexitime_correction = _get_last_flexitime_correction(employee)
-	attendance_sum = _get_flexitime_sum_from_attendance(
-		employee, flexitime_correction.get("date"), today
-	)
+	attendance_sum = _get_flexitime_sum_from_attendance(employee, flexitime_correction.get("date"), today)
 	current_balance = (flexitime_correction.get("flexitime_hours") or 0) + (attendance_sum or 0)
 	future_balance_changes = _get_flexitime_sum_from_attendance(employee, today)
 	future_balance = current_balance + future_balance_changes
