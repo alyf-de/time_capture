@@ -9,15 +9,13 @@ frappe.ui.form.on("Employee", {
 	},
 
 	onload: function (frm) {
-		// Add custom button to show time capture and leave summary
 		if (frm.doc.name) {
 			frm.add_custom_button(
-				__("Show Summary"),
+				__("Time Capture & Leave Summary"),
 				function () {
 					// Reuse the existing function from utils.js
 					show_leave_and_time_summary(frm.doc);
 				},
-				__("Time Capture")
 			);
 		}
 	},
