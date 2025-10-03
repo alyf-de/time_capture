@@ -55,7 +55,9 @@ def _get_last_flexitime_correction(employee: str) -> float:
 def _get_flexitime_sum_from_attendance(
 	employee: str, from_date: str | None = None, to_date: str | None = None
 ) -> float:
-	""" """
+	"""
+	Get the sum of flexitime for submitted Attendances for an employee.
+	"""
 	filters = [
 		["employee", "=", employee],
 		["docstatus", "=", 1],
