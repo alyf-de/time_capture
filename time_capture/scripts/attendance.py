@@ -5,23 +5,15 @@ from time_capture.scripts.employee import get_expected_working_hours
 from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
-def before_insert(doc, event):
-	set_attendance_metrics(doc)
-
-
 def on_submit(doc, event):
 	if doc.leave_type and doc.attendance_date <= frappe.utils.nowdate():
 		delete_time_capture(doc)
 
 
-def before_update_after_submit(doc, event):
-	if doc.has_value_changed("working_hours"):
-		doc.flexitime = doc.working_hours - doc.expected_working_hours
-		if not doc.leave_type:
-			doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
-
-
 def on_change(doc, event):
+	set_attendance_metrics(doc)
+	if not doc.leave_type:
+		doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
 	if doc.status == "On Leave" and not doc.half_day_status:
 		delete_time_capture(doc)
 
