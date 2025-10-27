@@ -14,7 +14,7 @@ def on_change(doc, event):
 	set_attendance_metrics(doc)
 	if not doc.leave_type:
 		doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
-	if doc.status == "On Leave" and not doc.half_day_status:
+	if doc.leave_type and doc.attendance_date <= frappe.utils.nowdate():
 		delete_time_capture(doc)
 
 
