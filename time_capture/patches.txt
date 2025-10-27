@@ -9,3 +9,4 @@ time_capture.patches.move_expected_working_time_to_child_table
 time_capture.patches.create_freelancer_role #7
 time_capture.patches.rectify_attendance_metrics
 time_capture.patches.delete_outdated_time_captures
+execute:frappe.db.set_value("Freelancer Time Capture", {"docstatus": ["!=", 0]}, {"check_in": "00:00", "check_out": "00:00"})
