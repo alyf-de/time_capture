@@ -6,10 +6,7 @@ from time_capture.time_capture.doctype.time_capture.time_capture import _create_
 
 
 def on_submit(doc, event):
-	if doc.leave_type and doc.attendance_date <= frappe.utils.getdate():
-		delete_time_capture(doc)
-
-
+	pass
 def on_change(doc, event):
 	set_attendance_metrics(doc)
 	if not doc.leave_type:
