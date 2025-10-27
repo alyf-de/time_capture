@@ -21,6 +21,11 @@ def before_update_after_submit(doc, event):
 			doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
 
 
+def on_change(doc, event):
+	if doc.status == "On Leave" and not doc.half_day_status:
+		delete_time_capture(doc)
+
+
 def on_cancel(doc, event):
 	employee = frappe.get_doc("Employee", doc.employee)
 	_create_time_capture(employee, doc.attendance_date)

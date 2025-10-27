@@ -73,6 +73,9 @@ class TimeCapture(Document):
 		self.create_attendance()
 		create_timesheets(self)
 
+	def on_trash(self):
+		frappe.db.set_value("Attendance", {"custom_time_capture": self.name}, "custom_time_capture", None)
+
 	def validate_working_and_project_time(self):
 		if self.unallocated_time > 0:
 			frappe.throw(_("Working time must be completely booked on projects and tasks."))
