@@ -14,7 +14,7 @@ def execute():
 			"docstatus": 1,
 			"custom_time_capture": ["!=", None],
 			"leave_type": ["!=", None],
-			"attendance_date": ("<=", frappe.utils.nowdate()),
+			"attendance_date": ("<=", frappe.utils.getdate()),
 		},
 		pluck="name",
 	)
