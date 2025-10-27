@@ -48,9 +48,6 @@ class TimeCapture(Document):
 		working_time: DF.Duration | None
 
 	# end: auto-generated types
-	def before_insert(self):
-		self.is_of_legal_age = self._get_is_of_legal_age()
-
 	def before_validate(self):
 		avoid_duplicate_entries(self)
 		assure_duration_format(self)
@@ -305,7 +302,6 @@ def _create_time_capture(employee, date):
 	time_capture = frappe.new_doc("Time Capture")
 	time_capture.update(
 		{
-			"doctype": "Time Capture",
 			"employee": employee.name,
 			"date": date,
 			"check_in": "00:00",
