@@ -139,7 +139,6 @@ after_install = "time_capture.install.after_install"
 
 doc_events = {
 	"Attendance": {
-		"on_submit": "time_capture.scripts.attendance.on_submit",
 		"on_change": "time_capture.scripts.attendance.on_change",
 		"on_cancel": "time_capture.scripts.attendance.on_cancel",
 	},

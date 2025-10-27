@@ -5,8 +5,6 @@ from time_capture.scripts.employee import get_expected_working_hours
 from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
 
 
-def on_submit(doc, event):
-	pass
 def on_change(doc, event):
 	set_attendance_metrics(doc)
 	if not doc.leave_type:
