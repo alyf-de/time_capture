@@ -305,7 +305,6 @@ def _create_time_capture(employee, date):
 	time_capture = frappe.new_doc("Time Capture")
 	time_capture.update(
 		{
-			"doctype": "Time Capture",
 			"employee": employee.name,
 			"date": date,
 			"check_in": "00:00",
