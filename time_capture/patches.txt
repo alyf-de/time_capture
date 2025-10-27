@@ -7,3 +7,5 @@ execute:from time_capture.install import _make_custom_fields;_make_custom_fields
 execute:from time_capture.install import _make_property_setters;_make_property_setters() # 2025-09-26
 time_capture.patches.move_expected_working_time_to_child_table
 time_capture.patches.create_freelancer_role #7
+time_capture.patches.rectify_attendance_metrics
+time_capture.patches.delete_outdated_time_captures
