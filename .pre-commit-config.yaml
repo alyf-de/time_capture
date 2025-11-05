@@ -2,12 +2,9 @@ exclude: 'node_modules|.git'
 default_stages: [pre-commit]
 fail_fast: false
 
-default_language_version:
-  python: python3.10
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
         files: "time_capture.*"
