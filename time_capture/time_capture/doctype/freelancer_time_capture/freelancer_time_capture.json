@@ -11,6 +11,10 @@
   "column_break_qsox",
   "freelancer_name",
   "amended_from",
+  "section_break_mdok",
+  "check_in",
+  "column_break_zdpq",
+  "check_out",
   "section_break_gqon",
   "time_logs"
  ],
@@ -65,6 +69,26 @@
    "label": "Time Logs",
    "options": "Time Capture Log",
    "reqd": 1
+  },
+  {
+   "fieldname": "section_break_mdok",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "check_in",
+   "fieldtype": "Time",
+   "label": "Check In",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zdpq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "check_out",
+   "fieldtype": "Time",
+   "label": "Check Out",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
@@ -76,8 +100,8 @@
    "link_fieldname": "freelancer_time_capture"
   }
  ],
- "modified": "2025-07-08 15:23:03.547480",
- "modified_by": "patrick@alyf.de",
+ "modified": "2025-10-27 21:48:02.999334",
+ "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Freelancer Time Capture",
  "owner": "patrick@alyf.de",
