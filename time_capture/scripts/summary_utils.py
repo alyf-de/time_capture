@@ -3,6 +3,28 @@ from frappe import _
 
 
 @frappe.whitelist()
+def get_summary_for_employees(filters: dict | None = None, beautified: bool = True) -> list[dict]:
+	"""
+	Get the summary for all employees (that are permitted to be read).
+	Returns a list of dictionaries, each containing employee info and their working time summary.
+	The whitelisted function is used in report(s) and can be used to be queried by third-party tools.
+	"""
+	frappe.has_permission("Employee", ptype="read", throw=True)
+	if filters is None:
+		filters = {"status": "Active"}
+	employees = frappe.get_list("Employee", filters=filters, fields=["name as employee", "employee_name"])
+
+	result = []
+	for employee in employees:
+		summary = get_working_time_summary_for_employee(employee.employee, beautified)
+		summary["employee"] = employee.employee
+		summary["employee_name"] = employee.employee_name
+		result.append(summary)
+
+	return result
+
+
+@frappe.whitelist()
 def get_working_time_summary_for_employee(employee: str, beautified: bool = True) -> dict:
 	"""
 	Returns a dictionary with current leave and working time summary for an employee.
