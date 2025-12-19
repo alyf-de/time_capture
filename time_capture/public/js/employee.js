@@ -67,13 +67,6 @@ frappe.ui.form.on("Employee", {
 							expected_working_hours: expected_working_hours,
 						},
 						callback: function (r) {
-							if (r.message) {
-								frappe.msgprint(
-									__("{0} Attendances updated successfully.", [
-										r.message.updated_count,
-									])
-								);
-							}
 							frm.reload_doc();
 							dialog_ref.hide();
 						},
