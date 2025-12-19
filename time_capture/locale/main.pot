@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2025-12-19 11:02+0053\n"
-"PO-Revision-Date: 2025-12-19 11:02+0053\n"
+"POT-Creation-Date: 2025-12-19 11:44+0053\n"
+"PO-Revision-Date: 2025-12-19 11:44+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -169,6 +169,14 @@ msgstr ""
 #. Label of a Float field in DocType 'Employee Expected Working Hours'
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
 msgid "Expected Daily Working Hours"
+msgstr ""
+
+#: time_capture/scripts/employee.py:42
+msgid "Expected Daily Working Hours cannot be greater than 12."
+msgstr ""
+
+#: time_capture/scripts/employee.py:36
+msgid "Expected Daily Working Hours cannot be less than 0."
 msgstr ""
 
 #: time_capture/custom_fields.py:11 time_capture/custom_fields.py:42
@@ -379,7 +387,7 @@ msgstr ""
 msgid "Note must be at least 5 characters. Found: {0}"
 msgstr ""
 
-#: time_capture/scripts/employee.py:63
+#: time_capture/scripts/employee.py:81
 msgid "Note: Following Leaves Types were created: {0}.<br>Following Leave Types were not created: {1}"
 msgstr ""
 
@@ -491,7 +499,7 @@ msgstr ""
 msgid "Row {0}: Duration is not in the proper format."
 msgstr ""
 
-#: time_capture/public/js/employee.js:82
+#: time_capture/public/js/employee.js:75
 msgid "Save & Update Attendances"
 msgstr ""
 
@@ -526,7 +534,7 @@ msgstr ""
 msgid "Task {0} does not belong to Project {1}"
 msgstr ""
 
-#: time_capture/scripts/employee.py:27
+#: time_capture/scripts/employee.py:28
 msgid "The date of joining ({0}) has to be the earliest date of Expected Working Hours."
 msgstr ""
 
@@ -552,7 +560,7 @@ msgstr ""
 msgid "Time Capture"
 msgstr ""
 
-#: time_capture/public/js/employee.js:91
+#: time_capture/public/js/employee.js:84
 msgid "Time Capture & Leave Summary"
 msgstr ""
 
@@ -628,7 +636,7 @@ msgstr ""
 msgid "{0} (on {1})"
 msgstr ""
 
-#: time_capture/public/js/employee.js:72 time_capture/scripts/employee.py:141
+#: time_capture/scripts/employee.py:159
 msgid "{0} Attendances updated successfully."
 msgstr ""
 

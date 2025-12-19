@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2025-12-19 11:02+0053\n"
+"POT-Creation-Date: 2025-12-19 11:44+0053\n"
 "PO-Revision-Date: 2025-11-07 14:07+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
@@ -170,6 +170,14 @@ msgstr "Beispiel: Wenn Sie dieses Feld auf '3' setzen, sendet das System alle 3 
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
 msgid "Expected Daily Working Hours"
 msgstr "Erwartete tägliche Arbeitsstunden"
+
+#: time_capture/scripts/employee.py:42
+msgid "Expected Daily Working Hours cannot be greater than 12h."
+msgstr "Die Erwartete tägliche Arbeitszeits darf nicht größer als 12h sein."
+
+#: time_capture/scripts/employee.py:36
+msgid "Expected Daily Working Hours cannot be less than 0h."
+msgstr "Die erwartete tägliche Arbeitszeit darf nicht geringer als 0h sein."
 
 #: time_capture/custom_fields.py:11 time_capture/custom_fields.py:42
 #: time_capture/public/js/employee.js:35
@@ -379,7 +387,7 @@ msgstr "Keine Arbeitszeitdaten gefunden"
 msgid "Note must be at least 5 characters. Found: {0}"
 msgstr "Hinweis muss mindestens 5 Zeichen lang sein. Gefunden: {0}"
 
-#: time_capture/scripts/employee.py:63
+#: time_capture/scripts/employee.py:81
 msgid "Note: Following Leaves Types were created: {0}.<br>Following Leave Types were not created: {1}"
 msgstr "Hinweis: Die folgenden Abwesenheitsarten wurden erstellt: {0}.<br>Die folgenden Abwesenheitsarten wurden nicht erstellt: {1}"
 
@@ -491,7 +499,7 @@ msgstr "Erinnerung: Sie haben ungebuchte Zeiterfassungen"
 msgid "Row {0}: Duration is not in the proper format."
 msgstr "Zeile {0}: Dauer ist nicht im korrekten Format."
 
-#: time_capture/public/js/employee.js:82
+#: time_capture/public/js/employee.js:75
 msgid "Save & Update Attendances"
 msgstr "Speichern & Anwesenheiten aktualisieren"
 
@@ -526,7 +534,7 @@ msgstr "Summe für {}"
 msgid "Task {0} does not belong to Project {1}"
 msgstr "Vorgang {0} gehört nicht zu Projekt {1}"
 
-#: time_capture/scripts/employee.py:27
+#: time_capture/scripts/employee.py:28
 msgid "The date of joining ({0}) has to be the earliest date of Expected Working Hours."
 msgstr "Das Beitrittsdatum muss dem frühesten Datum in Erwartete Arbeitsstunden entsprechen."
 
@@ -552,7 +560,7 @@ msgstr "Dies ist das prognostizierte Saldo, das geplante Überstundenreduzierung
 msgid "Time Capture"
 msgstr "Zeiterfassung"
 
-#: time_capture/public/js/employee.js:91
+#: time_capture/public/js/employee.js:84
 msgid "Time Capture & Leave Summary"
 msgstr "Zeiterfassungs- & Urlaubsübersicht"
 
@@ -628,7 +636,7 @@ msgstr "Die Arbeitszeit muss vollständig auf Projekte und Aufgaben gebucht werd
 msgid "{0} (on {1})"
 msgstr "{0} (am {1})"
 
-#: time_capture/public/js/employee.js:72 time_capture/scripts/employee.py:141
+#: time_capture/scripts/employee.py:159
 msgid "{0} Attendances updated successfully."
 msgstr "{0} Attendances erfolgreich aktualisiert."
 

@@ -30,6 +30,20 @@ def validate_expected_working_hours(doc):
 			)
 		)
 
+	for ewh in doc.expected_working_hours:
+		if ewh.expected_daily_working_hours < 0:
+			frappe.throw(
+				_("Expected Daily Working Hours cannot be less than 0h.").format(
+					frappe.utils.format_date(ewh.valid_from)
+				)
+			)
+		if ewh.expected_daily_working_hours > 12:
+			frappe.throw(
+				_("Expected Daily Working Hours cannot be greater than 12h.").format(
+					frappe.utils.format_date(ewh.valid_from)
+				)
+			)
+
 
 def create_leave_policy_assignment(doc):
 	leave_period = get_leave_period(today(), today(), doc.company)
