@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2025-11-07 14:08+0053\n"
-"PO-Revision-Date: 2025-11-07 14:08+0053\n"
+"POT-Creation-Date: 2025-12-19 10:04+0053\n"
+"PO-Revision-Date: 2025-12-19 10:04+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -31,32 +31,9 @@ msgstr ""
 msgid "<span class=\"h4\">Freelancer Time Capture</span>"
 msgstr ""
 
-#. Name of a role
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-msgid "Accounts Manager"
-msgstr ""
-
 #. Label of a Duration field in DocType 'Mandatory Break'
 #: time_capture/time_capture/doctype/mandatory_break/mandatory_break.json
 msgid "Additional Break"
-msgstr ""
-
-#. Label of a quick_list in the Freelancer Workspace
-#: time_capture/time_capture/workspace/freelancer/freelancer.json
-msgid "All"
-msgstr ""
-
-#: time_capture/public/js/utils.js:143
-msgid "Allocated"
-msgstr ""
-
-#. Label of a Link field in DocType 'Flexitime Correction'
-#. Label of a Link field in DocType 'Freelancer Time Capture'
-#. Label of a Link field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-msgid "Amended From"
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:24
@@ -70,10 +47,6 @@ msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:28
 msgid "August"
-msgstr ""
-
-#: time_capture/public/js/utils.js:143
-msgid "Balance"
 msgstr ""
 
 #. Label of a Duration field in DocType 'Time Capture'
@@ -122,21 +95,6 @@ msgstr ""
 msgid "Current Balance"
 msgstr ""
 
-#. Option for the 'Notification Frequency' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Daily"
-msgstr ""
-
-#. Label of a Date field in DocType 'Flexitime Correction'
-#. Label of a Date field in DocType 'Freelancer Time Capture'
-#. Label of a Date field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-msgid "Date"
-msgstr ""
-
 #: time_capture/scripts/employee.py:27
 msgid "Date of Joining is not the same as the earliest date of Expected Working Hours."
 msgstr ""
@@ -155,16 +113,6 @@ msgstr ""
 msgid "Default Freelancer Activity Type"
 msgstr ""
 
-#: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.js:18
-#: time_capture/time_capture/report/working_time_summary/working_time_summary.js:18
-msgid "Department"
-msgstr ""
-
-#. Label of a HTML field in DocType 'Create Freelancer'
-#: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-msgid "Description"
-msgstr ""
-
 #. Label of a quick_list in the Freelancer Workspace
 #: time_capture/time_capture/workspace/freelancer/freelancer.json
 msgid "Drafts"
@@ -174,42 +122,9 @@ msgstr ""
 msgid "Duplicate Entry Found"
 msgstr ""
 
-#. Label of a Duration field in DocType 'Time Capture Log'
-#: time_capture/time_capture/doctype/time_capture_log/time_capture_log.json
-msgid "Duration"
-msgstr ""
-
-#. Label of a Data field in DocType 'Create Freelancer'
-#. Label of a Data field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-msgid "Email"
-msgstr ""
-
-#. Label of a Link field in DocType 'Flexitime Correction'
-#. Name of a role
-#. Label of a Link field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-#: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:56
-#: time_capture/time_capture/report/working_time/working_time.py:19
-#: time_capture/time_capture/report/working_time_summary/working_time_summary.py:54
-msgid "Employee"
-msgstr ""
-
 #. Name of a DocType
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
 msgid "Employee Expected Working Hours"
-msgstr ""
-
-#. Label of a Data field in DocType 'Flexitime Correction'
-#. Label of a Data field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-#: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:63
-#: time_capture/time_capture/report/working_time/working_time.py:25
-#: time_capture/time_capture/report/working_time_summary/working_time_summary.py:60
-msgid "Employee Name"
 msgstr ""
 
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.js:10
@@ -225,11 +140,6 @@ msgstr ""
 #. Label of a Check field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Enforce Mandatory Breaks"
-msgstr ""
-
-#: time_capture/public/js/utils.js:23 time_capture/public/js/utils.js:109
-#: time_capture/public/js/utils.js:119
-msgid "Error"
 msgstr ""
 
 #: time_capture/scripts/attendance.py:131
@@ -264,11 +174,6 @@ msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:22
 msgid "February"
-msgstr ""
-
-#. Label of a Data field in DocType 'Create Freelancer'
-#: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-msgid "First Name"
 msgstr ""
 
 #: time_capture/custom_fields.py:18
@@ -323,16 +228,6 @@ msgstr ""
 msgid "Freelancer User"
 msgstr ""
 
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Friday"
-msgstr ""
-
-#: time_capture/time_capture/report/project_time/project_time.js:10
-msgid "From Date"
-msgstr ""
-
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:89
 msgid "Future Balance"
 msgstr ""
@@ -349,11 +244,6 @@ msgstr ""
 msgid "Future, approved overtime reductions."
 msgstr ""
 
-#. Label of a Section Break field in DocType 'Time Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "General"
-msgstr ""
-
 #. Description of the 'Default Freelancer Activity Type' (Link) field in
 #. DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
@@ -362,20 +252,6 @@ msgstr ""
 
 #: time_capture/templates/time_capture_reminder.html:14
 msgid "Go to list view"
-msgstr ""
-
-#. Name of a role
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-msgid "HR Manager"
-msgstr ""
-
-#. Name of a role
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-msgid "HR User"
-msgstr ""
-
-#: time_capture/templates/time_capture_reminder.html:2
-msgid "Hello"
 msgstr ""
 
 #. Description of the 'Enable Reminders' (Check) field in DocType 'Time Capture
@@ -418,11 +294,6 @@ msgstr ""
 
 #: time_capture/public/js/utils.js:187
 msgid "Last Manual Balance Correction"
-msgstr ""
-
-#. Label of a Data field in DocType 'Create Freelancer'
-#: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-msgid "Last Name"
 msgstr ""
 
 #. Label of a Date field in DocType 'Time Capture Settings'
@@ -487,27 +358,6 @@ msgstr ""
 msgid "Minimum Draft Age (Days)"
 msgstr ""
 
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Monday"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:18
-msgid "Month"
-msgstr ""
-
-#. Option for the 'Notification Frequency' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Monthly"
-msgstr ""
-
-#. Label of a shortcut in the Freelancer Workspace
-#: time_capture/time_capture/workspace/freelancer/freelancer.json
-msgid "New"
-msgstr ""
-
 #: time_capture/time_capture/time_capture_controller.py:69
 msgid "No budget left for Task {0}. Please, contact the Project Manager."
 msgstr ""
@@ -518,11 +368,6 @@ msgstr ""
 
 #: time_capture/public/js/utils.js:251
 msgid "No working time data found"
-msgstr ""
-
-#. Label of a Small Text field in DocType 'Time Capture Log'
-#: time_capture/time_capture/doctype/time_capture_log/time_capture_log.json
-msgid "Note"
 msgstr ""
 
 #: time_capture/time_capture/time_capture_controller.py:53
@@ -559,11 +404,6 @@ msgstr ""
 
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.py:14
 msgid "Notification day of the month has to be between 1 and 28"
-msgstr ""
-
-#. Label of a Section Break field in DocType 'Time Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Notifications"
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:31
@@ -625,11 +465,6 @@ msgstr ""
 msgid "Please, set all fields."
 msgstr ""
 
-#. Label of a Link field in DocType 'Time Capture Log'
-#: time_capture/time_capture/doctype/time_capture_log/time_capture_log.json
-msgid "Project"
-msgstr ""
-
 #. Name of a report
 #: time_capture/time_capture/report/project_time/project_time.json
 msgid "Project Time"
@@ -639,23 +474,12 @@ msgstr ""
 msgid "Project time cannot be greater than working time."
 msgstr ""
 
-#. Name of a role
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-msgid "Projects Manager"
-msgstr ""
-
 #: time_capture/time_capture/doctype/time_capture/time_capture.py:227
 msgid "Reminder: You have unsubmitted Time Captures"
 msgstr ""
 
 #: time_capture/time_capture/time_capture_controller.py:34
 msgid "Row {0}: Duration is not in the proper format."
-msgstr ""
-
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Saturday"
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:29
@@ -685,30 +509,6 @@ msgstr ""
 msgid "Sum for {}"
 msgstr ""
 
-#: time_capture/public/js/utils.js:91
-msgid "Summary"
-msgstr ""
-
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Sunday"
-msgstr ""
-
-#. Name of a role
-#: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-#: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "System Manager"
-msgstr ""
-
-#. Label of a Link field in DocType 'Time Capture Log'
-#: time_capture/time_capture/doctype/time_capture_log/time_capture_log.json
-msgid "Task"
-msgstr ""
-
 #: time_capture/time_capture/time_capture_controller.py:59
 msgid "Task {0} does not belong to Project {1}"
 msgstr ""
@@ -727,12 +527,6 @@ msgstr ""
 
 #: time_capture/public/js/utils.js:191
 msgid "This is the projected balance, that includes planned overtime reductions"
-msgstr ""
-
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Thursday"
 msgstr ""
 
 #. Name of a DocType
@@ -767,38 +561,9 @@ msgstr ""
 msgid "Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually. (Time to submit: {0} days)"
 msgstr ""
 
-#. Label of a Table field in DocType 'Freelancer Time Capture'
-#. Label of a Table field in DocType 'Time Capture'
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-msgid "Time Logs"
-msgstr ""
-
 #. Label of a Int field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Time to Submit (in days)"
-msgstr ""
-
-#. Linked DocType in Freelancer Time Capture's connections
-#. Linked DocType in Time Capture's connections
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-#: time_capture/time_capture/doctype/time_capture/time_capture.json
-msgid "Timesheet"
-msgstr ""
-
-#. Label of a Section Break field in DocType 'Time Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Timesheets"
-msgstr ""
-
-#: time_capture/time_capture/report/project_time/project_time.js:17
-msgid "To Date"
-msgstr ""
-
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Tuesday"
 msgstr ""
 
 #: time_capture/public/js/utils.js:120
@@ -818,44 +583,14 @@ msgstr ""
 msgid "Update all Attendances with Expected Working Hours table. Only for System Manager."
 msgstr ""
 
-#: time_capture/public/js/utils.js:143
-msgid "Used"
-msgstr ""
-
 #. Description of the 'Standard Email Recipient' (Data) field in DocType 'Time
 #. Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Used for Employees without linked User (=Email Address)"
 msgstr ""
 
-#. Label of a Link field in DocType 'Freelancer Time Capture'
-#: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
-msgid "User"
-msgstr ""
-
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.py:36
 msgid "User is not a Freelancer"
-msgstr ""
-
-#. Label of a Date field in DocType 'Employee Expected Working Hours'
-#: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
-msgid "Valid From"
-msgstr ""
-
-#. Option for the 'Notification Weekday' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Wednesday"
-msgstr ""
-
-#. Option for the 'Notification Frequency' (Select) field in DocType 'Time
-#. Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Weekly"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.py:35
-msgid "Working Hours"
 msgstr ""
 
 #. Label of a Duration field in DocType 'Time Capture'
@@ -878,10 +613,6 @@ msgstr ""
 
 #: time_capture/time_capture/doctype/time_capture/time_capture.py:78
 msgid "Working time must be completely booked on projects and tasks."
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:10
-msgid "Year"
 msgstr ""
 
 #: time_capture/scripts/summary_utils.py:109
