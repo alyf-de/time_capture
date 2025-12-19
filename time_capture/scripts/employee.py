@@ -24,7 +24,11 @@ def before_validate(doc, method):
 
 def validate_expected_working_hours(doc):
 	if not getdate(doc.date_of_joining) == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
-		frappe.throw(_("Date of Joining is not the same as the earliest date of Expected Working Hours."))
+		frappe.throw(
+			_("The date of joining ({0}) has to be the earliest date of Expected Working Hours.").format(
+				frappe.utils.format_date(doc.date_of_joining)
+			)
+		)
 
 
 def create_leave_policy_assignment(doc):
@@ -85,11 +89,39 @@ def get_expected_working_hours(employee_id, date):
 
 
 @frappe.whitelist()
-def update_attendances_with_expected_working_hours(employee_id):
-	from time_capture.scripts.attendance import _calculate_attendance_metrics
+def save_expected_working_hours_and_update_attendances(employee_id, expected_working_hours):
+	"""
+	Save expected working hours to employee and update all attendances.
+	"""
+	frappe.has_permission(doctype="Employee", doc=employee_id, ptype="write", throw=True)
 
-	if "System Manager" not in frappe.get_roles():
-		frappe.throw(_("Only System Manager are allowed to update Attendances with Expected Working Hours."))
+	# Load doc and clear existing expected working hours
+	employee = frappe.get_doc("Employee", employee_id)
+	employee.expected_working_hours = []
+
+	# turn expected_working_hours from string to a list of dicts
+	expected_working_hours = frappe.parse_json(expected_working_hours)
+
+	# Add new expected working hours
+	for ewh_data in expected_working_hours:
+		employee.append(
+			"expected_working_hours",
+			{
+				"valid_from": ewh_data.get("valid_from"),
+				"expected_daily_working_hours": ewh_data.get("expected_daily_working_hours"),
+			},
+		)
+
+	# Save employee document (this will trigger validation) and update attendances
+	employee.save()
+	update_attendances_for_employee(employee_id)
+
+
+def update_attendances_for_employee(employee_id):
+	"""
+	Update all attendances for an employee by recalculating the attendance metrics.
+	"""
+	from time_capture.scripts.attendance import _calculate_attendance_metrics
 
 	attendances_to_update = frappe.get_all(
 		"Attendance",

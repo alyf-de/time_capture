@@ -42,15 +42,14 @@ def get_custom_fields():
 				"label": _("Expected Working Hours"),
 				"reqd": 1,
 				"options": "Employee Expected Working Hours",
+				"read_only_depends_on": "eval:!doc.__islocal;",
 			},
 			{
-				"fieldname": "custom_update_attendances",
+				"fieldname": "custom_change_expected_hours",
 				"fieldtype": "Button",
-				"label": _("Update Attendances"),
+				"label": _("Change/Add Expected Hours"),
 				"insert_after": "expected_working_hours",
-				"description": _(
-					"Update all Attendances with Expected Working Hours table. Only for System Manager."
-				),
+				"depends_on": "eval:!doc.__islocal;",
 			},
 			{
 				"label": _("Leave Policy"),
