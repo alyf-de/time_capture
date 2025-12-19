@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2025-12-19 10:04+0053\n"
+"POT-Creation-Date: 2025-12-19 11:02+0053\n"
 "PO-Revision-Date: 2025-11-07 14:07+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
@@ -40,6 +40,10 @@ msgstr "Zusätzliche Pause"
 msgid "April"
 msgstr "April"
 
+#: time_capture/public/js/employee.js:56
+msgid "At least one Expected Working Hours entry is required."
+msgstr "Mindestens ein Eintrag in Erwartete Arbeitsstunden ist Pflicht."
+
 #. Linked DocType in Time Capture's connections
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Attendance"
@@ -53,6 +57,10 @@ msgstr "August"
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Break"
 msgstr "Pause"
+
+#: time_capture/custom_fields.py:50 time_capture/public/js/employee.js:29
+msgid "Change/Add Expected Hours"
+msgstr "Erwartete Stunden ändern/hinzufügen"
 
 #. Label of a Time field in DocType 'Freelancer Time Capture'
 #. Label of a Time field in DocType 'Time Capture'
@@ -94,10 +102,6 @@ msgstr "Freelancer-Benutzer wird erstellt"
 #: time_capture/time_capture/report/working_time_summary/working_time_summary.py:72
 msgid "Current Balance"
 msgstr "Aktuelles Saldo"
-
-#: time_capture/scripts/employee.py:27
-msgid "Date of Joining is not the same as the earliest date of Expected Working Hours."
-msgstr "Eintrittsdatum entspricht nicht dem frühesten Datum der erwarteten Arbeitsstunden."
 
 #: time_capture/time_capture/report/working_time/working_time.js:32
 msgid "December"
@@ -168,6 +172,7 @@ msgid "Expected Daily Working Hours"
 msgstr "Erwartete tägliche Arbeitsstunden"
 
 #: time_capture/custom_fields.py:11 time_capture/custom_fields.py:42
+#: time_capture/public/js/employee.js:35
 #: time_capture/time_capture/report/working_time/working_time.py:30
 msgid "Expected Working Hours"
 msgstr "Erwartete Arbeitsstunden"
@@ -215,7 +220,7 @@ msgid "Freelancer Name"
 msgstr "Freelancer-Name"
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:92
+#: time_capture/custom_fields.py:91
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
 msgid "Freelancer Time Capture"
 msgstr "Freelancer Zeiterfassung"
@@ -224,7 +229,7 @@ msgstr "Freelancer Zeiterfassung"
 msgid "Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."
 msgstr "Freelancer Zeiterfassung kann nur für Benutzer mit der 'Freelancer'-Rolle erstellt werden. Ändern Sie den Benutzer im Feld 'Benutzer'."
 
-#: time_capture/custom_fields.py:100
+#: time_capture/custom_fields.py:99
 msgid "Freelancer User"
 msgstr "Freelancer-Benutzer"
 
@@ -301,7 +306,7 @@ msgstr "Letzte manuelle Saldo-Korrektur"
 msgid "Last Notification (Sent On)"
 msgstr "Letzte Benachrichtigung (gesendet am)"
 
-#: time_capture/custom_fields.py:56
+#: time_capture/custom_fields.py:55
 msgid "Leave Policy"
 msgstr "Urlaubsrichtlinie"
 
@@ -414,9 +419,9 @@ msgstr "November"
 msgid "October"
 msgstr "Oktober"
 
-#: time_capture/scripts/employee.py:92
-msgid "Only System Manager are allowed to update Attendances with Expected Working Hours."
-msgstr "Nur System Manager sind berechtigt, Attendances mit erwarteten Arbeitsstunden zu aktualisieren."
+#: time_capture/public/js/employee.js:11
+msgid "Only System Manager are allowed to edit Expected Working Hours."
+msgstr "Nur System Manager dürgen Erwartete Arbeitsstunden anpassen."
 
 #. Description of the 'Minimum Draft Age (Days)' (Int) field in DocType 'Time
 #. Capture Settings'
@@ -457,6 +462,10 @@ msgstr "Geplante Überstundenreduzierung"
 msgid "Please review and submit the pending Time Captures."
 msgstr "Bitte überprüfen und buchen Sie die ausstehenden Zeiterfassungen."
 
+#: time_capture/public/js/employee.js:5
+msgid "Please save the Employee first."
+msgstr "Bitte speichern Sie den Mitarbeiter zuerst."
+
 #: time_capture/time_capture/doctype/create_freelancer/create_freelancer.js:18
 msgid "Please wait..."
 msgstr "Bitte warten..."
@@ -481,6 +490,10 @@ msgstr "Erinnerung: Sie haben ungebuchte Zeiterfassungen"
 #: time_capture/time_capture/time_capture_controller.py:34
 msgid "Row {0}: Duration is not in the proper format."
 msgstr "Zeile {0}: Dauer ist nicht im korrekten Format."
+
+#: time_capture/public/js/employee.js:82
+msgid "Save & Update Attendances"
+msgstr "Speichern & Anwesenheiten aktualisieren"
 
 #: time_capture/time_capture/report/working_time/working_time.js:29
 msgid "September"
@@ -513,6 +526,10 @@ msgstr "Summe für {}"
 msgid "Task {0} does not belong to Project {1}"
 msgstr "Vorgang {0} gehört nicht zu Projekt {1}"
 
+#: time_capture/scripts/employee.py:27
+msgid "The date of joining ({0}) has to be the earliest date of Expected Working Hours."
+msgstr "Das Beitrittsdatum muss dem frühesten Datum in Erwartete Arbeitsstunden entsprechen."
+
 #: time_capture/templates/time_capture_reminder.html:4
 msgid "The following Time Captures are still in draft status:"
 msgstr "Die folgenden Zeiterfassungen sind noch im Entwurfsstatus:"
@@ -530,12 +547,12 @@ msgid "This is the projected balance, that includes planned overtime reductions"
 msgstr "Dies ist das prognostizierte Saldo, das geplante Überstundenreduzierungen enthält"
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:28 time_capture/custom_fields.py:84
+#: time_capture/custom_fields.py:28 time_capture/custom_fields.py:83
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Time Capture"
 msgstr "Zeiterfassung"
 
-#: time_capture/public/js/employee.js:13
+#: time_capture/public/js/employee.js:91
 msgid "Time Capture & Leave Summary"
 msgstr "Zeiterfassungs- & Urlaubsübersicht"
 
@@ -575,14 +592,6 @@ msgstr "Zusammenfassungsdaten konnten nicht abgerufen werden"
 msgid "Unallocated Time"
 msgstr "Nicht zugewiesene Zeit"
 
-#: time_capture/custom_fields.py:49
-msgid "Update Attendances"
-msgstr "Anwesenheiten aktualisieren"
-
-#: time_capture/custom_fields.py:51
-msgid "Update all Attendances with Expected Working Hours table. Only for System Manager."
-msgstr "Aktualisiere alle Anwesenheiten mit der Tabelle erwarteter Arbeitsstunden. Nur für System Manager."
-
 #. Description of the 'Standard Email Recipient' (Data) field in DocType 'Time
 #. Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
@@ -619,7 +628,7 @@ msgstr "Die Arbeitszeit muss vollständig auf Projekte und Aufgaben gebucht werd
 msgid "{0} (on {1})"
 msgstr "{0} (am {1})"
 
-#: time_capture/scripts/employee.py:113
+#: time_capture/public/js/employee.js:72 time_capture/scripts/employee.py:141
 msgid "{0} Attendances updated successfully."
 msgstr "{0} Attendances erfolgreich aktualisiert."
 
