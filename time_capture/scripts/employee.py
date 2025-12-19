@@ -24,7 +24,11 @@ def before_validate(doc, method):
 
 def validate_expected_working_hours(doc):
 	if not getdate(doc.date_of_joining) == min(getdate(ewh.valid_from) for ewh in doc.expected_working_hours):
-		frappe.throw(_("Date of Joining is not the same as the earliest date of Expected Working Hours."))
+		frappe.throw(
+			_("The date of joining ({0}) has to be the earliest date of Expected Working Hours.").format(
+				frappe.utils.format_date(doc.date_of_joining)
+			)
+		)
 
 
 def create_leave_policy_assignment(doc):
@@ -94,6 +98,9 @@ def save_expected_working_hours_and_update_attendances(employee_id, expected_wor
 	# Load doc and clear existing expected working hours
 	employee = frappe.get_doc("Employee", employee_id)
 	employee.expected_working_hours = []
+
+	# turn expected_working_hours from string to a list of dicts
+	expected_working_hours = frappe.parse_json(expected_working_hours)
 
 	# Add new expected working hours
 	for ewh_data in expected_working_hours:
