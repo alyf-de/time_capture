@@ -421,7 +421,7 @@ msgstr "Oktober"
 
 #: time_capture/public/js/employee.js:11
 msgid "Only System Manager are allowed to edit Expected Working Hours."
-msgstr "Nur System Manager dürgen Erwartete Arbeitsstunden anpassen."
+msgstr "Nur System Manager dürfen Erwartete Arbeitsstunden anpassen."
 
 #. Description of the 'Minimum Draft Age (Days)' (Int) field in DocType 'Time
 #. Capture Settings'
