@@ -24,7 +24,7 @@ msgstr "<div class='alert alert-info'><p>Dieser Dokumenttyp wird verwendet, um n
 #. Header text in the Freelancer Workspace
 #: time_capture/time_capture/workspace/freelancer/freelancer.json
 msgid "<span class=\"h4\"><b>Administration</b></span>"
-msgstr "<span class=\"h4\"><b>Administration</b></span>"
+msgstr "<span class=\"h4\"><b>Verwaltung</b></span>"
 
 #. Header text in the Freelancer Workspace
 #: time_capture/time_capture/workspace/freelancer/freelancer.json
