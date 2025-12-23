@@ -88,8 +88,8 @@
    "fieldname": "standard_email_recipient",
    "fieldtype": "Data",
    "label": "Standard Email Recipient",
-   "options": "Email",
-   "reqd": 1
+   "mandatory_depends_on": "enable_weekly_reminders",
+   "options": "Email"
   },
   {
    "fieldname": "notification_section",
@@ -143,7 +143,7 @@
   },
   {
    "default": "Sunday",
-   "depends_on": "eval: doc.notification_frequency === \"Weekly\";",
+   "depends_on": "eval: doc.notification_frequency === \"Weekly\" && doc.enable_weekly_reminders;",
    "fieldname": "notification_weekday",
    "fieldtype": "Select",
    "label": "Notification Weekday",
@@ -151,7 +151,7 @@
    "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
   },
   {
-   "depends_on": "eval: doc.notification_frequency === \"Monthly\";",
+   "depends_on": "eval: doc.notification_frequency === \"Monthly\" && doc.enable_weekly_reminders;",
    "description": "Choose a regular (from 1 to 28) for monthly notifications. If empty, the last day of the month will be used.",
    "fieldname": "notification_day_of_the_month",
    "fieldtype": "Int",
@@ -164,7 +164,7 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval: doc.notification_frequency === \"Every X Days\";",
+   "depends_on": "eval: doc.notification_frequency === \"Every X Days\" && doc.enable_weekly_reminders;",
    "description": "Example: If you set this field to '3', the system sends Notifications every 3 days.",
    "fieldname": "notification_interval_in_days",
    "fieldtype": "Int",
@@ -198,7 +198,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-09-16 09:04:42.545985",
+ "modified": "2025-12-23 17:23:09.204815",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Time Capture Settings",
