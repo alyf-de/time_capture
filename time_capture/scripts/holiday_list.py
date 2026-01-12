@@ -25,16 +25,23 @@ def validate_holiday_list_period_for_employee(employee: str, from_date: str, to_
 	if not frappe.db.exists("Attendance", filters):
 		return
 
-	min_attendance_date = frappe.db.get_all(
-		"Attendance", filters=filters, order_by="attendance_date asc", limit=1, pluck="attendance_date"
-	)[0]
-	max_attendance_date = frappe.db.get_all(
-		"Attendance", filters=filters, order_by="attendance_date desc", limit=1, pluck="attendance_date"
-	)[0]
+	attendance_span = frappe.db.get_all(
+		"Attendance",
+		filters=filters,
+		fields=[
+			"MIN(attendance_date) as min_attendance_date",
+			"MAX(attendance_date) as max_attendance_date	",
+		],
+	)
+	min_attendance_date = attendance_span[0].min_attendance_date
+	max_attendance_date = attendance_span[0].max_attendance_date
 
-	if min_attendance_date <= from_date or max_attendance_date >= to_date:
-		msg = _("Employee {0} has Attendances outside the Holiday List period.").format(employee)
-		msg += "<br>" + _(
-			"Please adjust the Holiday List, such that it covers all Attendances (from {0} to {1} and possibly ongoing)."
-		).format(frappe.utils.format_date(min_attendance_date), frappe.utils.format_date(max_attendance_date))
-		frappe.throw(msg)
+	if from_date <= min_attendance_date and to_date >= max_attendance_date:
+		# All Attendances are within the Holiday List period.
+		return
+
+	msg = _("Employee {0} has Attendances outside the Holiday List period.").format(employee)
+	msg += "<br>" + _(
+		"Please adjust the Holiday List, such that it covers all Attendances (from {0} to {1} and possibly ongoing)."
+	).format(frappe.utils.format_date(min_attendance_date), frappe.utils.format_date(max_attendance_date))
+	frappe.throw(msg)
