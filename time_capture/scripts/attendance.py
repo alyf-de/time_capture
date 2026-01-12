@@ -24,9 +24,22 @@ def on_cancel(doc, event):
 
 def set_attendance_metrics(doc):
 	working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(doc)
-	doc.working_hours = working_hours or 0
-	doc.expected_working_hours = expected_working_hours or 0
-	doc.flexitime = flexitime or 0
+	if doc.flags.after_submit:
+		# This is needed if a late Time Capture is submitted and updates the Attendance metrics.
+		frappe.db.set_value(
+			"Attendance",
+			doc.name,
+			{
+				"working_hours": working_hours,
+				"expected_working_hours": expected_working_hours,
+				"flexitime": flexitime,
+			},
+		)
+	else:
+		# This is the normal flow.
+		doc.working_hours = working_hours or 0
+		doc.expected_working_hours = expected_working_hours or 0
+		doc.flexitime = flexitime or 0
 
 
 def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
