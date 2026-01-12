@@ -135,7 +135,7 @@ def update_attendances_for_employee(employee_id):
 	"""
 	Update all attendances for an employee by recalculating the attendance metrics.
 	"""
-	from time_capture.scripts.attendance import _calculate_attendance_metrics
+	from time_capture.scripts.attendance import get_attendance_metrics
 
 	attendances_to_update = frappe.get_all(
 		"Attendance",
@@ -144,13 +144,12 @@ def update_attendances_for_employee(employee_id):
 	)
 	for attendance_id in attendances_to_update:
 		doc = frappe.get_doc("Attendance", attendance_id)
-		working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(
-			doc, update_from_employee=True
-		)
+		status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(doc)
 		frappe.db.set_value(
 			"Attendance",
 			doc.name,
 			{
+				"status": status,
 				"working_hours": working_hours,
 				"expected_working_hours": expected_working_hours,
 				"flexitime": flexitime,
