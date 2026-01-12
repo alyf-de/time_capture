@@ -7,8 +7,6 @@ from time_capture.time_capture.doctype.time_capture.time_capture import _create_
 
 def on_change(doc, event):
 	set_attendance_metrics(doc)
-	if not doc.leave_type:
-		doc.status = _get_attendance_status(doc.expected_working_hours, doc.working_hours)
 	if (
 		doc.leave_type
 		and frappe.utils.getdate(doc.attendance_date) <= frappe.utils.getdate()
@@ -23,42 +21,59 @@ def on_cancel(doc, event):
 
 
 def set_attendance_metrics(doc):
-	working_hours, expected_working_hours, flexitime = _calculate_attendance_metrics(doc)
-	doc.working_hours = working_hours or 0
-	doc.expected_working_hours = expected_working_hours or 0
-	doc.flexitime = flexitime or 0
+	status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(doc)
+	if doc.flags.after_submit:
+		# This is needed if a late Time Capture is submitted and updates the Attendance metrics.
+		frappe.db.set_value(
+			"Attendance",
+			doc.name,
+			{
+				"status": status,
+				"working_hours": working_hours,
+				"expected_working_hours": expected_working_hours,
+				"flexitime": flexitime,
+			},
+		)
+	else:
+		# This is the normal flow.
+		doc.status = status
+		doc.working_hours = working_hours
+		doc.expected_working_hours = expected_working_hours
+		doc.flexitime = flexitime
 
 
-def _calculate_attendance_metrics(doc, update_from_employee: bool = False):
+def get_attendance_metrics(doc):
 	"""
 	Calculates actual working hours, expected working hours, and flexitime
 	based on the attendance document. Also sets the attendance status.
 	Args:
-	        doc (frappe.model.document.Document): The attendance document.
+	                doc (frappe.model.document.Document): The attendance document.
 	Returns:
-	        tuple: (actual_working_hours, expected_working_hours, flexitime)
+	                tuple: (status, actual_working_hours, expected_working_hours, flexitime)
 	"""
-	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date)
+	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date) or 0.0
+	status = _get_attendance_status(doc.leave_type, expected_working_hours_full_day, doc.working_hours)
 
-	# Handle Leaves
 	if doc.leave_type:
-		if frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory"):
-			return 0.0, 0.0, -expected_working_hours_full_day
-		else:
-			return 0.0, 0.0, 0.0
+		working_hours = 0.0
+		expected_working_hours = 0.0
+		flexitime = (
+			0.0
+			if not frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory")
+			else -expected_working_hours_full_day
+		)
+	else:
+		working_hours = doc.working_hours or 0.0
+		expected_working_hours = expected_working_hours_full_day
+		flexitime = working_hours - expected_working_hours_full_day
 
-	if expected_working_hours_full_day and not update_from_employee:
-		doc.status = _get_attendance_status(expected_working_hours_full_day, doc.working_hours)
-
-	# Normal Working Day
-	return (
-		doc.working_hours,
-		expected_working_hours_full_day,
-		doc.working_hours - expected_working_hours_full_day,
-	)
+	return status, working_hours, expected_working_hours, flexitime
 
 
-def _get_attendance_status(expected_working_hours_full_day: float, working_hours: float):
+def _get_attendance_status(leave_type: str, expected_working_hours_full_day: float, working_hours: float):
+	if leave_type:
+		return "On Leave"
+
 	if working_hours == 0:
 		return "Absent"
 

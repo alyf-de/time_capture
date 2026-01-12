@@ -132,6 +132,7 @@ class TimeCapture(Document):
 			attendance.working_hours = self.working_time / 60 / 60
 			attendance.custom_time_capture = self.name
 			attendance.flags.ignore_permissions = True
+			attendance.flags.after_submit = True
 			attendance.save()
 
 	def validate_time_to_submit_in_days(self):
