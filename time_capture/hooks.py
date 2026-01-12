@@ -151,6 +151,9 @@ doc_events = {
 		"before_validate": "time_capture.scripts.employee.before_validate",
 		"validate": "time_capture.scripts.employee.validate",
 	},
+	"Holiday List": {
+		"validate": "time_capture.scripts.holiday_list.validate",
+	},
 }
 
 # Scheduled Tasks
