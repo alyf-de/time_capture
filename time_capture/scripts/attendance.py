@@ -1,5 +1,6 @@
 import frappe
 from frappe import _
+from frappe.utils import getdate
 
 from time_capture.scripts.employee import get_expected_working_hours
 from time_capture.time_capture.doctype.time_capture.time_capture import _create_time_capture
@@ -22,7 +23,7 @@ def on_cancel(doc, event):
 
 def set_attendance_metrics(doc):
 	status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(doc)
-	if doc.flags.after_submit:
+	if doc.docstatus == 1:
 		# This is needed if a late Time Capture is submitted and updates the Attendance metrics.
 		frappe.db.set_value(
 			"Attendance",
@@ -47,40 +48,73 @@ def get_attendance_metrics(doc):
 	Calculates actual working hours, expected working hours, and flexitime
 	based on the attendance document. Also sets the attendance status.
 	Args:
-	                doc (frappe.model.document.Document): The attendance document.
+	                                doc (frappe.model.document.Document): The attendance document.
 	Returns:
-	                tuple: (status, actual_working_hours, expected_working_hours, flexitime)
+	                                tuple: (status, actual_working_hours, expected_working_hours, flexitime)
 	"""
 	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date) or 0.0
-	status = _get_attendance_status(doc.leave_type, expected_working_hours_full_day, doc.working_hours)
+	is_half_day = _get_is_half_day(doc.attendance_date, doc.leave_application)
+	status = _get_attendance_status(
+		is_half_day, expected_working_hours_full_day, doc.working_hours, doc.leave_type
+	)
+	working_hours = doc.working_hours or 0.0
 
-	if doc.leave_type:
-		working_hours = 0.0
-		expected_working_hours = 0.0
-		flexitime = (
-			0.0
-			if not frappe.db.get_value("Leave Type", doc.leave_type, "is_compensatory")
-			else -expected_working_hours_full_day
+	if doc.leave_type and doc.leave_application:
+		expected_working_hours = _get_expected_working_hours_for_leave_days(
+			expected_working_hours_full_day, doc.leave_type, is_half_day
 		)
+		flexitime = working_hours - expected_working_hours
 	else:
-		working_hours = doc.working_hours or 0.0
 		expected_working_hours = expected_working_hours_full_day
 		flexitime = working_hours - expected_working_hours_full_day
 
 	return status, working_hours, expected_working_hours, flexitime
 
 
-def _get_attendance_status(leave_type: str, expected_working_hours_full_day: float, working_hours: float):
-	if leave_type:
+def _get_attendance_status(
+	is_half_day: bool, expected_working_hours_full_day: float, working_hours: float, leave_type: str | None
+):
+	if leave_type and not is_half_day:
 		return "On Leave"
 
 	if working_hours == 0:
 		return "Absent"
 
-	HALF_DAY = expected_working_hours_full_day / 2
-	OVERTIME_FACTOR = 1.15
-	MAX_HALF_DAY = HALF_DAY * OVERTIME_FACTOR
-	return "Present" if working_hours > MAX_HALF_DAY else "Half Day"
+	if is_half_day:
+		return "Half Day"
+
+	return "Present"
+
+
+def _get_is_half_day(date: str, leave_application: str | None):
+	"""
+	Return a boolean indicating if the leave application date is a half day.
+	"""
+	if not leave_application:
+		return False
+	has_half_day, half_day_date = frappe.db.get_value(
+		"Leave Application", leave_application, ["half_day", "half_day_date"]
+	)
+	if not has_half_day or not half_day_date:
+		return False
+	return getdate(half_day_date) == getdate(date)
+
+
+def _get_expected_working_hours_for_leave_days(
+	expected_working_hours_full_day: float, leave_type: str, is_half_day: bool
+):
+	"""
+	Return the expected working hours for a Leave Day considering Half Days and Overtime Reduction.
+	"""
+	if expected_working_hours_full_day == 0:
+		# This should never happen, but just to avoid division by zero.
+		return 0.0
+	if frappe.db.get_value("Leave Type", leave_type, "is_compensatory"):
+		# No matter if a compensatory leave is full or half day the expected hours will be a full day.
+		return expected_working_hours_full_day
+	if is_half_day:
+		return expected_working_hours_full_day / 2
+	return 0.0
 
 
 def delete_time_capture(doc):
