@@ -37,9 +37,9 @@ def set_attendance_metrics(doc):
 	else:
 		# This is the normal flow.
 		doc.status = status
-		doc.working_hours = working_hours or 0
-		doc.expected_working_hours = expected_working_hours or 0
-		doc.flexitime = flexitime or 0
+		doc.working_hours = working_hours
+		doc.expected_working_hours = expected_working_hours
+		doc.flexitime = flexitime
 
 
 def get_attendance_metrics(doc):
@@ -63,7 +63,7 @@ def get_attendance_metrics(doc):
 			else -expected_working_hours_full_day
 		)
 	else:
-		working_hours = doc.working_hours
+		working_hours = doc.working_hours or 0.0
 		expected_working_hours = expected_working_hours_full_day
 		flexitime = working_hours - expected_working_hours_full_day
 
