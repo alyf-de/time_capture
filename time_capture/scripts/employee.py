@@ -1,4 +1,5 @@
 import frappe
+from erpnext.setup.doctype.employee.employee import is_holiday
 from frappe import _
 from frappe.utils import getdate
 from frappe.utils.data import today
@@ -87,10 +88,24 @@ def _show_leave_types_created_info(leave_policy):
 		)
 
 
-def get_expected_working_hours(employee_id, date):
+def get_expected_working_hours(employee_id, date, validate_active_holiday_list=True):
 	"""
 	Get the expected working hours for an employee on a specific date.
 	"""
+	date = getdate(date)
+	holiday_list = frappe.db.get_value("Employee", employee_id, "holiday_list")
+	if validate_active_holiday_list:
+		hl_from_date, hl_to_date = frappe.db.get_value("Holiday List", holiday_list, ["from_date", "to_date"])
+		if not (hl_from_date <= date <= hl_to_date):
+			frappe.throw(
+				_(
+					"The date {0} is not within the period of the active holiday list for employee {1}."
+				).format(frappe.utils.format_date(date), employee_id)
+			)
+
+	if holiday_list and is_holiday(employee=employee_id, date=date):
+		return 0.0
+
 	return (
 		frappe.db.get_value(
 			"Employee Expected Working Hours",
