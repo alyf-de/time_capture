@@ -47,9 +47,9 @@ def get_attendance_metrics(doc):
 	Calculates actual working hours, expected working hours, and flexitime
 	based on the attendance document. Also sets the attendance status.
 	Args:
-	        doc (frappe.model.document.Document): The attendance document.
+	                doc (frappe.model.document.Document): The attendance document.
 	Returns:
-	        tuple: (actual_working_hours, expected_working_hours, flexitime)
+	                tuple: (status, actual_working_hours, expected_working_hours, flexitime)
 	"""
 	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date) or 0.0
 	status = _get_attendance_status(doc.leave_type, expected_working_hours_full_day, doc.working_hours)
