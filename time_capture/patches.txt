@@ -11,4 +11,4 @@ time_capture.patches.rectify_attendance_metrics
 time_capture.patches.delete_outdated_time_captures
 execute:frappe.db.set_value("Freelancer Time Capture", {"docstatus": ["!=", 0]}, {"check_in": "00:00", "check_out": "00:00"})
 execute:frappe.db.delete("Custom Field", {"name": "Employee-custom_update_attendances"})
-time_capture.patches.rectify_attendance_metrics_2512 # 2026-01-12 #2
+time_capture.patches.rectify_attendance_metrics_2512 # 2026-01-20 #3

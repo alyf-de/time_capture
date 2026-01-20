@@ -151,7 +151,7 @@ def save_expected_working_hours_and_update_attendances(employee_id, expected_wor
 	update_attendances_for_employee(employee_id)
 
 
-def update_attendances_for_employee(employee_id):
+def update_attendances_for_employee(employee_id, get_working_hours=False):
 	"""
 	Update all attendances for an employee by recalculating the attendance metrics.
 	"""
@@ -164,7 +164,9 @@ def update_attendances_for_employee(employee_id):
 	)
 	for attendance_id in attendances_to_update:
 		doc = frappe.get_doc("Attendance", attendance_id)
-		status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(doc)
+		status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(
+			doc, get_working_hours
+		)
 		frappe.db.set_value(
 			"Attendance",
 			doc.name,

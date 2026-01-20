@@ -43,7 +43,7 @@ def set_attendance_metrics(doc):
 		doc.flexitime = flexitime
 
 
-def get_attendance_metrics(doc):
+def get_attendance_metrics(doc, get_working_hours=False):
 	"""
 	Calculates actual working hours, expected working hours, and flexitime
 	based on the attendance document. Also sets the attendance status.
@@ -54,11 +54,21 @@ def get_attendance_metrics(doc):
 	"""
 	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date) or 0.0
 	is_half_day = _get_is_half_day(doc.attendance_date, doc.leave_application)
+
+	# 1: Get Status
 	status = _get_attendance_status(
 		is_half_day, expected_working_hours_full_day, doc.working_hours, doc.leave_type
 	)
-	working_hours = doc.working_hours or 0.0
 
+	# 2: Get Working Hours
+	if get_working_hours and doc.custom_time_capture:
+		working_hours = frappe.db.get_value("Time Capture", doc.custom_time_capture, "working_time") or 0.0
+		if working_hours > 0:
+			working_hours = working_hours / 3600
+	else:
+		working_hours = doc.working_hours or 0.0
+
+	# 3: Get Expected Working Hours and Flexitime
 	if doc.leave_type and doc.leave_application:
 		expected_working_hours = _get_expected_working_hours_for_leave_days(
 			expected_working_hours_full_day, doc.leave_type, is_half_day
