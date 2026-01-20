@@ -52,6 +52,12 @@ def get_attendance_metrics(doc, get_working_hours=False):
 	Returns:
 	                                tuple: (status, actual_working_hours, expected_working_hours, flexitime)
 	"""
+	if doc.leave_type and doc.leave_type == frappe.db.get_single_value(
+		"Time Capture Settings", "sick_leave_type"
+	):
+		# Special Case: Sick Leaves are not considered for working hours or expected working hours.
+		return "On Leave", 0.0, 0.0, 0.0
+
 	expected_working_hours_full_day = get_expected_working_hours(doc.employee, doc.attendance_date) or 0.0
 	is_half_day = _get_is_half_day(doc.attendance_date, doc.leave_application)
 
@@ -68,16 +74,15 @@ def get_attendance_metrics(doc, get_working_hours=False):
 		is_half_day, expected_working_hours_full_day, working_hours, doc.leave_type
 	)
 
-	# 3: Get Expected Working Hours and Flexitime
+	# 3: Get Expected Working Hours
 	if doc.leave_type and doc.leave_application:
 		expected_working_hours = _get_expected_working_hours_for_leave_days(
 			expected_working_hours_full_day, doc.leave_type, is_half_day
 		)
-		flexitime = working_hours - expected_working_hours
 	else:
 		expected_working_hours = expected_working_hours_full_day
-		flexitime = working_hours - expected_working_hours_full_day
 
+	flexitime = working_hours - expected_working_hours
 	return status, working_hours, expected_working_hours, flexitime
 
 
