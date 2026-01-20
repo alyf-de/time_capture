@@ -154,6 +154,15 @@ def save_expected_working_hours_and_update_attendances(employee_id, expected_wor
 def update_attendances_for_employee(employee_id, get_working_hours=False):
 	"""
 	Update all attendances for an employee by recalculating the attendance metrics.
+
+	:param employee_id: The Employee ID whose submitted Attendance records should be updated.
+	:param get_working_hours: If True, forces recalculation of working hours for each
+		Attendance record (via :func:`get_attendance_metrics`), using the latest underlying
+		source data. Leave as False (the default) when only status or expected working hours
+		need to be refreshed and no change to the way working hours are derived is required.
+		Set this to True when working-hours-related inputs (such as shifts, logs, or
+		configuration affecting working hours) have changed and working hours must be
+		recomputed.
 	"""
 	from time_capture.scripts.attendance import get_attendance_metrics
 
