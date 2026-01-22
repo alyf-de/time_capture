@@ -1,14 +1,14 @@
 # Translations template for Time Capture.
-# Copyright (C) 2025 ALYF GmbH
+# Copyright (C) 2026 ALYF GmbH
 # This file is distributed under the same license as the Time Capture project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2025-12-19 11:44+0053\n"
-"PO-Revision-Date: 2025-12-19 11:44+0053\n"
+"POT-Creation-Date: 2026-01-22 17:02+0053\n"
+"PO-Revision-Date: 2026-01-22 17:02+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Break"
 msgstr ""
 
-#: time_capture/custom_fields.py:50 time_capture/public/js/employee.js:29
+#: time_capture/custom_fields.py:60 time_capture/public/js/employee.js:29
 msgid "Change/Add Expected Hours"
 msgstr ""
 
@@ -136,6 +136,10 @@ msgstr ""
 msgid "Employee Status"
 msgstr ""
 
+#: time_capture/scripts/holiday_list.py:43
+msgid "Employee {0} has Attendances outside the Holiday List period."
+msgstr ""
+
 #. Label of a Check field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Enable Reminders"
@@ -146,7 +150,7 @@ msgstr ""
 msgid "Enforce Mandatory Breaks"
 msgstr ""
 
-#: time_capture/scripts/attendance.py:131
+#: time_capture/scripts/attendance.py:195
 msgid "Error creating Attendance"
 msgstr ""
 
@@ -171,15 +175,15 @@ msgstr ""
 msgid "Expected Daily Working Hours"
 msgstr ""
 
-#: time_capture/scripts/employee.py:42
-msgid "Expected Daily Working Hours cannot be greater than 12."
+#: time_capture/scripts/employee.py:49
+msgid "Expected Daily Working Hours cannot be greater than 12h."
 msgstr ""
 
-#: time_capture/scripts/employee.py:36
-msgid "Expected Daily Working Hours cannot be less than 0."
+#: time_capture/scripts/employee.py:43
+msgid "Expected Daily Working Hours cannot be less than 0h."
 msgstr ""
 
-#: time_capture/custom_fields.py:11 time_capture/custom_fields.py:42
+#: time_capture/custom_fields.py:11 time_capture/custom_fields.py:52
 #: time_capture/public/js/employee.js:35
 #: time_capture/time_capture/report/working_time/working_time.py:30
 msgid "Expected Working Hours"
@@ -228,7 +232,7 @@ msgid "Freelancer Name"
 msgstr ""
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:91
+#: time_capture/custom_fields.py:101
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
 msgid "Freelancer Time Capture"
 msgstr ""
@@ -237,7 +241,7 @@ msgstr ""
 msgid "Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."
 msgstr ""
 
-#: time_capture/custom_fields.py:99
+#: time_capture/custom_fields.py:109
 msgid "Freelancer User"
 msgstr ""
 
@@ -314,11 +318,11 @@ msgstr ""
 msgid "Last Notification (Sent On)"
 msgstr ""
 
-#: time_capture/custom_fields.py:55
+#: time_capture/custom_fields.py:65
 msgid "Leave Policy"
 msgstr ""
 
-#: time_capture/scripts/employee.py:13
+#: time_capture/scripts/employee.py:21
 msgid "Leave Policy has been changed. Note, that this will not update existing Leave Allocations or create/update future Leave Allocations."
 msgstr ""
 
@@ -371,6 +375,10 @@ msgstr ""
 msgid "Minimum Draft Age (Days)"
 msgstr ""
 
+#: time_capture/custom_fields.py:41
+msgid "No Supervisor Required"
+msgstr ""
+
 #: time_capture/time_capture/time_capture_controller.py:69
 msgid "No budget left for Task {0}. Please, contact the Project Manager."
 msgstr ""
@@ -387,7 +395,7 @@ msgstr ""
 msgid "Note must be at least 5 characters. Found: {0}"
 msgstr ""
 
-#: time_capture/scripts/employee.py:81
+#: time_capture/scripts/employee.py:134
 msgid "Note: Following Leaves Types were created: {0}.<br>Following Leave Types were not created: {1}"
 msgstr ""
 
@@ -466,6 +474,10 @@ msgstr ""
 msgid "Planned Overtime Reduction"
 msgstr ""
 
+#: time_capture/scripts/holiday_list.py:44
+msgid "Please adjust the Holiday List, such that it covers all Attendances (from {0} to {1} and possibly ongoing)."
+msgstr ""
+
 #: time_capture/templates/time_capture_reminder.html:17
 msgid "Please review and submit the pending Time Captures."
 msgstr ""
@@ -482,6 +494,10 @@ msgstr ""
 msgid "Please, set all fields."
 msgstr ""
 
+#: time_capture/scripts/employee.py:90
+msgid "Possible mis-configuration?"
+msgstr ""
+
 #. Name of a report
 #: time_capture/time_capture/report/project_time/project_time.json
 msgid "Project Time"
@@ -491,7 +507,7 @@ msgstr ""
 msgid "Project time cannot be greater than working time."
 msgstr ""
 
-#: time_capture/time_capture/doctype/time_capture/time_capture.py:227
+#: time_capture/time_capture/doctype/time_capture/time_capture.py:236
 msgid "Reminder: You have unsubmitted Time Captures"
 msgstr ""
 
@@ -505,6 +521,10 @@ msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:29
 msgid "September"
+msgstr ""
+
+#: time_capture/custom_fields.py:44
+msgid "Should be checked if the employee is a CEO (or has no supervisor for some reason)."
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.py:55
@@ -530,16 +550,37 @@ msgstr ""
 msgid "Sum for {}"
 msgstr ""
 
+#. Label of a Data field in DocType 'Time Capture'
+#: time_capture/time_capture/doctype/time_capture/time_capture.json
+msgid "Supervisor Email"
+msgstr ""
+
 #: time_capture/time_capture/time_capture_controller.py:59
 msgid "Task {0} does not belong to Project {1}"
 msgstr ""
 
-#: time_capture/scripts/employee.py:28
+#: time_capture/scripts/employee.py:35
 msgid "The date of joining ({0}) has to be the earliest date of Expected Working Hours."
+msgstr ""
+
+#: time_capture/scripts/employee.py:153
+msgid "The date {0} is not within the period of the active holiday list for employee {1}."
 msgstr ""
 
 #: time_capture/templates/time_capture_reminder.html:4
 msgid "The following Time Captures are still in draft status:"
+msgstr ""
+
+#: time_capture/scripts/employee.py:77
+msgid "The supervisor cannot be the same as the employee."
+msgstr ""
+
+#: time_capture/scripts/employee.py:97
+msgid "The supervisor has no User linked in his/her Employee record."
+msgstr ""
+
+#: time_capture/scripts/employee.py:87
+msgid "This Employee has no supervisor (<i>Reports To</i>), but has <i>Create User Permission</i> checkbox enabled. Please, make sure that this intended."
 msgstr ""
 
 #: time_capture/public/js/utils.js:187
@@ -555,7 +596,7 @@ msgid "This is the projected balance, that includes planned overtime reductions"
 msgstr ""
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:28 time_capture/custom_fields.py:83
+#: time_capture/custom_fields.py:28 time_capture/custom_fields.py:93
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Time Capture"
 msgstr ""
@@ -569,7 +610,7 @@ msgstr ""
 msgid "Time Capture Log"
 msgstr ""
 
-#: time_capture/scripts/attendance.py:93
+#: time_capture/scripts/attendance.py:157
 msgid "Time Capture Not Found"
 msgstr ""
 
@@ -582,7 +623,7 @@ msgstr ""
 msgid "Time Capture Summary"
 msgstr ""
 
-#: time_capture/time_capture/doctype/time_capture/time_capture.py:153
+#: time_capture/time_capture/doctype/time_capture/time_capture.py:162
 msgid "Time Capture deadline missed. Please contact your supervisor to submit your Time Capture manually. (Time to submit: {0} days)"
 msgstr ""
 
@@ -636,7 +677,7 @@ msgstr ""
 msgid "{0} (on {1})"
 msgstr ""
 
-#: time_capture/scripts/employee.py:159
+#: time_capture/scripts/employee.py:236
 msgid "{0} Attendances updated successfully."
 msgstr ""
 
