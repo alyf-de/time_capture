@@ -10,6 +10,7 @@ from time_capture.scripts.holiday_list import validate_holiday_list_period_for_e
 
 def before_validate(doc, method):
 	validate_expected_working_hours(doc)
+	set_supervisor_from_reports_to(doc)
 
 
 def validate(doc, method=None):
@@ -49,6 +50,52 @@ def validate_expected_working_hours(doc):
 					frappe.utils.format_date(ewh.valid_from)
 				)
 			)
+
+
+def set_supervisor_from_reports_to(doc):
+	"""
+	Set supervisor from reports_to field.
+	"""
+	supervisor = _validate_and_get_supervisor(doc)
+	if not supervisor:
+		return
+
+	doc.expense_approver = supervisor
+	doc.leave_approver = supervisor
+	doc.shift_request_approver = supervisor
+
+
+def _validate_and_get_supervisor(doc):
+	"""
+	- Supervisor is not the same as the employee.
+	- Reset Reports To for "CEOs"
+	- Supervisor has a User linked.
+	- Hint: "CEOs" have User Permission checkbox disabled.
+	"""
+	# Validate User Error
+	if doc.reports_to == doc.name:
+		frappe.throw(_("The supervisor cannot be the same as the employee."))
+
+	# Reset Reports To for "CEOs"
+	if doc.custom_no_supervisor_required:
+		doc.reports_to = None
+
+	# Handle no Reports To
+	if not doc.reports_to:
+		if doc.create_user_permission:
+			frappe.msgprint(
+				_(
+					"This Employee has no supervisor (<i>Reports To</i>), but has <i>Create User Permission</i> checkbox enabled. Please, make sure that this intended."
+				),
+				title=_("Possible mis-configuration?"),
+			)
+		return None
+
+	# Get Supervisor User
+	supervisor_user = frappe.db.get_value("Employee", doc.reports_to, "user_id")
+	if not supervisor_user:
+		frappe.throw(_("The supervisor has no User linked in his/her Employee record."))
+	return supervisor_user
 
 
 def create_leave_policy_assignment(doc):
