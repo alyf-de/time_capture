@@ -36,6 +36,16 @@ def get_custom_fields():
 		],
 		"Employee": [
 			{
+				"fieldname": "custom_no_supervisor_required",
+				"fieldtype": "Check",
+				"label": _("No Supervisor Required"),
+				"insert_after": "reports_to",
+				"default": 0,
+				"description": _(
+					"Should be checked if the employee is a CEO (or has no supervisor for some reason)."
+				),
+			},
+			{
 				"fieldname": "expected_working_hours",
 				"fieldtype": "Table",
 				"insert_after": "attendance_device_id",
