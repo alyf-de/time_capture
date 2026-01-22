@@ -4,6 +4,7 @@ def get_property_setters():
 		("Attendance", "working_hours", "allow_on_submit", "1"),
 		("Attendance", "working_hours", "precision", "2"),
 		("Employee", "reports_to", "mandatory_depends_on", "eval:!doc.custom_no_supervisor_required"),
+		("Employee", "reports_to", "read_only_depends_on", "eval: doc.custom_no_supervisor_required"),
 		("Employee", "expense_approver", "read_only", "1"),
 		("Employee", "expense_approver", "description", "Fetched from <i>Reports To</i> field."),
 		("Employee", "leave_approver", "read_only", "1"),
