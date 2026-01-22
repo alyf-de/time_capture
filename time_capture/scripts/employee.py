@@ -8,6 +8,10 @@ from hrms.hr.utils import get_leave_period
 from time_capture.scripts.holiday_list import validate_holiday_list_period_for_employee
 
 
+def before_validate(doc, method):
+	validate_expected_working_hours(doc)
+
+
 def validate(doc, method=None):
 	if doc.is_new():
 		create_leave_policy_assignment(doc)
@@ -22,10 +26,6 @@ def validate(doc, method=None):
 	if not doc.is_new() and doc.has_value_changed("holiday_list") and doc.holiday_list:
 		from_date, to_date = frappe.db.get_value("Holiday List", doc.holiday_list, ["from_date", "to_date"])
 		validate_holiday_list_period_for_employee(doc.name, from_date, to_date)
-
-
-def before_validate(doc, method):
-	validate_expected_working_hours(doc)
 
 
 def validate_expected_working_hours(doc):
