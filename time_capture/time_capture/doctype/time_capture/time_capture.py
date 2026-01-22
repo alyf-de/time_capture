@@ -55,7 +55,7 @@ class TimeCapture(Document):
 		self.calculate_totals()
 		if self.has_value_changed("employee") or self.has_value_changed("date"):
 			self.is_of_legal_age = self._get_is_of_legal_age()
-		self.set_notification_email_address()
+		self.set_notification_email_addresses()
 
 	def validate(self):
 		validate_time_log_description(self)
@@ -94,12 +94,20 @@ class TimeCapture(Document):
 		self.working_time = total_duration - self.break_time
 		self.unallocated_time = self.working_time - sum(row.duration for row in self.time_logs)
 
-	def set_notification_email_address(self):
+	def set_notification_email_addresses(self):
+		"""
+		Set Employee's and supervisor's email addresses for notification.
+		"""
 		if not self.has_value_changed("employee"):
 			return
-		self.email = frappe.db.get_value("Employee", self.employee, "user_id") or frappe.db.get_single_value(
-			"Time Capture Settings", "standard_email_recipient"
+		user_id, supervisor_email = frappe.db.get_value(
+			"Employee", self.employee, ["user_id", "leave_approver"]
 		)
+		self.email = user_id or frappe.db.get_single_value(
+			"Time Capture Settings",
+			"standard_email_recipient",
+		)
+		self.supervisor_email = supervisor_email
 
 	def create_attendance(self):
 		"""
