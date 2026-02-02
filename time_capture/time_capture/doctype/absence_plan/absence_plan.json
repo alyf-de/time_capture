@@ -60,13 +60,15 @@
   {
    "fieldname": "bulk_insert_btn",
    "fieldtype": "Button",
-   "label": "Bulk Insert"
+   "label": "Bulk Insert",
+   "depends_on": "eval: doc.docstatus == 0"
   },
   {
    "fieldname": "dates",
    "fieldtype": "Table",
    "label": "Dates",
-   "options": "Absence Plan Date"
+   "options": "Absence Plan Date",
+   "read_only_depends_on": ""
   },
   {
    "fieldname": "approval_section",
@@ -137,7 +139,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-02 16:52:02.277175",
+ "modified": "2026-02-02 17:59:00.281409",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Absence Plan",

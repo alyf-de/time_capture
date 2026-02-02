@@ -1,6 +1,8 @@
 # Copyright (c) 2025, ALYF GmbH and contributors
 # For license information, please see license.txt
 
+import json
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -47,15 +49,8 @@ class AbsencePlan(Document):
 			self.to_date = max([row.date for row in self.dates])
 		self.order_dates()
 
-	def validate(self):
-		self.avoid_overlapping_absence_plans()
-
 	def on_update(self):
 		share_doc_with_approver(self, self.leave_approver)
-
-	def before_update_after_submit(self):
-		self.order_dates()
-		self.avoid_overlapping_absence_plans()
 
 	def on_submit(self):
 		if self.status in ["Open", "Cancelled"]:
@@ -144,32 +139,12 @@ class AbsencePlan(Document):
 	def order_dates(self):
 		self.dates = sorted(self.dates, key=lambda x: x.date)
 
-	def avoid_overlapping_absence_plans(self):
-		overlapping_absence_plans = frappe.db.get_all(
-			"Absence Plan",
-			{"docstatus": ["!=", 2], "employee": self.employee, "name": ["!=", self.name]},
-			or_filters={
-				"from_date": ["between", [self.from_date, self.to_date]],
-				"to_date": ["between", [self.from_date, self.to_date]],
-			},
-		)
-		if overlapping_absence_plans:
-			frappe.throw(
-				_(
-					"There is already an Absence Plan for this employee for the selected date range. See here: {0}"
-				).format(
-					get_link_to_form(
-						"Absence Plan", overlapping_absence_plans[0].name, _("Absence Plans (List)")
-					)
-				)
-			)
-		return
-
 
 @frappe.whitelist()
-def bulk_insert_dates(mode, from_date, to_date, weekday=None, reason=None):
+def bulk_insert_dates(
+	mode: str, from_date: str, to_date: str, weekday: str | None = None, reason: str | None = None
+):
 	"""Return list of {date, reason} to add. Called from Bulk Insert dialog."""
-	frappe.has_permission("Absence Plan", "write", throw=True)
 	from_date = getdate(from_date)
 	to_date = getdate(to_date)
 	if to_date < from_date:

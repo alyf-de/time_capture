@@ -83,7 +83,6 @@ function open_bulk_insert_dialog(frm) {
 			frappe.call({
 				method: "time_capture.time_capture.doctype.absence_plan.absence_plan.bulk_insert_dates",
 				args: {
-					doc: frm.doc,
 					mode: values.mode,
 					weekday: values.weekday,
 					from_date: values.from_date,
@@ -98,6 +97,7 @@ function open_bulk_insert_dialog(frm) {
 							row.reason = item.reason || "";
 						});
 						frm.refresh_field("dates");
+						frm.save();
 					}
 					d.hide();
 				},
