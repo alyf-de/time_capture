@@ -58,17 +58,16 @@
    "label": "Dates"
   },
   {
+   "depends_on": "eval: doc.docstatus == 0",
    "fieldname": "bulk_insert_btn",
    "fieldtype": "Button",
-   "label": "Bulk Insert",
-   "depends_on": "eval: doc.docstatus == 0"
+   "label": "Bulk Insert"
   },
   {
    "fieldname": "dates",
    "fieldtype": "Table",
    "label": "Dates",
-   "options": "Absence Plan Date",
-   "read_only_depends_on": ""
+   "options": "Absence Plan Date"
   },
   {
    "fieldname": "approval_section",
@@ -95,7 +94,8 @@
    "label": "Status",
    "no_copy": 1,
    "options": "Open\nApproved\nRejected\nCancelled",
-   "permlevel": 1
+   "permlevel": 1,
+   "read_only_depends_on": "eval: doc.docstatus == 1"
   },
   {
    "fieldname": "amended_from",
@@ -139,7 +139,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-02 17:59:00.281409",
+ "modified": "2026-02-02 18:18:31.040154",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Absence Plan",
