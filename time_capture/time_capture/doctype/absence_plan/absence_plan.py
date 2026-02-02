@@ -67,6 +67,9 @@ class AbsencePlan(Document):
 def bulk_insert_dates(mode, from_date, to_date, weekday=None, reason=None):
 	"""Return list of {date, reason} to add. Called from Bulk Insert dialog."""
 	frappe.has_permission("Absence Plan", "write", throw=True)
+	if getdate(to_date) < getdate(from_date):
+		frappe.throw(_("To Date cannot be before From Date."))
+
 	if mode == "Weekly Off":
 		if not weekday:
 			frappe.throw(_("Please select at least one weekday"))
