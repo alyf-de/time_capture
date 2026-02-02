@@ -1,0 +1,51 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-02 09:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "weekday",
+  "reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "weekday",
+   "fieldtype": "Select",
+   "label": "Weekday",
+   "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+   "read_only": 1,
+   "no_copy": 1
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Text Editor",
+   "in_list_view": 1,
+   "label": "Reason",
+   "description": "Examples: School or weekly off, etc."
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-02-02 10:25:00.000000",
+ "modified_by": "Administrator",
+ "module": "Time Capture",
+ "name": "Absence Plan Date",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
