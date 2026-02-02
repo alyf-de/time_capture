@@ -67,7 +67,9 @@ class AbsencePlan(Document):
 def bulk_insert_dates(mode, from_date, to_date, weekday=None, reason=None):
 	"""Return list of {date, reason} to add. Called from Bulk Insert dialog."""
 	frappe.has_permission("Absence Plan", "write", throw=True)
-	if getdate(to_date) < getdate(from_date):
+	to_date = getdate(to_date)
+	from_date = getdate(from_date)
+	if to_date < from_date:
 		frappe.throw(_("To Date cannot be before From Date."))
 
 	if mode == "Weekly Off":
@@ -92,8 +94,8 @@ def _get_weekly_off_dates(from_date, to_date, weekday):
 	}
 	weekday_index = weekdays[weekday]
 	dates = []
-	dt = getdate(from_date)
-	while dt <= getdate(to_date):
+	dt = from_date
+	while dt <= to_date:
 		if dt.weekday() == weekday_index:
 			dates.append({"date": str(dt), "reason": weekday})
 		dt = add_to_date(dt, days=1)
@@ -102,8 +104,8 @@ def _get_weekly_off_dates(from_date, to_date, weekday):
 
 def _get_timespan_days(from_date, to_date, reason=None):
 	dates = []
-	dt = getdate(from_date)
-	while dt <= getdate(to_date):
+	dt = from_date
+	while dt <= to_date:
 		dates.append({"date": str(dt), "reason": reason})
 		dt = add_to_date(dt, days=1)
 	return dates
