@@ -4,7 +4,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
-from frappe.utils import getdate
+from frappe.utils import get_link_to_form, getdate
 from frappe.utils.data import add_to_date
 from hrms.hr.utils import share_doc_with_approver
 
@@ -40,11 +40,15 @@ class AbsencePlan(Document):
 			self.to_date = max([row.date for row in self.dates])
 		self.order_dates()
 
+	def validate(self):
+		self.avoid_overlapping_absence_plans()
+
 	def on_update(self):
 		share_doc_with_approver(self, self.leave_approver)
 
 	def before_update_after_submit(self):
 		self.order_dates()
+		self.avoid_overlapping_absence_plans()
 
 	def remove_duplicate_dates(self):
 		"""Keep only the first occurrence of each date in dates."""
@@ -61,6 +65,27 @@ class AbsencePlan(Document):
 
 	def order_dates(self):
 		self.dates = sorted(self.dates, key=lambda x: x.date)
+
+	def avoid_overlapping_absence_plans(self):
+		overlapping_absence_plans = frappe.db.get_all(
+			"Absence Plan",
+			{"docstatus": ["!=", 2], "employee": self.employee, "name": ["!=", self.name]},
+			or_filters={
+				"from_date": ["between", [self.from_date, self.to_date]],
+				"to_date": ["between", [self.from_date, self.to_date]],
+			},
+		)
+		if overlapping_absence_plans:
+			frappe.throw(
+				_(
+					"There is already an Absence Plan for this employee for the selected date range. See here: {0}"
+				).format(
+					get_link_to_form(
+						"Absence Plan", overlapping_absence_plans[0].name, _("Absence Plans (List)")
+					)
+				)
+			)
+		return
 
 	def on_submit(self):
 		if self.status in ["Open", "Cancelled"]:
