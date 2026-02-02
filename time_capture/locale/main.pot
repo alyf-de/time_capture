@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2026-01-22 17:02+0053\n"
-"PO-Revision-Date: 2026-01-22 17:02+0053\n"
+"POT-Creation-Date: 2026-02-02 17:16+0053\n"
+"PO-Revision-Date: 2026-02-02 17:16+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +31,43 @@ msgstr ""
 msgid "<span class=\"h4\">Freelancer Time Capture</span>"
 msgstr ""
 
+#. Name of a DocType
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:92
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:123
+msgid "Absence Plan"
+msgstr ""
+
+#. Name of a DocType
+#: time_capture/time_capture/doctype/absence_plan_date/absence_plan_date.json
+msgid "Absence Plan Date"
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:126
+msgid "Absence Plan {0} - {1}"
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:95
+msgid "Absence Plan {0} for approval"
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:162
+msgid "Absence Plans (List)"
+msgstr ""
+
 #. Label of a Duration field in DocType 'Mandatory Break'
 #: time_capture/time_capture/doctype/mandatory_break/mandatory_break.json
 msgid "Additional Break"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Approval"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Approved"
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:24
@@ -56,6 +90,12 @@ msgstr ""
 #. Label of a Duration field in DocType 'Time Capture'
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Break"
+msgstr ""
+
+#. Label of a Button field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:44
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Bulk Insert"
 msgstr ""
 
 #: time_capture/custom_fields.py:60 time_capture/public/js/employee.js:29
@@ -103,6 +143,10 @@ msgstr ""
 msgid "Current Balance"
 msgstr ""
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:178
+msgid "Dates cannot be in the past."
+msgstr ""
+
 #: time_capture/time_capture/report/working_time/working_time.js:32
 msgid "December"
 msgstr ""
@@ -126,6 +170,11 @@ msgstr ""
 msgid "Duplicate Entry Found"
 msgstr ""
 
+#. Label of a Data field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Employee Email"
+msgstr ""
+
 #. Name of a DocType
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
 msgid "Employee Expected Working Hours"
@@ -138,6 +187,10 @@ msgstr ""
 
 #: time_capture/scripts/holiday_list.py:43
 msgid "Employee {0} has Attendances outside the Holiday List period."
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:129
+msgid "Employee {0} has been notified via Email."
 msgstr ""
 
 #. Label of a Check field in DocType 'Time Capture Settings'
@@ -168,6 +221,12 @@ msgstr ""
 #. 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Example: If you set this field to '3', the system sends Notifications every 3 days."
+msgstr ""
+
+#. Description of the 'Reason' (Text Editor) field in DocType 'Absence Plan
+#. Date'
+#: time_capture/time_capture/doctype/absence_plan_date/absence_plan_date.json
+msgid "Examples: School or weekly off, etc."
 msgstr ""
 
 #. Label of a Float field in DocType 'Employee Expected Working Hours'
@@ -292,6 +351,10 @@ msgstr ""
 msgid "Indicated Break is not in the proper format."
 msgstr ""
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:187
+msgid "Invalid mode"
+msgstr ""
+
 #. Label of a Check field in DocType 'Time Capture'
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Is Of Legal Age"
@@ -318,6 +381,12 @@ msgstr ""
 msgid "Last Notification (Sent On)"
 msgstr ""
 
+#. Label of a Link field in DocType 'Absence Plan'
+#. Name of a role
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Leave Approver"
+msgstr ""
+
 #: time_capture/custom_fields.py:65
 msgid "Leave Policy"
 msgstr ""
@@ -330,13 +399,19 @@ msgstr ""
 msgid "Leave Summary"
 msgstr ""
 
+#. Label of a Link field in DocType 'Absence Plan'
 #: time_capture/public/js/utils.js:143
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
 msgid "Leave Type"
 msgstr ""
 
 #. Name of a report
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.json
 msgid "Leave and Working Time Summaries"
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:98
+msgid "Leave approver {0} has been notified via Email."
 msgstr ""
 
 #. Label of a Section Break field in DocType 'Time Capture Settings'
@@ -373,6 +448,10 @@ msgstr ""
 #. Label of a Int field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Minimum Draft Age (Days)"
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:49
+msgid "Mode"
 msgstr ""
 
 #: time_capture/custom_fields.py:41
@@ -435,6 +514,10 @@ msgstr ""
 msgid "October"
 msgstr ""
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:62
+msgid "Only Absence Plans with status 'Approved' and 'Rejected' can be submitted"
+msgstr ""
+
 #: time_capture/public/js/employee.js:11
 msgid "Only System Manager are allowed to edit Expected Working Hours."
 msgstr ""
@@ -484,6 +567,10 @@ msgstr ""
 
 #: time_capture/public/js/employee.js:5
 msgid "Please save the Employee first."
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:182
+msgid "Please select at least one weekday"
 msgstr ""
 
 #: time_capture/time_capture/doctype/create_freelancer/create_freelancer.js:18
@@ -577,6 +664,10 @@ msgstr ""
 
 #: time_capture/scripts/employee.py:97
 msgid "The supervisor has no User linked in his/her Employee record."
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:158
+msgid "There is already an Absence Plan for this employee for the selected date range. See here: {0}"
 msgstr ""
 
 #: time_capture/scripts/employee.py:87
@@ -673,6 +764,10 @@ msgstr ""
 msgid "Working time must be completely booked on projects and tasks."
 msgstr ""
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:113
+msgid "Your Absence Plan {0} has been {1}."
+msgstr ""
+
 #: time_capture/scripts/summary_utils.py:109
 msgid "{0} (on {1})"
 msgstr ""
@@ -683,5 +778,9 @@ msgstr ""
 
 #: time_capture/time_capture/time_capture_controller.py:27
 msgid "{0} already exists for this date and person."
+msgstr ""
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:80
+msgid "{0} raised a new Absence Plan for approval: {1}"
 msgstr ""
 

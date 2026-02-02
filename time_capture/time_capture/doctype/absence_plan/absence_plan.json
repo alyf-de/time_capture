@@ -7,6 +7,7 @@
  "field_order": [
   "employee",
   "employee_name",
+  "employee_email",
   "column_break_ihkc",
   "leave_type",
   "section_break_ueuf",
@@ -30,6 +31,7 @@
    "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
+   "read_only_depends_on": "eval: !doc.__islocal;",
    "reqd": 1
   },
   {
@@ -122,13 +124,20 @@
    "fieldtype": "Date",
    "label": "To Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "employee_email",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Employee Email",
+   "options": "Email"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-02-02 10:25:00.000000",
+ "modified": "2026-02-02 16:52:02.277175",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Absence Plan",

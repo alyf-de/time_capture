@@ -7,6 +7,7 @@ from frappe.model.document import Document
 from frappe.utils import get_link_to_form, getdate
 from frappe.utils.data import add_to_date
 from hrms.hr.utils import share_doc_with_approver
+from hrms.utils import get_employee_email
 
 
 class AbsencePlan(Document):
@@ -32,6 +33,9 @@ class AbsencePlan(Document):
 		dates: DF.Table[AbsencePlanDate]
 		to_date: DF.Date | None
 	# end: auto-generated types
+
+	def before_insert(self):
+		self.employee_email = get_employee_email(self.employee)
 
 	def after_insert(self):
 		self.notify_leave_approver()
@@ -60,6 +64,69 @@ class AbsencePlan(Document):
 
 	def before_cancel(self):
 		self.status = "Cancelled"
+
+	def notify_leave_approver(self):
+		"""
+		Notify leave approver about new Absence Plan
+		"""
+		# Preperation
+		if not self.leave_approver:
+			return
+		from_user = self.employee_email
+		if from_user == self.leave_approver:
+			return
+
+		lang = _get_user_lang(self.leave_approver)
+		message = _("{0} raised a new Absence Plan for approval: {1}", lang=lang).format(
+			self.employee_name or self.employee, self.name
+		)
+
+		# Create Notification
+		n = frappe.new_doc("PWA Notification")
+		n.from_user, n.to_user = from_user, self.leave_approver
+		n.message = message
+		n.reference_document_type, n.reference_document_name = self.doctype, self.name
+		n.insert(ignore_permissions=True)
+
+		# Send Email
+		link = get_link_to_form(self.doctype, self.name, _("Absence Plan", lang=lang))
+		frappe.sendmail(
+			recipients=[self.leave_approver],
+			subject=_("Absence Plan {0} for approval", lang=lang).format(self.name),
+			message=message + "<br><br>" + link,
+		)
+		frappe.msgprint(_("Leave approver {0} has been notified via Email.").format(self.leave_approver))
+
+	def notify_employee(self):
+		"""
+		Notify employee about Absence Plan approval status
+		"""
+		# Preperation
+		to_user = self.employee_email
+		if not to_user:
+			return
+		from_user = self.leave_approver
+		if from_user == to_user:
+			return
+
+		lang = _get_user_lang(to_user)
+		message = _("Your Absence Plan {0} has been {1}.", lang=lang).format(self.name, self.status)
+
+		# Create Notification
+		n = frappe.new_doc("PWA Notification")
+		n.from_user, n.to_user = from_user, to_user
+		n.message = message
+		n.reference_document_type, n.reference_document_name = self.doctype, self.name
+		n.insert(ignore_permissions=True)
+
+		# Send Email
+		link = get_link_to_form(self.doctype, self.name, _("Absence Plan", lang=lang))
+		frappe.sendmail(
+			recipients=[to_user],
+			subject=_("Absence Plan {0} - {1}", lang=lang).format(self.name, self.status),
+			message=message + "<br><br>" + link,
+		)
+		frappe.msgprint(_("Employee {0} has been notified via Email.").format(to_user))
 
 	def remove_duplicate_dates(self):
 		"""Keep only the first occurrence of each date in dates."""
@@ -97,18 +164,6 @@ class AbsencePlan(Document):
 				)
 			)
 		return
-
-	def notify_leave_approver(self):
-		message = _("{0} raised a new Absence Plan for approval: {1}").format(
-			self.employee_name or self.employee, self.name
-		)
-		_create_pwa_notification(self.leave_approver, self.employee, "Leave Approver", message, self.name)
-
-	def notify_employee(self):
-		message = _("Your Absence Plan {0} has been {1}.").format(
-			self.name, _("Approved" if self.status == "Approved" else "Rejected")
-		)
-		_create_pwa_notification(self.leave_approver, self.employee, "Employee", message, self.name)
 
 
 @frappe.whitelist()
@@ -161,29 +216,8 @@ def _get_timespan_days(from_date, to_date, reason=None):
 	return dates
 
 
-def _create_pwa_notification(
-	leave_approver: str, employee: str, send_to: str, message: str, absence_plan_name: str
-):
-	employee_user = frappe.db.get_value("Employee", employee, "user_id", cache=True)
-	if send_to == "Leave Approver":
-		from_user = leave_approver
-		to_user = employee_user
-	elif send_to == "Employee":
-		from_user = employee_user
-		to_user = leave_approver
-	else:
-		frappe.throw(_("Send to has to be either 'Leave Approver' or 'Employee'."))
-
-	if not employee_user or not leave_approver:
-		return
-
-	if from_user == to_user:
-		return
-
-	n = frappe.new_doc("PWA Notification")
-	n.from_user = from_user
-	n.to_user = to_user
-	n.message = message
-	n.reference_document_type = "Absence Plan"
-	n.reference_document_name = absence_plan_name
-	n.insert(ignore_permissions=True)
+def _get_user_lang(user):
+	user_lang = frappe.db.get_value("User", user, "language", cache=True)
+	if user_lang:
+		return user_lang
+	return frappe.local.lang or "en"
