@@ -38,9 +38,13 @@ class AbsencePlan(Document):
 		if self.dates:
 			self.from_date = min([row.date for row in self.dates])
 			self.to_date = max([row.date for row in self.dates])
+		self.order_dates()
 
 	def on_update(self):
 		share_doc_with_approver(self, self.leave_approver)
+
+	def before_update_after_submit(self):
+		self.order_dates()
 
 	def remove_duplicate_dates(self):
 		"""Keep only the first occurrence of each date in dates."""
@@ -54,6 +58,9 @@ class AbsencePlan(Document):
 				seen.add(key)
 				new_rows.append(row)
 		self.dates = new_rows
+
+	def order_dates(self):
+		self.dates = sorted(self.dates, key=lambda x: x.date)
 
 	def on_submit(self):
 		if self.status in ["Open", "Cancelled"]:
