@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2026-01-22 17:02+0053\n"
-"PO-Revision-Date: 2025-11-07 14:07+0053\n"
+"POT-Creation-Date: 2026-02-03 11:32+0053\n"
+"PO-Revision-Date: 2025-02-02 17:08+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -31,10 +31,53 @@ msgstr "<span class=\"h4\"><b>Verwaltung</b></span>"
 msgid "<span class=\"h4\">Freelancer Time Capture</span>"
 msgstr "<span class=\"h4\">Freelancer Zeiterfassung</span>"
 
+#. Name of a DocType
+#: time_capture/custom_fields.py:31
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:102
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:133
+msgid "Absence Plan"
+msgstr "Abwesenheitsplan"
+
+#. Name of a DocType
+#: time_capture/time_capture/doctype/absence_plan_date/absence_plan_date.json
+msgid "Absence Plan Date"
+msgstr "Abwesenheitsplan-Datum"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:64
+msgid "Absence Plan has been approved. The Employee will not have to capture any time for these dates."
+msgstr "Der Abwesenheitsplan wurde genehmigt. Der Mitarbeiter muss für diese Daten keine Zeiterfassung vornehmen."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:72
+msgid "Absence Plan with dates in the past (or today) cannot be cancelled. Instead you can use the 'Delete Future Dates' button on top of the page. This will delete the future dates from the Absence Plan, but will not affect the past dates."
+msgstr "Ein Abwesenheitsplan mit Daten in der Vergangenheit (oder heute) kann nicht storniert werden. Stattdessen können Sie den Knopf 'Zukünftige Daten löschen' oben auf der Seite verwenden. Dadurch werden die zukünftigen Daten aus dem Abwesenheitsplan gelöscht, die vergangenen Daten bleiben unberührt."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:136
+msgid "Absence Plan {0} - {1}"
+msgstr "Abwesenheitsplan {0} - {1}"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:105
+msgid "Absence Plan {0} for approval"
+msgstr "Abwesenheitsplan {0} zum Freigeben"
+
 #. Label of a Duration field in DocType 'Mandatory Break'
 #: time_capture/time_capture/doctype/mandatory_break/mandatory_break.json
 msgid "Additional Break"
 msgstr "Zusätzliche Pause"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:310
+msgid "All Dates are in the future. Please cancel the Absence Plan instead."
+msgstr "Alle Daten liegen in der Zukunft. Bitte stornieren Sie stattdessen den Abwesenheitsplan."
+
+#. Label of a Section Break field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Approval"
+msgstr "Freigabe"
+
+#. Option for the 'Status' (Select) field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Approved"
+msgstr "Genehmigt"
 
 #: time_capture/time_capture/report/working_time/working_time.js:24
 msgid "April"
@@ -58,7 +101,13 @@ msgstr "August"
 msgid "Break"
 msgstr "Pause"
 
-#: time_capture/custom_fields.py:60 time_capture/public/js/employee.js:29
+#. Label of a Button field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:110
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Bulk Insert"
+msgstr "Massen einfügen"
+
+#: time_capture/custom_fields.py:78 time_capture/public/js/employee.js:29
 msgid "Change/Add Expected Hours"
 msgstr "Erwartete Stunden ändern/hinzufügen"
 
@@ -103,6 +152,10 @@ msgstr "Freelancer-Benutzer wird erstellt"
 msgid "Current Balance"
 msgstr "Aktuelles Saldo"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:225
+msgid "Dates cannot be in the past or today."
+msgstr "Daten dürfen nicht in der Vergangenheit (oder auf heute) liegen."
+
 #: time_capture/time_capture/report/working_time/working_time.js:32
 msgid "December"
 msgstr "Dezember"
@@ -117,6 +170,14 @@ msgstr "Default-Aktivitätstyp"
 msgid "Default Freelancer Activity Type"
 msgstr "Standard-Freelancer-Aktivitätstyp"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:23
+msgid "Delete Future Dates"
+msgstr "Zukünftige Daten löschen"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:312
+msgid "Deleted {0} future date(s)."
+msgstr "{0} zukünftige Datum/Daten gelöscht."
+
 #. Label of a quick_list in the Freelancer Workspace
 #: time_capture/time_capture/workspace/freelancer/freelancer.json
 msgid "Drafts"
@@ -125,6 +186,11 @@ msgstr "Entwürfe"
 #: time_capture/time_capture/time_capture_controller.py:28
 msgid "Duplicate Entry Found"
 msgstr "Doppelter Eintrag gefunden"
+
+#. Label of a Data field in DocType 'Absence Plan'
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Employee Email"
+msgstr "Mitarbeiter-E-Mail"
 
 #. Name of a DocType
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
@@ -140,6 +206,10 @@ msgstr "Mitarbeiterstatus"
 msgid "Employee {0} has Attendances outside the Holiday List period."
 msgstr "Mitarbeiter {0} hat Anwesenheiten außerhalb der Periode der Feiertagsliste."
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:139
+msgid "Employee {0} has been notified via Email."
+msgstr "Mitarbeiter {0} wurde per E-Mail benachrichtigt."
+
 #. Label of a Check field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Enable Reminders"
@@ -150,7 +220,7 @@ msgstr "Erinnerungen aktivieren"
 msgid "Enforce Mandatory Breaks"
 msgstr "Verpflichtende Pausen erzwingen"
 
-#: time_capture/scripts/attendance.py:195
+#: time_capture/scripts/attendance.py:192
 msgid "Error creating Attendance"
 msgstr "Fehler beim Erstellen der Anwesenheit"
 
@@ -170,6 +240,12 @@ msgstr "Alle X Tage"
 msgid "Example: If you set this field to '3', the system sends Notifications every 3 days."
 msgstr "Beispiel: Wenn Sie dieses Feld auf '3' setzen, sendet das System alle 3 Tage Benachrichtigungen."
 
+#. Description of the 'Reason' (Text Editor) field in DocType 'Absence Plan
+#. Date'
+#: time_capture/time_capture/doctype/absence_plan_date/absence_plan_date.json
+msgid "Examples: School or weekly off, etc."
+msgstr "Beispiele: Schule, wöchentlicher freier Tag usw."
+
 #. Label of a Float field in DocType 'Employee Expected Working Hours'
 #: time_capture/time_capture/doctype/employee_expected_working_hours/employee_expected_working_hours.json
 msgid "Expected Daily Working Hours"
@@ -177,13 +253,13 @@ msgstr "Erwartete tägliche Arbeitsstunden"
 
 #: time_capture/scripts/employee.py:49
 msgid "Expected Daily Working Hours cannot be greater than 12h."
-msgstr "Die Erwartete tägliche Arbeitszeits darf nicht größer als 12h sein."
+msgstr "Die erwartete tägliche Arbeitszeit darf nicht größer als 12h sein."
 
 #: time_capture/scripts/employee.py:43
 msgid "Expected Daily Working Hours cannot be less than 0h."
 msgstr "Die erwartete tägliche Arbeitszeit darf nicht geringer als 0h sein."
 
-#: time_capture/custom_fields.py:11 time_capture/custom_fields.py:52
+#: time_capture/custom_fields.py:11 time_capture/custom_fields.py:70
 #: time_capture/public/js/employee.js:35
 #: time_capture/time_capture/report/working_time/working_time.py:30
 msgid "Expected Working Hours"
@@ -232,7 +308,7 @@ msgid "Freelancer Name"
 msgstr "Freelancer-Name"
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:101
+#: time_capture/custom_fields.py:119
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
 msgid "Freelancer Time Capture"
 msgstr "Freelancer Zeiterfassung"
@@ -241,9 +317,13 @@ msgstr "Freelancer Zeiterfassung"
 msgid "Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."
 msgstr "Freelancer Zeiterfassung kann nur für Benutzer mit der 'Freelancer'-Rolle erstellt werden. Ändern Sie den Benutzer im Feld 'Benutzer'."
 
-#: time_capture/custom_fields.py:109
+#: time_capture/custom_fields.py:127
 msgid "Freelancer User"
 msgstr "Freelancer-Benutzer"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:285
+msgid "From Date is in the future. This means you can just cancel the whole Absence Plan."
+msgstr "Das Von-Datum liegt in der Zukunft. Daher kann der komplette Abwesenheitsplan storniert werden."
 
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:89
 msgid "Future Balance"
@@ -271,6 +351,10 @@ msgstr "Allgemeiner Vorschlag: Verwenden Sie einen <b>Aktivitätstyp</b> mit <i>
 msgid "Go to list view"
 msgstr "Zur Listenansicht"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:85
+msgid "Holidays from a Holiday List have priority over leaves with an Absence Plan."
+msgstr "Feiertage aus einer Feiertagsliste haben Vorrang vor Abwesenheiten mit einem Abwesenheitsplan."
+
 #. Description of the 'Enable Reminders' (Check) field in DocType 'Time Capture
 #. Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
@@ -291,6 +375,10 @@ msgstr "Angegebene Pause"
 #: time_capture/time_capture/time_capture_controller.py:46
 msgid "Indicated Break is not in the proper format."
 msgstr "Angegebene Pause ist nicht im korrekten Format."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:234
+msgid "Invalid mode"
+msgstr "Ungültiger Modus"
 
 #. Label of a Check field in DocType 'Time Capture'
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
@@ -318,7 +406,13 @@ msgstr "Letzte manuelle Saldo-Korrektur"
 msgid "Last Notification (Sent On)"
 msgstr "Letzte Benachrichtigung (gesendet am)"
 
-#: time_capture/custom_fields.py:65
+#. Label of a Link field in DocType 'Absence Plan'
+#. Name of a role
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
+msgid "Leave Approver"
+msgstr "Urlaubsgenehmiger"
+
+#: time_capture/custom_fields.py:83
 msgid "Leave Policy"
 msgstr "Urlaubsrichtlinie"
 
@@ -330,14 +424,24 @@ msgstr "Urlaubsrichtlinie wurde geändert. Hinweis: Dies aktualisiert keine best
 msgid "Leave Summary"
 msgstr "Urlaubsübersicht"
 
+#. Label of a Link field in DocType 'Absence Plan'
 #: time_capture/public/js/utils.js:143
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.json
 msgid "Leave Type"
 msgstr "Urlaubstyp"
+
+#: time_capture/custom_fields.py:40
+msgid "Leave Type (Absence Plan)"
+msgstr "Urlaubstyp (Abwesenheitsplan)"
 
 #. Name of a report
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.json
 msgid "Leave and Working Time Summaries"
 msgstr "Urlaubs- und Arbeitszeitübersichten"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:108
+msgid "Leave approver {0} has been notified via Email."
+msgstr "Urlaubsgenehmiger {0} wurde per E-Mail benachrichtigt."
 
 #. Label of a Section Break field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
@@ -375,7 +479,11 @@ msgstr "Mai"
 msgid "Minimum Draft Age (Days)"
 msgstr "Mindestalter für Entwürfe (Tage)"
 
-#: time_capture/custom_fields.py:41
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:115
+msgid "Mode"
+msgstr "Modus"
+
+#: time_capture/custom_fields.py:59
 msgid "No Supervisor Required"
 msgstr "Kein Vorgesetzter Benötigt"
 
@@ -435,6 +543,14 @@ msgstr "November"
 msgid "October"
 msgstr "Oktober"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:78
+msgid "Official weekly offs (e.g. 4 day work week set in employee contract) should be handled via Holiday List."
+msgstr "Offizielle wöchentliche freie Tage (z. B. 4-Tage-Woche im Arbeitsvertrag) sollten über die Feiertagsliste abgebildet werden."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:60
+msgid "Only Absence Plans with status 'Approved' and 'Rejected' can be submitted"
+msgstr "Nur Abwesenheitspläne mit Status 'Genehmigt' und 'Abgelehnt' können gebucht werden."
+
 #: time_capture/public/js/employee.js:11
 msgid "Only System Manager are allowed to edit Expected Working Hours."
 msgstr "Nur System Manager dürfen Erwartete Arbeitsstunden anpassen."
@@ -444,6 +560,14 @@ msgstr "Nur System Manager dürfen Erwartete Arbeitsstunden anpassen."
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Only send reminders for draft Time Captures that are older than this number of days. Set to 0 to include all drafts regardless of date."
 msgstr "Nur Erinnerungen für Entwürfe senden, die älter sind als diese Anzahl von Tagen. Setzen Sie auf 0, um alle Entwürfe unabhängig vom Datum zu senden."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:282
+msgid "Only submitted Absence Plans can use this action."
+msgstr "Nur gebuchte Abwesenheitspläne können diese Aktion ausführen."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:289
+msgid "Only the Leave Approver and users with the 'Cancel' permission can delete future dates."
+msgstr "Nur der Urlaubsgenehmiger und Benutzer mit der Berechtigung „Stornieren“ können zukünftige Daten löschen."
 
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:96
 msgid "Open Time Captures"
@@ -457,6 +581,10 @@ msgstr "Andere Abwesenheitstage"
 msgid "Overdue Time Captures"
 msgstr "Überfällige Zeiterfassungen"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:211
+msgid "Overlapping Dates are not allowed"
+msgstr "Überlappende Daten sind nicht erlaubt"
+
 #: time_capture/time_capture/report/working_time/working_time.py:50
 msgid "Paid Holidays"
 msgstr "Bezahlte Feiertage"
@@ -469,6 +597,10 @@ msgstr "Urlaubstyp Bezahlt"
 #: time_capture/public/js/utils.js:191
 msgid "Past time captures, that are not yet submitted. These count as absent and reduce the balance."
 msgstr "Vergangene Zeiterfassungen, die noch nicht eingereicht wurden. Diese zählen als abwesend und reduzieren das Saldo."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:290
+msgid "Permission Denied"
+msgstr "Berechtigung verweigert"
 
 #: time_capture/public/js/utils.js:191
 msgid "Planned Overtime Reduction"
@@ -485,6 +617,10 @@ msgstr "Bitte überprüfen und buchen Sie die ausstehenden Zeiterfassungen."
 #: time_capture/public/js/employee.js:5
 msgid "Please save the Employee first."
 msgstr "Bitte speichern Sie den Mitarbeiter zuerst."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:229
+msgid "Please select at least one weekday"
+msgstr "Bitte wählen Sie mindestens einen Wochentag."
 
 #: time_capture/time_capture/doctype/create_freelancer/create_freelancer.js:18
 msgid "Please wait..."
@@ -523,7 +659,7 @@ msgstr "Speichern & Anwesenheiten aktualisieren"
 msgid "September"
 msgstr "September"
 
-#: time_capture/custom_fields.py:44
+#: time_capture/custom_fields.py:62
 msgid "Should be checked if the employee is a CEO (or has no supervisor for some reason)."
 msgstr "Sollte aktiviert sein, wenn der Mitarbeiter ein Geschäftsführer ist (oder aus anderem Grund keinen Vorgesetzten hat)."
 
@@ -571,6 +707,10 @@ msgstr "Das Datum {0} liegt nicht innerhalb der Periode der Feiertagsliste des M
 msgid "The following Time Captures are still in draft status:"
 msgstr "Die folgenden Zeiterfassungen sind noch im Entwurfsstatus:"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:167
+msgid "The following dates are in the past (or today) and have been removed from the Absence Plan:<br>{0}"
+msgstr "Die folgenden Daten liegen in der Vergangenheit (oder heute) und wurden aus dem Abwesenheitsplan entfernt:<br>{0}"
+
 #: time_capture/scripts/employee.py:77
 msgid "The supervisor cannot be the same as the employee."
 msgstr "Der Vorgesetzte kann nicht gleich dem Mitarbeiter sein."
@@ -578,6 +718,10 @@ msgstr "Der Vorgesetzte kann nicht gleich dem Mitarbeiter sein."
 #: time_capture/scripts/employee.py:97
 msgid "The supervisor has no User linked in his/her Employee record."
 msgstr "Der Vorgesetzte hat keinen Nutzer in seinem/ihren Mitarbeiter-Eintrag."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:208
+msgid "There are overlapping dates with following Absence Plans:<br>{0}"
+msgstr "Es gibt überlappende Daten mit folgenden Abwesenheitsplänen:<br>{0}"
 
 #: time_capture/scripts/employee.py:87
 msgid "This Employee has no supervisor (<i>Reports To</i>), but has <i>Create User Permission</i> checkbox enabled. Please, make sure that this intended."
@@ -596,7 +740,7 @@ msgid "This is the projected balance, that includes planned overtime reductions"
 msgstr "Dies ist das prognostizierte Saldo, das geplante Überstundenreduzierungen enthält"
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:28 time_capture/custom_fields.py:93
+#: time_capture/custom_fields.py:46 time_capture/custom_fields.py:111
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Time Capture"
 msgstr "Zeiterfassung"
@@ -610,7 +754,7 @@ msgstr "Zeiterfassungs- & Urlaubsübersicht"
 msgid "Time Capture Log"
 msgstr "Zeiterfassungsprotokoll"
 
-#: time_capture/scripts/attendance.py:157
+#: time_capture/scripts/attendance.py:154
 msgid "Time Capture Not Found"
 msgstr "Zeiterfassung nicht gefunden"
 
@@ -632,6 +776,18 @@ msgstr "Frist für die Zeiterfassung verpasst. Bitte wenden Sie sich an Ihre Fü
 msgid "Time to Submit (in days)"
 msgstr "Frist zur Einreichung (in Tagen)"
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:81
+msgid "Timespan: adds all dates in the range with an optional reason."
+msgstr "Zeitspanne: fügt alle Daten im Bereich mit optionalem Grund hinzu."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:82
+msgid "Typical use case: Employee is on Education Leave (University, School, etc.)."
+msgstr "Typischer Anwendungsfall: Mitarbeiter hat Bildungsurlaub (Universität, Schule usw.)."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:75
+msgid "Typical use case: Every Friday is an unofficial weekly off day."
+msgstr "Typischer Anwendungsfall: Jeden Freitag ist ein inoffizieller freier Tag."
+
 #: time_capture/public/js/utils.js:120
 msgid "Unable to fetch summary data"
 msgstr "Zusammenfassungsdaten konnten nicht abgerufen werden"
@@ -650,6 +806,15 @@ msgstr "Verwendet für Mitarbeiter ohne verknüpften Nutzer (=E-Mail-Adresse)"
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.py:36
 msgid "User is not a Freelancer"
 msgstr "Benutzer ist kein Freelancer"
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:44
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:88
+msgid "Warning: The Leave Ledgers will not be updated for leaves with an Absence Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+msgstr "Hinweis: Die Urlaubskonten werden bei Abwesenheiten mit einem Abwesenheitsplan nicht aktualisiert. Daher wird davon abgeraten, Urlaubstypen mit begrenzter Urlaubszuweisung (z. B. 'Erholungsurlaub') zu verwenden."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.js:72
+msgid "Weekly Off: adds all dates in the range that fall on the selected weekday. The Holiday List already defines non-working days; adding e.g. every Sunday as weekly off is often redundant."
+msgstr "Wöchentlicher freier Tag: fügt alle Daten im Bereich hinzu, die auf den gewählten Wochentag fallen. Die Feiertagsliste legt bereits arbeitsfreie Tage fest; z. B. jeden Sonntag als wöchentlichen freien Tag hinzuzufügen ist oft überflüssig."
 
 #. Label of a Duration field in DocType 'Time Capture'
 #. Name of a report
@@ -673,6 +838,10 @@ msgstr "Arbeitszeitübersicht"
 msgid "Working time must be completely booked on projects and tasks."
 msgstr "Die Arbeitszeit muss vollständig auf Projekte und Aufgaben gebucht werden."
 
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:123
+msgid "Your Absence Plan {0} has been {1}."
+msgstr "Ihr Abwesenheitsplan {0} wurde {1}"
+
 #: time_capture/scripts/summary_utils.py:109
 msgid "{0} (on {1})"
 msgstr "{0} (am {1})"
@@ -684,4 +853,8 @@ msgstr "{0} Attendances erfolgreich aktualisiert."
 #: time_capture/time_capture/time_capture_controller.py:27
 msgid "{0} already exists for this date and person."
 msgstr "{0} existiert bereits für dieses Datum und diese Person."
+
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:90
+msgid "{0} raised a new Absence Plan for approval: {1}"
+msgstr "{0} hat einen neuen Abwesenheitsplan zum Freigeben erstellt: {1}"
 

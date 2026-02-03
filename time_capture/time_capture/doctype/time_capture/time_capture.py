@@ -308,6 +308,9 @@ def _create_time_capture(employee, date):
 	if is_holiday(employee.holiday_list, date):
 		return
 
+	if _create_attendance_for_absence_plan(employee.name, date):
+		return
+
 	time_capture = frappe.new_doc("Time Capture")
 	time_capture.update(
 		{
@@ -318,6 +321,50 @@ def _create_time_capture(employee, date):
 		}
 	)
 	time_capture.insert()
+
+
+def _create_attendance_for_absence_plan(employee_name, date):
+	"""
+	Check if the employee has an approved Absence Plan that includes the given date
+	and create an Attendance record for it if found.
+
+	Returns:
+	    bool: True if an Attendance record was created, False otherwise.
+	"""
+	# Get Absence Plan and Leave Type from Absence Plan
+	AP = frappe.qb.DocType("Absence Plan")
+	APD = frappe.qb.DocType("Absence Plan Date")
+	absence_plans = (
+		frappe.qb.from_(AP)
+		.inner_join(APD)
+		.on(AP.name == APD.parent)
+		.select(AP.name, AP.leave_type)
+		.where(
+			(AP.employee == employee_name)
+			& (APD.date == date)
+			& (AP.status == "Approved")
+			& (AP.docstatus == 1)
+		)
+	).run(as_dict=True)
+
+	if not absence_plans:
+		return False
+
+	# Create Attendance if there is a leave type (= absence is planned)
+	absence_plan = absence_plans[0]
+	attendance = frappe.get_doc(
+		{
+			"doctype": "Attendance",
+			"employee": employee_name,
+			"attendance_date": date,
+			"custom_absence_plan": absence_plan.name,
+			"custom_leave_type_absence_plan": absence_plan.leave_type,
+		}
+	)
+	attendance.insert()
+	attendance.submit()
+
+	return True
 
 
 @frappe.whitelist()
