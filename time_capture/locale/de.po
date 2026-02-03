@@ -352,7 +352,7 @@ msgid "Go to list view"
 msgstr "Zur Listenansicht"
 
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.js:85
-msgid "Holidays from a Holiday List have priority over leaves with an Attendance Plan."
+msgid "Holidays from a Holiday List have priority over leaves with an Absence Plan."
 msgstr "Feiertage aus einer Feiertagsliste haben Vorrang vor Abwesenheiten mit einem Abwesenheitsplan."
 
 #. Description of the 'Enable Reminders' (Check) field in DocType 'Time Capture
@@ -809,7 +809,7 @@ msgstr "Benutzer ist kein Freelancer"
 
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.js:44
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.js:88
-msgid "Warning: The Leave Ledgers will not be updated for leaves with an Attendance Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+msgid "Warning: The Leave Ledgers will not be updated for leaves with an Absence Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
 msgstr "Hinweis: Die Urlaubskonten werden bei Abwesenheiten mit einem Abwesenheitsplan nicht aktualisiert. Daher wird davon abgeraten, Urlaubstypen mit begrenzter Urlaubszuweisung (z. B. 'Erholungsurlaub') zu verwenden."
 
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.js:72
