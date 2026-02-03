@@ -325,9 +325,11 @@ def _create_time_capture(employee, date):
 
 def _create_attendance_for_absence_plan(employee_name, date):
 	"""
-	Check if the employee has an approved Absence Plan that includes the given date.
-	Returns the leave_type from the matching plan, or None if none found.
-	Caller is responsible for attendance creation etc.
+	Check if the employee has an approved Absence Plan that includes the given date
+	and create an Attendance record for it if found.
+
+	Returns:
+	    bool: True if an Attendance record was created, False otherwise.
 	"""
 	# Get Absence Plan and Leave Type from Absence Plan
 	AP = frappe.qb.DocType("Absence Plan")
