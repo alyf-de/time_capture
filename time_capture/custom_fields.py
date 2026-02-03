@@ -88,6 +88,15 @@ def get_custom_fields():
 				"reqd": 1,
 			},
 		],
+		"Leave Type": [
+			{
+				"fieldname": "custom_compensatory_off",
+				"fieldtype": "Check",
+				"insert_after": "is_compensatory",
+				"label": _("Compensatory Off"),
+				"default": 0,
+			},
+		],
 		"Task": [
 			{
 				"fieldname": "custom_is_active",
