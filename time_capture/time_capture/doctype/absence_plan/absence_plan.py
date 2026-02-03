@@ -297,6 +297,7 @@ def delete_future_dates(name: str) -> str:
 		deleted_count += 1
 
 	if deleted_count:
+		doc.reload()
 		remaining_dates = [getdate(r.date) for r in doc.dates if getdate(r.date) <= today]
 		if remaining_dates:
 			frappe.db.set_value(
