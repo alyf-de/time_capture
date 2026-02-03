@@ -121,7 +121,7 @@ def _get_expected_working_hours_for_leave_days(
 	if expected_working_hours_full_day == 0:
 		# This should never happen, but just to avoid division by zero.
 		return 0.0
-	if frappe.db.get_value("Leave Type", leave_type, "is_compensatory"):
+	if frappe.db.get_value("Leave Type", leave_type, "custom_compensatory_off"):
 		# No matter if a compensatory leave is full or half day the expected hours will be a full day.
 		return expected_working_hours_full_day
 	if is_half_day:

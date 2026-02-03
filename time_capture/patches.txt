@@ -3,8 +3,8 @@
 # Read docs to understand patches: https://frappeframework.com/docs/v14/user/en/database-migrations
 
 [post_model_sync]
-execute:from time_capture.install import _make_custom_fields;_make_custom_fields() # 2026-02-03 #1
-execute:from time_capture.install import _make_property_setters;_make_property_setters() # 2026-01-22 #2
+execute:from time_capture.install import _make_custom_fields;_make_custom_fields() # 2026-02-03 #2
+execute:from time_capture.install import _make_property_setters;_make_property_setters() # 2026-02-03 #2
 time_capture.patches.move_expected_working_time_to_child_table
 time_capture.patches.create_freelancer_role #7
 time_capture.patches.rectify_attendance_metrics
@@ -13,3 +13,4 @@ execute:frappe.db.set_value("Freelancer Time Capture", {"docstatus": ["!=", 0]},
 execute:frappe.db.delete("Custom Field", {"name": "Employee-custom_update_attendances"})
 time_capture.patches.rectify_attendance_metrics_2512 # 2026-01-20 #3
 time_capture.patches.set_supervisor_in_employee_and_time_capture #4
+time_capture.patches.migrate_compensatory_to_custom_field # 2026-01-03
