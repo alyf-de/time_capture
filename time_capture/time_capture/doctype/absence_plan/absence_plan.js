@@ -39,6 +39,14 @@ frappe.ui.form.on("Absence Plan", {
 		frm.trigger("set_leave_approver");
 	},
 
+	leave_type: function (frm) {
+		frappe.msgprint(
+			__(
+				"Warning: The Leave Ledgers will not be updated for leaves with an Attendance Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+			)
+		);
+	},
+
 	bulk_insert_btn: function (frm) {
 		open_bulk_insert_dialog(frm);
 	},
@@ -61,6 +69,43 @@ frappe.ui.form.on("Absence Plan", {
 });
 
 function open_bulk_insert_dialog(frm) {
+	const weekly_off_desc = __(
+		"Weekly Off: adds all dates in the range that fall on the selected weekday. The Holiday List already defines non-working days; adding e.g. every Sunday as weekly off is often redundant."
+	);
+	const weekly_off_example_desc = __(
+		"Typical use case: Every Friday is an unofficial weekly off day."
+	);
+	const weekly_off_exempt_desc = __(
+		"Official weekly offs (e.g. 4 day work week set in employee contract) should be handled via Holiday List."
+	);
+	const timespan_desc = __("Timespan: adds all dates in the range with an optional reason.");
+	const timespan_example_desc = __(
+		"Typical use case: Employee is on Education Leave (University, School, etc.)."
+	);
+	const holiday_list_desc = __(
+		"Holidays from a Holiday List have priority over leaves with an Attendance Plan."
+	);
+	const warning_desc = __(
+		"Warning: The Leave Ledgers will not be updated for leaves with an Attendance Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+	);
+
+	const descriptionHtml =
+		"<p>" +
+		weekly_off_desc +
+		"<br>" +
+		weekly_off_example_desc +
+		"<br>" +
+		weekly_off_exempt_desc +
+		"</p><p>" +
+		timespan_desc +
+		"<br>" +
+		timespan_example_desc +
+		"</p><p>" +
+		holiday_list_desc +
+		"<br>" +
+		warning_desc +
+		"</p>";
+
 	const d = new frappe.ui.Dialog({
 		title: __("Bulk Insert"),
 		fields: [
@@ -71,6 +116,12 @@ function open_bulk_insert_dialog(frm) {
 				options: "Weekly Off\nTimespan",
 				default: "Weekly Off",
 				reqd: 1,
+			},
+			{
+				fieldtype: "HTML",
+				fieldname: "description",
+				label: __("Description"),
+				options: descriptionHtml,
 			},
 			{
 				fieldtype: "Date",

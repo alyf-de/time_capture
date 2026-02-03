@@ -59,6 +59,12 @@ class AbsencePlan(Document):
 		if self.status in ["Open", "Cancelled"]:
 			frappe.throw(_("Only Absence Plans with status 'Approved' and 'Rejected' can be submitted"))
 		self.notify_employee()
+		if self.status == "Approved":
+			frappe.msgprint(
+				_(
+					"Absence Plan has been approved. The Employee will not have to capture any time for these dates."
+				)
+			)
 
 	def before_cancel(self):
 		if getdate(self.from_date) <= getdate():
