@@ -7,7 +7,6 @@
  "engine": "InnoDB",
  "field_order": [
   "date",
-  "weekday",
   "reason"
  ],
  "fields": [
@@ -17,14 +16,6 @@
    "in_list_view": 1,
    "label": "Date",
    "reqd": 1
-  },
-  {
-   "fieldname": "weekday",
-   "fieldtype": "Select",
-   "label": "Weekday",
-   "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
-   "read_only": 1,
-   "no_copy": 1
   },
   {
    "fieldname": "reason",
