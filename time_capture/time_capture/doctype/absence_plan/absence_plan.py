@@ -155,7 +155,7 @@ class AbsencePlan(Document):
 		"""
 		other_plans = frappe.get_all(
 			"Absence Plan",
-			filters={"employee": self.employee, "name": ["!=", self.name or ""]},
+			filters={"employee": self.employee, "name": ["!=", self.name or ""], "docstatus": ["!=", 2]},
 			pluck="name",
 		)
 		if not other_plans:
