@@ -43,6 +43,7 @@ class AbsencePlan(Document):
 
 	def before_validate(self):
 		self.remove_duplicate_dates()
+		self.remove_past_dates()
 		if self.dates:
 			self.from_date = min([row.date for row in self.dates])
 			self.to_date = max([row.date for row in self.dates])
@@ -143,6 +144,24 @@ class AbsencePlan(Document):
 				seen.add(key)
 				new_rows.append(row)
 		self.dates = new_rows
+
+	def remove_past_dates(self):
+		"""Remove dates that are in the past or today."""
+		today = getdate()
+		past_dates = []
+		future_dates = []
+		for row in self.dates:
+			if getdate(row.date) <= today:
+				past_dates.append(row)
+			else:
+				future_dates.append(row)
+		self.dates = future_dates
+		if past_dates:
+			frappe.msgprint(
+				_(
+					"The following dates are in the past (or today) and have been removed from the Absence Plan:<br>{0}"
+				).format("<br>".join([frappe.utils.format_date(row.date) for row in past_dates]))
+			)
 
 	def order_dates(self):
 		self.dates = sorted(self.dates, key=lambda x: x.date)
