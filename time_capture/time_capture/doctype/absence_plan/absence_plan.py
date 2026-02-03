@@ -281,9 +281,7 @@ def delete_future_dates(name: str) -> str:
 	if doc.docstatus != 1:
 		frappe.throw(_("Only submitted Absence Plans can use this action."))
 	if getdate(doc.from_date) > getdate():
-		frappe.throw(
-			_("From Date is in the future. This action is only for plans that have already started.")
-		)
+		frappe.throw(_("From Date is in the future. This means you can just cancel the whole Absence Plan."))
 	if not doc.has_permission("cancel") and doc.leave_approver != frappe.session.user:
 		frappe.throw(
 			_("Only the Leave Approver and users with the 'Cancel' permission can delete future dates."),
