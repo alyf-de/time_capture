@@ -14,6 +14,27 @@ frappe.ui.form.on("Absence Plan", {
 		});
 	},
 
+	refresh: function (frm) {
+		if (
+			frm.doc.docstatus === 1 &&
+			frm.doc.from_date &&
+			frm.doc.from_date <= frappe.datetime.get_today()
+		) {
+			frm.add_custom_button(__("Delete Future Dates"), function () {
+				frappe.call({
+					method: "time_capture.time_capture.doctype.absence_plan.absence_plan.delete_future_dates",
+					args: { name: frm.doc.name },
+					callback: function (r) {
+						if (r && r.message) {
+							frappe.msgprint(r.message);
+						}
+						frm.reload_doc();
+					},
+				});
+			});
+		}
+	},
+
 	employee: function (frm) {
 		frm.trigger("set_leave_approver");
 	},

@@ -58,6 +58,12 @@ class AbsencePlan(Document):
 		self.notify_employee()
 
 	def before_cancel(self):
+		if getdate(self.from_date) <= getdate():
+			frappe.throw(
+				_(
+					"Absence Plan with dates in the past (or today) cannot be cancelled. Instead you can use the 'Delete Future Dates' button on top of the page. This will delete the future dates from the Absence Plan, but will not effect the past dates."
+				)
+			)
 		self.status = "Cancelled"
 
 	def notify_leave_approver(self):
@@ -196,3 +202,45 @@ def _get_user_lang(user):
 	if user_lang:
 		return user_lang
 	return frappe.local.lang or "en"
+
+
+@frappe.whitelist()
+def delete_future_dates(name: str) -> str:
+	"""
+	Delete all dates in the future from the Absence Plan child table and recalculate to_date.
+	Requires Cancel permission. Only for submitted docs with from_date not in the future.
+	"""
+	doc = frappe.get_doc("Absence Plan", name)
+	# Validations
+	if doc.docstatus != 1:
+		frappe.throw(_("Only submitted Absence Plans can use this action."))
+	if getdate(doc.from_date) > getdate():
+		frappe.throw(
+			_("From Date is in the future. This action is only for plans that have already started.")
+		)
+	if not doc.has_permission("cancel") and doc.leave_approver != frappe.session.user:
+		frappe.throw(
+			_("Only the Leave Approver and users with the 'Cancel' permission can delete future dates."),
+			title=_("Permission Denied"),
+		)
+
+	# Delete future dates
+	today = getdate()
+	future_rows = [r for r in (doc.dates or []) if getdate(r.date) > today]
+	deleted_count = 0
+	for row in future_rows:
+		frappe.delete_doc("Absence Plan Date", row.name)
+		deleted_count += 1
+
+	if deleted_count:
+		remaining_dates = [getdate(r.date) for r in doc.dates if getdate(r.date) <= today]
+		if remaining_dates:
+			frappe.db.set_value(
+				"Absence Plan",
+				doc.name,
+				{"from_date": min(remaining_dates), "to_date": max(remaining_dates)},
+			)
+		else:
+			frappe.throw(_("All Dates are in the future. Please cancel the Absence Plan instead."))
+
+	return _("Deleted {0} future date(s).").format(deleted_count)
