@@ -42,7 +42,7 @@ frappe.ui.form.on("Absence Plan", {
 	leave_type: function (frm) {
 		frappe.msgprint(
 			__(
-				"Warning: The Leave Ledgers will not be updated for leaves with an Attendance Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+				"Warning: The Leave Ledgers will not be updated for leaves with an Absence Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
 			)
 		);
 	},
@@ -83,10 +83,10 @@ function open_bulk_insert_dialog(frm) {
 		"Typical use case: Employee is on Education Leave (University, School, etc.)."
 	);
 	const holiday_list_desc = __(
-		"Holidays from a Holiday List have priority over leaves with an Attendance Plan."
+		"Holidays from a Holiday List have priority over leaves with an Absence Plan."
 	);
 	const warning_desc = __(
-		"Warning: The Leave Ledgers will not be updated for leaves with an Attendance Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
+		"Warning: The Leave Ledgers will not be updated for leaves with an Absence Plan. Therefore, it is not suggested to use Leave Types (such as 'Annual Leave') that have limited Leave Allocation."
 	);
 
 	const descriptionHtml =
