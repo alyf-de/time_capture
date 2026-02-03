@@ -63,7 +63,7 @@ class AbsencePlan(Document):
 		if getdate(self.from_date) <= getdate():
 			frappe.throw(
 				_(
-					"Absence Plan with dates in the past (or today) cannot be cancelled. Instead you can use the 'Delete Future Dates' button on top of the page. This will delete the future dates from the Absence Plan, but will not effect the past dates."
+					"Absence Plan with dates in the past (or today) cannot be cancelled. Instead you can use the 'Delete Future Dates' button on top of the page. This will delete the future dates from the Absence Plan, but will not affect the past dates."
 				)
 			)
 		self.status = "Cancelled"
