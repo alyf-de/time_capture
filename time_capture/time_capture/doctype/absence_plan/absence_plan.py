@@ -72,7 +72,7 @@ class AbsencePlan(Document):
 		"""
 		Notify leave approver about new Absence Plan
 		"""
-		# Preperation
+		# Preparation
 		if not self.leave_approver:
 			return
 		from_user = self.employee_email
@@ -104,7 +104,7 @@ class AbsencePlan(Document):
 		"""
 		Notify employee about Absence Plan approval status
 		"""
-		# Preperation
+		# Preparation
 		to_user = self.employee_email
 		if not to_user:
 			return
