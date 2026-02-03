@@ -221,8 +221,8 @@ def bulk_insert_dates(
 	to_date = getdate(to_date)
 	if to_date < from_date:
 		frappe.throw(_("To Date cannot be before From Date."))
-	if from_date < getdate():
-		frappe.throw(_("Dates cannot be in the past."))
+	if from_date <= getdate():
+		frappe.throw(_("Dates cannot be in the past or today."))
 
 	if mode == "Weekly Off":
 		if not weekday:

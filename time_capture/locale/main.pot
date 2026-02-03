@@ -153,7 +153,7 @@ msgid "Current Balance"
 msgstr ""
 
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.py:225
-msgid "Dates cannot be in the past."
+msgid "Dates cannot be in the past or today."
 msgstr ""
 
 #: time_capture/time_capture/report/working_time/working_time.js:32
