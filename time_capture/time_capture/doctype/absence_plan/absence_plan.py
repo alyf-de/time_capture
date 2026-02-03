@@ -49,6 +49,9 @@ class AbsencePlan(Document):
 			self.to_date = max([row.date for row in self.dates])
 		self.order_dates()
 
+	def validate(self):
+		self.avoid_duplicates_with_other_absence_plans()
+
 	def on_update(self):
 		share_doc_with_approver(self, self.leave_approver)
 
@@ -144,6 +147,45 @@ class AbsencePlan(Document):
 
 	def order_dates(self):
 		self.dates = sorted(self.dates, key=lambda x: x.date)
+
+	def avoid_duplicates_with_other_absence_plans(self):
+		"""
+		Check if the Absence Plan dates overlap with other Absence Plans for the same employee.
+		Dates must be unique per employee; throw if any duplicate is found.
+		"""
+		other_plans = frappe.get_all(
+			"Absence Plan",
+			filters={"employee": self.employee, "name": ["!=", self.name or ""]},
+			pluck="name",
+		)
+		if not other_plans:
+			return
+
+		our_dates = {getdate(row.date) for row in self.dates or [] if row.date}
+		overlapping_dates = frappe.db.sql(
+			"""
+			SELECT apd.date, apd.parent
+			FROM `tabAbsence Plan Date` apd
+			WHERE apd.parent IN %(plans)s
+			AND apd.date IN %(our_dates)s
+			""",
+			{"plans": other_plans, "our_dates": our_dates},
+			as_dict=True,
+		)
+
+		if overlapping_dates:
+			overlapping_dates_str = "<br>".join(
+				[
+					f"{frappe.utils.format_date(d.date)} in Absence Plan {frappe.utils.get_link_to_form('Absence Plan', d.parent)}"
+					for d in overlapping_dates
+				]
+			)
+			frappe.throw(
+				_(
+					"There are overlapping dates with following Absence Plans:<br>{0}",
+				).format(overlapping_dates_str),
+				title=_("Overlapping Dates are not allowed"),
+			)
 
 
 @frappe.whitelist()
