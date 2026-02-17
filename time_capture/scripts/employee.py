@@ -109,6 +109,7 @@ def create_leave_policy_assignment(doc):
 			"leave_period": leave_period[0].name,
 			"assignment_based_on": "Leave Period",
 			"is_active": 1,
+			"company": doc.company,
 		},
 	)
 	leave_policy_assignment.insert()
