@@ -99,6 +99,10 @@ def _validate_and_get_supervisor(doc):
 
 
 def create_leave_policy_assignment(doc):
+	if doc.flags.skip_leave_policy_assignment:
+		# Currently disabled, due to possible bugs in HRMS.
+		return
+
 	leave_period = get_leave_period(today(), today(), doc.company)
 	leave_policy_assignment = frappe.get_doc(
 		{
