@@ -103,6 +103,7 @@ def create_timesheets(doc):
 						}
 					],
 					"parent_project": log.project,
+					"company": frappe.db.get_value("Project", log.project, "company"),
 					"customer": customer,
 					"employee": doc.employee if doc.doctype == "Time Capture" else None,
 					"freelancer_user": doc.user if doc.doctype == "Freelancer Time Capture" else None,
