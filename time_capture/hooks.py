@@ -89,6 +89,7 @@ doctype_js = {"Employee": "public/js/employee.js"}
 
 # before_install = "time_capture.install.before_install"
 after_install = "time_capture.install.after_install"
+after_migrate = "time_capture.install.after_migrate"
 
 # Uninstallation
 # ------------

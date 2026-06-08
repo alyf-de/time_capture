@@ -13,6 +13,11 @@ def after_install():
 	set_mandatory_breaks()
 
 
+def after_migrate():
+	_make_custom_fields()
+	_make_property_setters()
+
+
 def _make_custom_fields():
 	create_custom_fields(get_custom_fields())
 
