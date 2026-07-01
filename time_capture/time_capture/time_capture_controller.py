@@ -113,8 +113,8 @@ def create_timesheets(doc):
 				}
 			)
 
-			timesheet.insert()
-			timesheet.submit()
+			timesheet.insert(ignore_permissions=True)
+			timesheet.submit(ignore_permissions=True)
 
 
 def _get_default_activity_type(for_doctype: str):
