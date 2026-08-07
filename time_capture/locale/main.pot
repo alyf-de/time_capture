@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Time Capture VERSION\n"
 "Report-Msgid-Bugs-To: patrick@alyf.de\n"
-"POT-Creation-Date: 2026-02-03 12:10+0053\n"
-"PO-Revision-Date: 2025-02-03 12:10+0053\n"
+"POT-Creation-Date: 2026-08-07 10:06+0053\n"
+"PO-Revision-Date: 2026-08-07 10:06+0053\n"
 "Last-Translator: patrick@alyf.de\n"
 "Language-Team: patrick@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -65,7 +65,7 @@ msgstr ""
 msgid "Additional Break"
 msgstr ""
 
-#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:310
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:309
 msgid "All Dates are in the future. Please cancel the Absence Plan instead."
 msgstr ""
 
@@ -79,10 +79,6 @@ msgstr ""
 msgid "Approved"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:24
-msgid "April"
-msgstr ""
-
 #: time_capture/public/js/employee.js:56
 msgid "At least one Expected Working Hours entry is required."
 msgstr ""
@@ -90,10 +86,6 @@ msgstr ""
 #. Linked DocType in Time Capture's connections
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Attendance"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:28
-msgid "August"
 msgstr ""
 
 #. Label of a Duration field in DocType 'Time Capture'
@@ -107,7 +99,7 @@ msgstr ""
 msgid "Bulk Insert"
 msgstr ""
 
-#: time_capture/custom_fields.py:78 time_capture/public/js/employee.js:29
+#: time_capture/custom_fields.py:79 time_capture/public/js/employee.js:29
 msgid "Change/Add Expected Hours"
 msgstr ""
 
@@ -131,6 +123,10 @@ msgstr ""
 msgid "Choose a regular (from 1 to 28) for monthly notifications. If empty, the last day of the month will be used."
 msgstr ""
 
+#: time_capture/custom_fields.py:98
+msgid "Compensatory Off"
+msgstr ""
+
 #. Name of a DocType
 #. Label of a shortcut in the Freelancer Workspace
 #: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
@@ -146,7 +142,7 @@ msgstr ""
 msgid "Creating Freelancer User"
 msgstr ""
 
-#: time_capture/public/js/utils.js:189
+#: time_capture/public/js/utils.js:201
 #: time_capture/time_capture/report/leave_and_working_time_summaries/leave_and_working_time_summaries.py:75
 #: time_capture/time_capture/report/working_time_summary/working_time_summary.py:72
 msgid "Current Balance"
@@ -154,10 +150,6 @@ msgstr ""
 
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.py:225
 msgid "Dates cannot be in the past or today."
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:32
-msgid "December"
 msgstr ""
 
 #. Label of a Link field in DocType 'Time Capture Settings'
@@ -174,7 +166,7 @@ msgstr ""
 msgid "Delete Future Dates"
 msgstr ""
 
-#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:312
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:311
 msgid "Deleted {0} future date(s)."
 msgstr ""
 
@@ -261,20 +253,16 @@ msgstr ""
 
 #: time_capture/custom_fields.py:11 time_capture/custom_fields.py:70
 #: time_capture/public/js/employee.js:35
-#: time_capture/time_capture/report/working_time/working_time.py:30
 msgid "Expected Working Hours"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:22
-msgid "February"
+#: time_capture/property_setters.py:12 time_capture/property_setters.py:15
+#: time_capture/property_setters.py:18
+msgid "Fetched from <i>Reports To</i> field, if empty."
 msgstr ""
 
 #: time_capture/custom_fields.py:18
 msgid "Flexitime"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.py:40
-msgid "Flexitime Change"
 msgstr ""
 
 #. Name of a DocType
@@ -286,7 +274,6 @@ msgstr ""
 
 #. Label of a Float field in DocType 'Flexitime Correction'
 #: time_capture/time_capture/doctype/flexitime_correction/flexitime_correction.json
-#: time_capture/time_capture/report/working_time/working_time.py:45
 msgid "Flexitime Hours"
 msgstr ""
 
@@ -308,7 +295,7 @@ msgid "Freelancer Name"
 msgstr ""
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:119
+#: time_capture/custom_fields.py:130
 #: time_capture/time_capture/doctype/freelancer_time_capture/freelancer_time_capture.json
 msgid "Freelancer Time Capture"
 msgstr ""
@@ -317,11 +304,11 @@ msgstr ""
 msgid "Freelancer Time Capture can only be created for users with the 'Freelancer' role. Change the user in the field 'User'."
 msgstr ""
 
-#: time_capture/custom_fields.py:127
+#: time_capture/custom_fields.py:138
 msgid "Freelancer User"
 msgstr ""
 
-#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:285
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:284
 msgid "From Date is in the future. This means you can just cancel the whole Absence Plan."
 msgstr ""
 
@@ -329,7 +316,7 @@ msgstr ""
 msgid "Future Balance"
 msgstr ""
 
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:221
 msgid "Future Balance (after planned reduction)"
 msgstr ""
 
@@ -337,7 +324,7 @@ msgstr ""
 msgid "Future Balance Changes"
 msgstr ""
 
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:214
 msgid "Future, approved overtime reductions."
 msgstr ""
 
@@ -385,19 +372,7 @@ msgstr ""
 msgid "Is Of Legal Age"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:21
-msgid "January"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:27
-msgid "July"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:26
-msgid "June"
-msgstr ""
-
-#: time_capture/public/js/utils.js:187
+#: time_capture/public/js/utils.js:190
 msgid "Last Manual Balance Correction"
 msgstr ""
 
@@ -412,7 +387,7 @@ msgstr ""
 msgid "Leave Approver"
 msgstr ""
 
-#: time_capture/custom_fields.py:83
+#: time_capture/custom_fields.py:84
 msgid "Leave Policy"
 msgstr ""
 
@@ -420,12 +395,12 @@ msgstr ""
 msgid "Leave Policy has been changed. Note, that this will not update existing Leave Allocations or create/update future Leave Allocations."
 msgstr ""
 
-#: time_capture/public/js/utils.js:113 time_capture/public/js/utils.js:143
+#: time_capture/public/js/utils.js:113 time_capture/public/js/utils.js:146
 msgid "Leave Summary"
 msgstr ""
 
 #. Label of a Link field in DocType 'Absence Plan'
-#: time_capture/public/js/utils.js:143
+#: time_capture/public/js/utils.js:151
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.json
 msgid "Leave Type"
 msgstr ""
@@ -466,14 +441,6 @@ msgstr ""
 msgid "Mandatory Breaks (Minors)"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:23
-msgid "March"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:25
-msgid "May"
-msgstr ""
-
 #. Label of a Int field in DocType 'Time Capture Settings'
 #: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
 msgid "Minimum Draft Age (Days)"
@@ -495,7 +462,7 @@ msgstr ""
 msgid "No employee found for current user"
 msgstr ""
 
-#: time_capture/public/js/utils.js:251
+#: time_capture/public/js/utils.js:253
 msgid "No working time data found"
 msgstr ""
 
@@ -503,7 +470,7 @@ msgstr ""
 msgid "Note must be at least 5 characters. Found: {0}"
 msgstr ""
 
-#: time_capture/scripts/employee.py:134
+#: time_capture/scripts/employee.py:139
 msgid "Note: Following Leaves Types were created: {0}.<br>Following Leave Types were not created: {1}"
 msgstr ""
 
@@ -535,14 +502,6 @@ msgstr ""
 msgid "Notification day of the month has to be between 1 and 28"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:31
-msgid "November"
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.js:30
-msgid "October"
-msgstr ""
-
 #: time_capture/time_capture/doctype/absence_plan/absence_plan.js:78
 msgid "Official weekly offs (e.g. 4 day work week set in employee contract) should be handled via Holiday List."
 msgstr ""
@@ -565,7 +524,7 @@ msgstr ""
 msgid "Only submitted Absence Plans can use this action."
 msgstr ""
 
-#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:289
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:287
 msgid "Only the Leave Approver and users with the 'Cancel' permission can delete future dates."
 msgstr ""
 
@@ -573,11 +532,7 @@ msgstr ""
 msgid "Open Time Captures"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.py:60
-msgid "Other Absence Days"
-msgstr ""
-
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:230
 msgid "Overdue Time Captures"
 msgstr ""
 
@@ -585,24 +540,15 @@ msgstr ""
 msgid "Overlapping Dates are not allowed"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.py:50
-msgid "Paid Holidays"
-msgstr ""
-
-#. Label of a Link field in DocType 'Time Capture Settings'
-#: time_capture/time_capture/doctype/time_capture_settings/time_capture_settings.json
-msgid "Paid Leave Type"
-msgstr ""
-
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:232
 msgid "Past time captures, that are not yet submitted. These count as absent and reduce the balance."
 msgstr ""
 
-#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:290
+#: time_capture/time_capture/doctype/absence_plan/absence_plan.py:288
 msgid "Permission Denied"
 msgstr ""
 
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:212
 msgid "Planned Overtime Reduction"
 msgstr ""
 
@@ -634,11 +580,6 @@ msgstr ""
 msgid "Possible mis-configuration?"
 msgstr ""
 
-#. Name of a report
-#: time_capture/time_capture/report/project_time/project_time.json
-msgid "Project Time"
-msgstr ""
-
 #: time_capture/time_capture/doctype/time_capture/time_capture.py:80
 msgid "Project time cannot be greater than working time."
 msgstr ""
@@ -655,16 +596,8 @@ msgstr ""
 msgid "Save & Update Attendances"
 msgstr ""
 
-#: time_capture/time_capture/report/working_time/working_time.js:29
-msgid "September"
-msgstr ""
-
 #: time_capture/custom_fields.py:62
 msgid "Should be checked if the employee is a CEO (or has no supervisor for some reason)."
-msgstr ""
-
-#: time_capture/time_capture/report/working_time/working_time.py:55
-msgid "Sick Days"
 msgstr ""
 
 #. Label of a Link field in DocType 'Time Capture Settings'
@@ -682,10 +615,6 @@ msgstr ""
 msgid "Submit Timesheets immediately"
 msgstr ""
 
-#: time_capture/time_capture/report/project_time/project_time.py:125
-msgid "Sum for {}"
-msgstr ""
-
 #. Label of a Data field in DocType 'Time Capture'
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Supervisor Email"
@@ -699,7 +628,7 @@ msgstr ""
 msgid "The date of joining ({0}) has to be the earliest date of Expected Working Hours."
 msgstr ""
 
-#: time_capture/scripts/employee.py:153
+#: time_capture/scripts/employee.py:158
 msgid "The date {0} is not within the period of the active holiday list for employee {1}."
 msgstr ""
 
@@ -727,20 +656,20 @@ msgstr ""
 msgid "This Employee has no supervisor (<i>Reports To</i>), but has <i>Create User Permission</i> checkbox enabled. Please, make sure that this intended."
 msgstr ""
 
-#: time_capture/public/js/utils.js:187
+#: time_capture/public/js/utils.js:192
 msgid "This could be (for example) a starting balance you took on from your previous time capture system."
 msgstr ""
 
-#: time_capture/public/js/utils.js:189
+#: time_capture/public/js/utils.js:203
 msgid "This includes the last manual balance correction (if existing) and the sum of your working hours (minus your expected working hours)."
 msgstr ""
 
-#: time_capture/public/js/utils.js:191
+#: time_capture/public/js/utils.js:223
 msgid "This is the projected balance, that includes planned overtime reductions"
 msgstr ""
 
 #. Name of a DocType
-#: time_capture/custom_fields.py:46 time_capture/custom_fields.py:111
+#: time_capture/custom_fields.py:46 time_capture/custom_fields.py:122
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
 msgid "Time Capture"
 msgstr ""
@@ -817,9 +746,7 @@ msgid "Weekly Off: adds all dates in the range that fall on the selected weekday
 msgstr ""
 
 #. Label of a Duration field in DocType 'Time Capture'
-#. Name of a report
 #: time_capture/time_capture/doctype/time_capture/time_capture.json
-#: time_capture/time_capture/report/working_time/working_time.json
 msgid "Working Time"
 msgstr ""
 
@@ -829,7 +756,7 @@ msgid "Working Time (Greater Than)"
 msgstr ""
 
 #. Name of a report
-#: time_capture/public/js/utils.js:173
+#: time_capture/public/js/utils.js:181
 #: time_capture/time_capture/report/working_time_summary/working_time_summary.json
 msgid "Working Time Summary"
 msgstr ""
@@ -846,7 +773,7 @@ msgstr ""
 msgid "{0} (on {1})"
 msgstr ""
 
-#: time_capture/scripts/employee.py:236
+#: time_capture/scripts/employee.py:241
 msgid "{0} Attendances updated successfully."
 msgstr ""
 
