@@ -60,9 +60,9 @@ def set_supervisor_from_reports_to(doc):
 	if not supervisor:
 		return
 
-	doc.expense_approver = supervisor
-	doc.leave_approver = supervisor
-	doc.shift_request_approver = supervisor
+	doc.expense_approver = doc.expense_approver or supervisor
+	doc.leave_approver = doc.leave_approver or supervisor
+	doc.shift_request_approver = doc.shift_request_approver or supervisor
 
 
 def _validate_and_get_supervisor(doc):
