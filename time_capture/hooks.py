@@ -155,6 +155,9 @@ doc_events = {
 	"Holiday List": {
 		"validate": "time_capture.scripts.holiday_list.validate",
 	},
+	"Holiday List Assignment": {
+		"on_submit": "time_capture.scripts.holiday_list_assignment.on_submit",
+	},
 }
 
 # Scheduled Tasks

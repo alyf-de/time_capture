@@ -11,6 +11,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.utils import get_last_day, getdate, time_diff_in_seconds
 
+from time_capture.scripts.holiday_list import get_holiday_list
 from time_capture.time_capture.time_capture_controller import (
 	assure_duration_format,
 	avoid_duplicate_entries,
@@ -282,7 +283,7 @@ def _get_active_employees():
 	return frappe.get_all(
 		"Employee",
 		filters={"status": "Active", "date_of_joining": ("<=", today)},
-		fields=["name", "holiday_list"],
+		fields=["name"],
 	)
 
 
@@ -305,7 +306,7 @@ def _create_time_capture(employee, date):
 		},
 	):
 		return
-	if is_holiday(employee.holiday_list, date):
+	if is_holiday(get_holiday_list(employee.name, date), date):
 		return
 
 	if _create_attendance_for_absence_plan(employee.name, date):
