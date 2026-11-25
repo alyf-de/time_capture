@@ -4,7 +4,7 @@ authors = [
     { name = "ALYF GmbH", email = "patrick@alyf.de"}
 ]
 description = "tbd."
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
