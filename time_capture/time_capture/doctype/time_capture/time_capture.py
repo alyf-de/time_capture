@@ -345,6 +345,7 @@ def _create_attendance_for_absence_plan(employee_name, date):
 			& (AP.status == "Approved")
 			& (AP.docstatus == 1)
 		)
+		.orderby(AP.creation)
 	).run(as_dict=True)
 
 	if not absence_plans:
@@ -369,14 +370,21 @@ def _create_attendance_for_absence_plan(employee_name, date):
 
 @frappe.whitelist()
 @frappe.validate_and_sanitize_search_inputs
-def task_query(doctype, txt, searchfield, start, page_len, filters):
+def task_query(
+	doctype: str,
+	txt: str,
+	searchfield: str,
+	start: int,
+	page_len: int,
+	filters: dict | list | str | None,
+):
 	tasks = frappe.get_list(
 		"Task",
 		fields=["name", "subject", "expected_time", "actual_time"],
 		filters=filters,
 		or_filters=[["name", "like", f"%{txt}%"], ["subject", "like", f"%{txt}%"]],
-		limit_start=start,
-		limit_page_length=page_len,
+		offset=start,
+		limit=page_len,
 		order_by="name asc",
 	)
 

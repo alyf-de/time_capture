@@ -14,7 +14,7 @@ def execute():
 def _create_freelancer_role():
 	new_role_doc = frappe.new_doc("Role")
 	new_role_doc.role_name = "Freelancer"
-	new_role_doc.home_page = "/app/freelancer"
+	new_role_doc.home_page = "/desk/freelancer"
 	new_role_doc.save()
 
 

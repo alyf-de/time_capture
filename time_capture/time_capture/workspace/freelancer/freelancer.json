@@ -12,7 +12,7 @@
  "is_hidden": 0,
  "label": "Freelancer",
  "links": [],
- "modified": "2025-07-18 16:03:14.890552",
+ "modified": "2026-11-25 09:20:39.020827",
  "modified_by": "patrick@alyf.de",
  "module": "Time Capture",
  "name": "Freelancer",
@@ -47,7 +47,7 @@
    "doc_view": "List",
    "label": "Freelancer (User)",
    "type": "URL",
-   "url": "/app/user/view/report?role=Freelancer"
+   "url": "/desk/user/view/report?role=Freelancer"
   },
   {
    "color": "Grey",

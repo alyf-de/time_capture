@@ -72,9 +72,7 @@ function open_bulk_insert_dialog(frm) {
 	const weekly_off_desc = __(
 		"Weekly Off: adds all dates in the range that fall on the selected weekday. The Holiday List already defines non-working days; adding e.g. every Sunday as weekly off is often redundant."
 	);
-	const weekly_off_example_desc = __(
-		"Typical use case: Every Friday is an unofficial weekly off day."
-	);
+	const weekly_off_example_desc = __("Typical use case: Every Friday is an unofficial weekly off day.");
 	const weekly_off_exempt_desc = __(
 		"Official weekly offs (e.g. 4 day work week set in employee contract) should be handled via Holiday List."
 	);

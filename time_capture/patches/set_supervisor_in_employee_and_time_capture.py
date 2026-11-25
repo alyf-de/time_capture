@@ -18,7 +18,10 @@ def set_reports_to_in_employee():
 		doc = frappe.get_doc("Employee", employee.name)
 		if employee.leave_approver:
 			supervising_employee = frappe.db.get_all(
-				"Employee", filters={"user_id": employee.leave_approver}, pluck="name"
+				"Employee",
+				filters={"user_id": employee.leave_approver},
+				pluck="name",
+				order_by="creation asc",
 			)
 			if supervising_employee:
 				doc.reports_to = supervising_employee[0]

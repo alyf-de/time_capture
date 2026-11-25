@@ -100,7 +100,7 @@
    "link_fieldname": "freelancer_time_capture"
   }
  ],
- "modified": "2025-10-27 21:48:02.999334",
+ "modified": "2026-11-25 09:20:39.020827",
  "modified_by": "Administrator",
  "module": "Time Capture",
  "name": "Freelancer Time Capture",
@@ -161,7 +161,7 @@
   }
  ],
  "row_format": "Dynamic",
- "sort_field": "modified",
+ "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
  "title_field": "freelancer_name",

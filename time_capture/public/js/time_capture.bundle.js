@@ -189,9 +189,7 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td style="width: 65%">
 					${__("Last Manual Balance Correction")}
 					<p style="font-size: 80%; !important">
-						${__(
-							"This could be (for example) a starting balance you took on from your previous time capture system."
-						)}
+						${__("This could be (for example) a starting balance you took on from your previous time capture system.")}
 					</p>
 				</td>
 				<td style="width: 35%">${time_summary.flexitime_correction}</td>
@@ -229,9 +227,7 @@ function create_summary_html(leave_details, lwps, time_summary, employee) {
 				<td>
 					${__("Overdue Time Captures")}
 					<p style="font-size: 80%; !important">
-						${__(
-							"Past time captures, that are not yet submitted. These count as absent and reduce the balance."
-						)}
+						${__("Past time captures, that are not yet submitted. These count as absent and reduce the balance.")}
 					</p>
 				</td>
 				<td>${time_summary.open_time_captures || 0}</td>

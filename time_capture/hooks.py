@@ -31,7 +31,7 @@ ignore_translatable_strings_from = [
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/time_capture/css/time_capture.css"
-app_include_js = "/assets/time_capture/js/utils.js"
+app_include_js = "time_capture.bundle.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/time_capture/css/time_capture.css"
