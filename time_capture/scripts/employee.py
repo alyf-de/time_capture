@@ -220,13 +220,21 @@ def update_attendances_for_employee(employee_id, get_working_hours=False):
 	        configuration affecting working hours) have changed and working hours must be
 	        recomputed.
 	"""
+	count = recalculate_attendances(employee_id, get_working_hours)
+	frappe.msgprint(_("{0} Attendances updated successfully.").format(count))
+
+
+def recalculate_attendances(employee_id, get_working_hours=False, from_date=None, to_date=None) -> int:
+	"""Recalculate the metrics of submitted Attendances of an Employee. Return the number of updated Attendances."""
 	from time_capture.scripts.attendance import get_attendance_metrics
 
-	attendances_to_update = frappe.get_all(
-		"Attendance",
-		filters={"employee": employee_id, "docstatus": 1},
-		pluck="name",
-	)
+	filters = [["employee", "=", employee_id], ["docstatus", "=", 1]]
+	if from_date:
+		filters.append(["attendance_date", ">=", from_date])
+	if to_date:
+		filters.append(["attendance_date", "<=", to_date])
+
+	attendances_to_update = frappe.get_all("Attendance", filters=filters, pluck="name")
 	for attendance_id in attendances_to_update:
 		doc = frappe.get_doc("Attendance", attendance_id)
 		status, working_hours, expected_working_hours, flexitime = get_attendance_metrics(
@@ -242,4 +250,5 @@ def update_attendances_for_employee(employee_id, get_working_hours=False):
 				"flexitime": flexitime,
 			},
 		)
-	frappe.msgprint(_("{0} Attendances updated successfully.").format(len(attendances_to_update)))
+
+	return len(attendances_to_update)

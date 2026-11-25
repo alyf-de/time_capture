@@ -20,17 +20,6 @@ def validate_period(holiday_list: str, from_date: str, to_date: str):
 		)
 
 
-def on_submit_holiday_list_assignment(doc, method=None):
-	"""Holiday List Assignment: validate that the Holiday List covers all Attendances it applies to."""
-	if doc.applicable_for == "Employee":
-		employees = [doc.assigned_to]
-	else:
-		employees = frappe.get_all("Employee", filters={"company": doc.assigned_to}, pluck="name")
-
-	for employee in employees:
-		validate_holiday_list_periods_for_employee(employee, assignment=doc.name)
-
-
 def get_holiday_list(employee: str, date=None) -> str | None:
 	"""Return the Holiday List assigned to an Employee (or their Company) on the given date."""
 	return get_holiday_list_for_employee(employee, raise_exception=False, as_on=getdate(date))
