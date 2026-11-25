@@ -52,9 +52,7 @@ frappe.ui.form.on("Employee", {
 					const expected_working_hours = values.expected_working_hours || [];
 
 					if (expected_working_hours.length === 0) {
-						frappe.msgprint(
-							__("At least one Expected Working Hours entry is required.")
-						);
+						frappe.msgprint(__("At least one Expected Working Hours entry is required."));
 						return;
 					}
 
@@ -82,7 +80,7 @@ frappe.ui.form.on("Employee", {
 	onload: function (frm) {
 		if (frm.doc.name) {
 			frm.add_custom_button(__("Time Capture & Leave Summary"), function () {
-				// Reuse the existing function from utils.js
+				// Reuse the existing function from time_capture.bundle.js
 				time_capture.utils.show_leave_and_time_summary_for_employee(frm.doc);
 			});
 		}
