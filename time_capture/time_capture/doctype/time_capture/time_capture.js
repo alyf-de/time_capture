@@ -67,8 +67,7 @@ function set_is_of_legal_age(frm) {
 				const is_of_legal_age =
 					age > 18 ||
 					(age === 18 &&
-						reference_date >=
-							new Date(dob.getFullYear() + 18, dob.getMonth(), dob.getDate()))
+						reference_date >= new Date(dob.getFullYear() + 18, dob.getMonth(), dob.getDate()))
 						? 1
 						: 0;
 				frm.set_value("is_of_legal_age", is_of_legal_age);
