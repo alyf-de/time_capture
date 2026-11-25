@@ -12,7 +12,9 @@ def get_summary_for_employees(filters: dict | None = None, beautified: bool = Tr
 	frappe.has_permission("Employee", ptype="read", throw=True)
 	if filters is None:
 		filters = {"status": "Active"}
-	employees = frappe.get_list("Employee", filters=filters, fields=["name as employee", "employee_name"])
+	employees = frappe.get_list(
+		"Employee", filters=filters, fields=["name as employee", "employee_name"], order_by="name asc"
+	)
 
 	result = []
 	for employee in employees:
@@ -91,7 +93,7 @@ def _get_flexitime_sum_from_attendance(
 
 	result = frappe.get_list(
 		"Attendance",
-		fields=["SUM(flexitime) as flexitime_sum"],
+		fields=[{"SUM": "flexitime", "as": "flexitime_sum"}],
 		filters=filters,
 	)
 

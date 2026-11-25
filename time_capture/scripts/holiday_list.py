@@ -29,8 +29,8 @@ def validate_holiday_list_period_for_employee(employee: str, from_date: str, to_
 		"Attendance",
 		filters=filters,
 		fields=[
-			"MIN(attendance_date) as min_attendance_date",
-			"MAX(attendance_date) as max_attendance_date	",
+			{"MIN": "attendance_date", "as": "min_attendance_date"},
+			{"MAX": "attendance_date", "as": "max_attendance_date"},
 		],
 	)
 	min_attendance_date = attendance_span[0].min_attendance_date
