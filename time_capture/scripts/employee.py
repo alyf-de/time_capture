@@ -1,11 +1,10 @@
 import frappe
-from erpnext.setup.doctype.employee.employee import is_holiday
 from frappe import _
 from frappe.utils import getdate
 from frappe.utils.data import today
 from hrms.hr.utils import get_leave_period
 
-from time_capture.scripts.holiday_list import validate_holiday_list_period_for_employee
+from time_capture.scripts.holiday_list import get_holiday_list, warn_if_no_active_holiday_list
 
 
 def before_validate(doc, method):
@@ -24,9 +23,8 @@ def validate(doc, method=None):
 		)
 		# A new feature is planned, that will regularly create new Leave Allocations for new periods.
 		# TODO: Update this message when the feature is implemented.
-	if not doc.is_new() and doc.has_value_changed("holiday_list") and doc.holiday_list:
-		from_date, to_date = frappe.db.get_value("Holiday List", doc.holiday_list, ["from_date", "to_date"])
-		validate_holiday_list_period_for_employee(doc.name, from_date, to_date)
+	if doc.status == "Active":
+		warn_if_no_active_holiday_list(doc.name, doc.company)
 
 
 def validate_expected_working_hours(doc):
@@ -150,8 +148,14 @@ def get_expected_working_hours(employee_id, date, validate_active_holiday_list=T
 	Get the expected working hours for an employee on a specific date.
 	"""
 	date = getdate(date)
-	holiday_list = frappe.db.get_value("Employee", employee_id, "holiday_list")
+	holiday_list = get_holiday_list(employee_id, date)
 	if validate_active_holiday_list:
+		if not holiday_list:
+			frappe.throw(
+				_("There is no Holiday List Assignment for employee {0} on {1}.").format(
+					employee_id, frappe.utils.format_date(date)
+				)
+			)
 		hl_from_date, hl_to_date = frappe.db.get_value("Holiday List", holiday_list, ["from_date", "to_date"])
 		if not (hl_from_date <= date <= hl_to_date):
 			frappe.throw(
@@ -160,7 +164,7 @@ def get_expected_working_hours(employee_id, date, validate_active_holiday_list=T
 				).format(frappe.utils.format_date(date), employee_id)
 			)
 
-	if holiday_list and is_holiday(employee=employee_id, date=date):
+	if holiday_list and frappe.db.exists("Holiday", {"parent": holiday_list, "holiday_date": date}):
 		return 0.0
 
 	return (

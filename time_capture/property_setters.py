@@ -23,7 +23,5 @@ def get_property_setters():
 		),
 		("Employee", "shift_request_approver", "no_copy", "1"),
 		("Employee", "working_hours_per_week", "hidden", "1"),
-		("Employee", "holiday_list", "reqd", "0"),
-		("Employee", "holiday_list", "mandatory_depends_on", "eval:doc.status == 'Active'"),
 		("Leave Type", "is_compensatory", "hidden", "1"),
 	]
