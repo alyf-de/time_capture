@@ -47,7 +47,7 @@
    "doc_view": "List",
    "label": "Freelancer (User)",
    "type": "URL",
-   "url": "/app/user/view/report?role=Freelancer"
+   "url": "/desk/user/view/report?role=Freelancer"
   },
   {
    "color": "Grey",

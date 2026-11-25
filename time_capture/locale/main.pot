@@ -18,7 +18,7 @@ msgstr ""
 
 #. Content of the 'Description' (HTML) field in DocType 'Create Freelancer'
 #: time_capture/time_capture/doctype/create_freelancer/create_freelancer.json
-msgid "<div class='alert alert-info'><p>This DocType is used to create new Users in the system, that are pre-configured as Freelancers.</p><p>Details:</p><ul><li>A new User account is automatically generated with the Freelancer role</li><li>All modules except Time Capture are blocked for this user</li></ul><p>After you completed the form, you can check the User in the <a href='/app/user/view/report?role=Freelancer'>User list</a>.</p></div>"
+msgid "<div class='alert alert-info'><p>This DocType is used to create new Users in the system, that are pre-configured as Freelancers.</p><p>Details:</p><ul><li>A new User account is automatically generated with the Freelancer role</li><li>All modules except Time Capture are blocked for this user</li></ul><p>After you completed the form, you can check the User in the <a href='/desk/user/view/report?role=Freelancer'>User list</a>.</p></div>"
 msgstr ""
 
 #. Header text in the Freelancer Workspace
